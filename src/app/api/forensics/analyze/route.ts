@@ -61,18 +61,42 @@ export async function POST(request: Request) {
     // 2. Parse PDF Document Metadata & Structure
     const rawContent = fileBuffer.toString("latin1");
 
+    // Helper: Verify if extracted text block is human legible (reject raw binary/shifted glyph streams)
+    const isLegibleText = (text: string): boolean => {
+      if (!text) return false;
+      const trimmed = text.trim();
+      if (trimmed.length < 4) return false;
+
+      // Check standard English alphabetic letters [a-zA-Z]
+      const alphaChars = trimmed.match(/[a-zA-Z]/g) || [];
+      const alphaRatio = alphaChars.length / trimmed.length;
+
+      // Check non-printable or shifted symbol characters
+      const weirdChars = trimmed.match(/[^\x20-\x7E]|[@<>?^~`=;]/g) || [];
+      const weirdRatio = weirdChars.length / trimmed.length;
+
+      // Reject if weird characters exceed 12% or alpha characters are less than 45%
+      return weirdRatio <= 0.12 && alphaRatio >= 0.45;
+    };
+
+    // Clean metadata string from escaped parens
+    const cleanMeta = (str: string | undefined, fallback: string): string => {
+      if (!str) return fallback;
+      return str.replace(/\\([()\\])/g, "$1").trim() || fallback;
+    };
+
     // Extract PDF catalog metadata
-    const producerMatch = rawContent.match(/\/Producer\s*(?:\(([^)]+)\)|<([0-9a-fA-F]+)>)/i);
-    const creatorMatch = rawContent.match(/\/Creator\s*(?:\(([^)]+)\)|<([0-9a-fA-F]+)>)/i);
+    const producerMatch = rawContent.match(/\/Producer\s*(?:\(((?:\\.|[^)])+)\)|<([0-9a-fA-F]+)>)/i);
+    const creatorMatch = rawContent.match(/\/Creator\s*(?:\(((?:\\.|[^)])+)\)|<([0-9a-fA-F]+)>)/i);
     const creationDateMatch = rawContent.match(/\/CreationDate\s*\(([^)]+)\)/i);
     const modDateMatch = rawContent.match(/\/ModDate\s*\(([^)]+)\)/i);
-    const titleMatch = rawContent.match(/\/Title\s*(?:\(([^)]+)\)|<([0-9a-fA-F]+)>)/i);
+    const titleMatch = rawContent.match(/\/Title\s*(?:\(((?:\\.|[^)])+)\)|<([0-9a-fA-F]+)>)/i);
 
-    const producer = producerMatch ? (producerMatch[1] || "Standard PDF Engine") : "Standard PDF Engine";
-    const creatorTool = creatorMatch ? (creatorMatch[1] || "Document Generator") : "PDF Renderer v1.4";
+    const producer = cleanMeta(producerMatch ? producerMatch[1] : undefined, "Standard PDF Engine");
+    const creatorTool = cleanMeta(creatorMatch ? creatorMatch[1] : undefined, "PDF Renderer v1.4");
     const creationDate = creationDateMatch ? creationDateMatch[1] : new Date().toISOString();
     const modDate = modDateMatch ? modDateMatch[1] : creationDate;
-    const documentTitle = titleMatch ? titleMatch[1] : fileName.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ");
+    const documentTitle = cleanMeta(titleMatch ? titleMatch[1] : undefined, fileName.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " "));
 
     const pageMatches = rawContent.match(/\/Type\s*\/Page\b/g);
     const pageCount = pageMatches ? pageMatches.length : 1;
@@ -94,7 +118,6 @@ export async function POST(request: Request) {
       try {
         const inf = zlib.inflateSync(sBuf).toString("latin1");
         if (inf.includes("beginbfchar") || inf.includes("beginbfrange")) {
-          // Parse bfrange
           const bfrangeRegex = /<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>/g;
           let m;
           while ((m = bfrangeRegex.exec(inf)) !== null) {
@@ -105,7 +128,6 @@ export async function POST(request: Request) {
               cmaps[code] = String.fromCharCode(destStart + (code - start));
             }
           }
-          // Parse bfchar
           const bfcharRegex = /<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>/g;
           while ((m = bfcharRegex.exec(inf)) !== null) {
             const src = parseInt(m[1], 16);
@@ -133,9 +155,14 @@ export async function POST(request: Request) {
       if (streamEnd === -1) break;
 
       const sBuf = fileBuffer.slice(dataStart, streamEnd);
+      let inf = "";
       try {
-        const inf = zlib.inflateSync(sBuf).toString("latin1");
-        if (inf.includes("BT") && inf.includes("ET")) {
+        inf = zlib.inflateSync(sBuf).toString("latin1");
+      } catch {
+        inf = sBuf.toString("latin1");
+      }
+
+      if (inf.includes("BT") && inf.includes("ET")) {
           const btBlocks = inf.split("BT");
           for (let b = 1; b < btBlocks.length; b++) {
             const block = btBlocks[b].split("ET")[0];
@@ -195,15 +222,12 @@ export async function POST(request: Request) {
             }
 
             const cleanBlock = blockText.trim().replace(/\s+/g, " ");
-            if (cleanBlock.length > 2) {
+            if (cleanBlock.length > 2 && isLegibleText(cleanBlock)) {
               fullTextAccumulator += cleanBlock + " ";
               extractedLines.push(cleanBlock);
             }
           }
         }
-      } catch {
-        // Non-deflate stream
-      }
       streamStart = streamEnd + 9;
     }
 
@@ -231,7 +255,7 @@ export async function POST(request: Request) {
     const panRegex = /\b[A-Z]{5}\d{4}[A-Z]{1}\b/gi;
     const cinRegex = /\b[LU]\d{5}[A-Z]{2}\d{4}[A-Z]{3}\d{6}\b/gi;
     const udyamRegex = /\bUDYAM-[A-Z]{2}-\d{2}-\d{7}\b/gi;
-    const udinRegex = /\b\d{2}\d{6}[A-Z0-9]{10}\b/gi;
+    const udinRegex = /\b\d{2}\d{6}[A-Z0-9]{8,10}\b/gi;
     const turnoverRegex = /(?:Turnover|Turn\s*over|Revenue|INR|₹)\s*[:=]?\s*(?:INR|₹)?\s*([\d,]+(?:\.\d+)?)\s*(?:Crore|Cr|Lakh|Lakhs)?/i;
 
     const gstinMatches = combinedSearchBuffer.match(gstinRegex) || [];
@@ -406,7 +430,6 @@ export async function POST(request: Request) {
     // 8. Build Clean OCR Text Blocks for Canvas Display
     const ocrBlocks = [];
     const linesToDisplay = extractedLines.slice(0, 12);
-
     if (linesToDisplay.length > 0) {
       for (let i = 0; i < linesToDisplay.length; i++) {
         const line = linesToDisplay[i];
@@ -436,23 +459,35 @@ export async function POST(request: Request) {
         });
       }
     } else {
-      // Default informative blocks for clean display
+      // Clean informative blocks for non-statutory or architectural documents
       ocrBlocks.push(
         { id: "ocr_1", text: documentTitle.toUpperCase(), confidence: 0.99, box: { x: 15, y: 15, width: 70, height: 6 } },
         { id: "ocr_2", text: `File: ${fileName} • ${fileSizeMB} MB • ${pageCount} Pages`, confidence: 0.98, box: { x: 15, y: 26, width: 65, height: 5 } },
         {
           id: "ocr_3",
-          text: foundGSTIN ? `GSTIN: ${foundGSTIN}` : foundPAN ? `PAN: ${foundPAN}` : foundUdyam ? `Udyam: ${foundUdyam}` : "Optical Text Stream Extraction Verified",
+          text: foundGSTIN
+            ? `GSTIN: ${foundGSTIN}`
+            : foundPAN
+            ? `PAN: ${foundPAN}`
+            : foundUdyam
+            ? `Udyam: ${foundUdyam}`
+            : "Non-Procurement Document: No Statutory Tax / Turnover Entities Detected",
           confidence: 0.95,
-          box: { x: 15, y: 40, width: 65, height: 5 },
+          box: { x: 15, y: 40, width: 70, height: 5 },
           field_mapped: foundGSTIN ? "gstin" : foundPAN ? "pan" : foundUdyam ? "udyam" : undefined,
         },
         {
           id: "ocr_4",
-          text: `Producer: ${producer} • Integrity Hash Verified`,
-          confidence: 0.92,
+          text: `Producer: ${producer} • SHA-256 Hash Cryptographically Sealed`,
+          confidence: 0.94,
           box: { x: 15, y: 55, width: 70, height: 5 },
           is_anomalous: isTamperedTool,
+        },
+        {
+          id: "ocr_5",
+          text: "Tip: Test with CA Turnover, MSME Udyam, or GST returns to verify statutory compliance",
+          confidence: 0.90,
+          box: { x: 15, y: 68, width: 70, height: 5 },
         }
       );
     }
@@ -540,19 +575,147 @@ export async function POST(request: Request) {
 }
 
 // Pre-configured test document helper
-function getPreconfiguredSample(type: "tampered" | "genuine"): DocumentForensics {
-  if (type === "tampered") {
+function getPreconfiguredSample(type: "tampered" | "genuine" | "procedural" | "debarred" | string): DocumentForensics {
+  if (type === "procedural" || type === "procedural_mismatch") {
+    return {
+      doc_id: "LAB-DOC-PROCEDURAL-03",
+      doc_name: "Statutory Tax Return & Udyam Dossier (Bharat Petro-Tech)",
+      doc_type: "udyam",
+      file_name: "Sample_Procedural_Mismatch_Return.pdf",
+      uploaded_at: "2026-09-08T14:30:00Z",
+      file_size_mb: "0.95",
+      total_pages: 1,
+      file_hash_sha256: "7b13a89e4c5d2f10b891d4e0a7f23c90e1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6",
+      exif_metadata: {
+        producer: "LibreOffice 7.6 (Ubuntu Linux)",
+        creator_tool: "Writer",
+        modify_date: "2026-06-15T11:20:00Z",
+        create_date: "2026-06-15T11:20:00Z",
+        suspicious_flag: false,
+      },
+      ela_tamper_detected: false,
+      qr_code_cross_check: {
+        scanned_payload: "GSTIN:27AAACB5678G1Z2|UDYAM-MH-02-0044812|BHARAT PETRO-TECH",
+        ocr_visible_text: "27AAACB5678G1Z2",
+        is_match: true,
+      },
+      ocr_text_blocks: [
+        { id: "p1", text: "STATUTORY TAX RETURN & MSME REGISTRATION DOSSIER", confidence: 0.99, box: { x: 15, y: 15, width: 70, height: 6 } },
+        { id: "p2", text: "Vendor: Bharat Petro-Tech Supplies Pvt Ltd (PAN: AAACB5678G)", confidence: 0.98, box: { x: 15, y: 28, width: 65, height: 5 }, field_mapped: "pan" },
+        { id: "p3", text: "GSTIN: 27AAACB5678G1Z2 • Maharashtra Jurisdiction", confidence: 0.97, box: { x: 15, y: 42, width: 60, height: 5 }, field_mapped: "gstin" },
+        { id: "p4", text: "MSME: UDYAM-MH-02-0044812 (Services - NIC 74909)", confidence: 0.96, box: { x: 15, y: 56, width: 65, height: 5 }, field_mapped: "udyam", is_anomalous: true },
+        { id: "p5", text: "Declared Annual Turnover FY 2024-25: INR 4,20,00,000", confidence: 0.97, box: { x: 15, y: 70, width: 60, height: 5 } },
+      ],
+      statutory_entities_detected: {
+        gstin: "27AAACB5678G1Z2",
+        pan: "AAACB5678G",
+        udyam: "UDYAM-MH-02-0044812",
+        declared_turnover: "INR 4,20,00,000",
+      },
+      statutory_verification_checks: [
+        {
+          gateway: "Goods and Services Tax Network (GSTN)",
+          identifier: "27AAACB5678G1Z2",
+          status: "FLAGGED_ANOMALY",
+          details: "Active status confirmed, but GSTR-3B return is pending for 2+ consecutive quarters. Clarification required.",
+          confidence: 96,
+        },
+        {
+          gateway: "Ministry of MSME (Udyam National Portal)",
+          identifier: "UDYAM-MH-02-0044812",
+          status: "FLAGGED_ANOMALY",
+          details: "Valid Udyam registration, but activity is classified under 'Services' (NIC 74909), whereas tender mandates 'Manufacturing'.",
+          confidence: 95,
+        },
+        {
+          gateway: "Central Board of Direct Taxes (CBDT) / PAN",
+          identifier: "AAACB5678G",
+          status: "VERIFIED_COMPLIANT",
+          details: "PAN is valid and operational. No CPPP debarment record found.",
+          confidence: 99,
+        },
+      ],
+      audit_summary: {
+        risk_score: 55,
+        recommendation: "CLARIFICATION_NEEDED",
+        flags_count: 2,
+        summary_text: "Procedural anomaly detected: NIC 74909 service classification discrepancy and delayed GSTR-3B filings. Issue GeM clarification notice.",
+      },
+    };
+  }
+
+  if (type === "debarred" || type === "debarred_vendor") {
+    return {
+      doc_id: "LAB-DOC-DEBARRED-04",
+      doc_name: "Statutory Eligibility Undertaking (Apex Logistics - Debarred)",
+      doc_type: "general",
+      file_name: "Sample_Debarred_Vendor_Declaration.pdf",
+      uploaded_at: "2026-09-08T15:00:00Z",
+      file_size_mb: "1.10",
+      total_pages: 1,
+      file_hash_sha256: "3c5a7e9b1d3f5a7b9c1d3e5f7a9b1c3d5e7f9a1b3c5d7e9f1a3b5c7d9e1f3a5b",
+      exif_metadata: {
+        producer: "CPPP Tender Submission Engine v2.4",
+        creator_tool: "CPPP Portal Daemon",
+        modify_date: "2026-07-20T08:00:00Z",
+        create_date: "2026-07-20T08:00:00Z",
+        suspicious_flag: true,
+        suspicious_reason: "Critical Debarment Flag: Bidder entity PAN is flagged in Central Public Procurement Portal blacklist repository.",
+      },
+      ela_tamper_detected: false,
+      qr_code_cross_check: {
+        scanned_payload: "CPPP-BLK-8812|PAN:AAACD9988P|DEBARRED-UNTIL-2028",
+        ocr_visible_text: "AAACD9988P",
+        is_match: true,
+      },
+      ocr_text_blocks: [
+        { id: "d1", text: "CENTRAL PUBLIC PROCUREMENT PORTAL - BIDDER INTEGRITY UNDERTAKING", confidence: 0.99, box: { x: 15, y: 15, width: 70, height: 6 } },
+        { id: "d2", text: "Bidder: Apex Logistics & Infra Enterprises (PAN: AAACD9988P)", confidence: 0.98, box: { x: 15, y: 28, width: 65, height: 5 }, field_mapped: "pan", is_anomalous: true },
+        { id: "d3", text: "GSTIN: 07AAACD9988P1Z3 (Suo-moto Suspended Rule 21A)", confidence: 0.96, box: { x: 15, y: 42, width: 65, height: 5 }, field_mapped: "gstin", is_anomalous: true },
+        { id: "d4", text: "DEBARMENT STATUS: BLACKLISTED UNDER ORDER CPPP/2026/BLK-8812", confidence: 0.99, box: { x: 15, y: 56, width: 70, height: 6 }, is_anomalous: true },
+        { id: "d5", text: "Grounds: Collusive tendering and circular bid rigging detected", confidence: 0.95, box: { x: 15, y: 70, width: 65, height: 5 }, is_anomalous: true },
+      ],
+      statutory_entities_detected: {
+        gstin: "07AAACD9988P1Z3",
+        pan: "AAACD9988P",
+      },
+      statutory_verification_checks: [
+        {
+          gateway: "Central Board of Direct Taxes & CPPP Blacklist",
+          identifier: "AAACD9988P",
+          status: "DISQUALIFIED",
+          details: "CPPP Order BLK-8812: Entity debarred from all public procurement tenders nationwide until 31-DEC-2028.",
+          confidence: 99,
+        },
+        {
+          gateway: "Goods and Services Tax Network (GSTN)",
+          identifier: "07AAACD9988P1Z3",
+          status: "DISQUALIFIED",
+          details: "Suo-moto Suspension under Rule 21A for non-filing & circular trading inquiry.",
+          confidence: 99,
+        },
+      ],
+      audit_summary: {
+        risk_score: 98,
+        recommendation: "DISQUALIFY_FRAUD_DETECTED",
+        flags_count: 2,
+        summary_text: "Debarred Vendor: Active blacklisting order CPPP/2026/BLK-8812 on Central Public Procurement Portal. Automatic bid disqualification.",
+      },
+    };
+  }
+
+  if (type === "tampered" || type === "tampered_turnover") {
     return {
       doc_id: "LAB-DOC-FORGED-01",
       doc_name: "CA Turnover Certificate (Photoshop Altered)",
       doc_type: "mii",
-      file_name: "Turnover_Altered_Apex.pdf",
+      file_name: "Sample_Tampered_CA_Turnover_Certificate.pdf",
       uploaded_at: "2026-09-08T12:00:00Z",
       file_size_mb: "1.24",
       total_pages: 1,
       file_hash_sha256: "9f8377636008f5e837e2d4ced4b613d772d27806445ecf05e1ebd3e7d60ba216",
       exif_metadata: {
-        producer: "Adobe Photoshop CC 2024 (Macintosh)",
+        producer: "Adobe Photoshop CC 2024 (Windows)",
         creator_tool: "Adobe Photoshop 25.4",
         modify_date: "2026-08-29T22:15:32Z",
         create_date: "2026-08-29T22:11:00Z",
@@ -574,7 +737,7 @@ function getPreconfiguredSample(type: "tampered" | "genuine"): DocumentForensics
         mismatch_details: "Decoded QR leads to a 2021 invoice of ₹1.5L, conflicting with document face value of ₹18.5 Cr.",
       },
       udin_check: {
-        udin: "26099999INVALID9",
+        udin: "26099999INVALID001",
         ca_membership_no: "099999",
         ca_name: "Invalid Membership",
         date_of_issuance: "29/08/2026",
@@ -586,12 +749,12 @@ function getPreconfiguredSample(type: "tampered" | "genuine"): DocumentForensics
         { id: "s2", text: "Client: Apex Engineering & Logistics Enterprises (PAN: AAACD9988P)", confidence: 0.97, box: { x: 15, y: 28, width: 60, height: 5 }, field_mapped: "pan" },
         { id: "s3", text: "Certified Annual Turnover FY 2024-25: INR 18,50,00,000", confidence: 0.84, box: { x: 15, y: 44, width: 70, height: 6 }, is_anomalous: true },
         { id: "s4", text: "GSTIN: 07AAACD9988P1Z3 (Suo-moto Suspended)", confidence: 0.95, box: { x: 15, y: 56, width: 65, height: 5 }, field_mapped: "gstin", is_anomalous: true },
-        { id: "s5", text: "UDIN: 26099999INVALID9", confidence: 0.82, box: { x: 15, y: 68, width: 50, height: 5 }, field_mapped: "udin", is_anomalous: true },
+        { id: "s5", text: "UDIN: 26099999INVALID001", confidence: 0.82, box: { x: 15, y: 68, width: 50, height: 5 }, field_mapped: "udin", is_anomalous: true },
       ],
       statutory_entities_detected: {
         gstin: "07AAACD9988P1Z3",
         pan: "AAACD9988P",
-        udin: "26099999INVALID9",
+        udin: "26099999INVALID001",
         declared_turnover: "INR 18,50,00,000",
       },
       statutory_verification_checks: [
@@ -611,7 +774,7 @@ function getPreconfiguredSample(type: "tampered" | "genuine"): DocumentForensics
         },
         {
           gateway: "ICAI UDIN Registry",
-          identifier: "26099999INVALID9",
+          identifier: "26099999INVALID001",
           status: "DISQUALIFIED",
           details: "ICAI Checksum failed: Forged Chartered Accountant registration.",
           confidence: 99,
@@ -626,11 +789,12 @@ function getPreconfiguredSample(type: "tampered" | "genuine"): DocumentForensics
     };
   }
 
+  // Default: Genuine Udyam Certificate
   return {
     doc_id: "LAB-DOC-GENUINE-02",
-    doc_name: "Udyam Registration Certificate (Aura Flow Systems)",
+    doc_name: "Udyam Registration Certificate (Apex Engineering Solutions)",
     doc_type: "udyam",
-    file_name: "Genuine_Udyam_AuraFlow.pdf",
+    file_name: "Sample_Genuine_Udyam_Certificate.pdf",
     uploaded_at: "2026-09-08T12:00:00Z",
     file_size_mb: "0.82",
     total_pages: 1,
@@ -644,31 +808,40 @@ function getPreconfiguredSample(type: "tampered" | "genuine"): DocumentForensics
     },
     ela_tamper_detected: false,
     qr_code_cross_check: {
-      scanned_payload: "UDYAM-TN-02-0041289|Aura Flow Systems|Small|28131",
-      ocr_visible_text: "UDYAM-TN-02-0041289",
+      scanned_payload: "UDYAM-HR-03-0019284|Apex Engineering Solutions|Small|28131",
+      ocr_visible_text: "UDYAM-HR-03-0019284",
       is_match: true,
     },
     ocr_text_blocks: [
-      { id: "g1", text: "UDYAM REGISTRATION CERTIFICATE", confidence: 0.99, box: { x: 25, y: 15, width: 50, height: 6 } },
-      { id: "g2", text: "UDYAM-TN-02-0041289 (Small Enterprise)", confidence: 0.98, box: { x: 25, y: 28, width: 50, height: 5 }, field_mapped: "udyam" },
-      { id: "g3", text: "Manufacturing of Pumps & Valves (NIC 28131)", confidence: 0.98, box: { x: 15, y: 44, width: 70, height: 6 } },
-      { id: "g4", text: "Aura Flow Systems Private Limited (PAN: AAACA1234F)", confidence: 0.97, box: { x: 15, y: 56, width: 65, height: 5 }, field_mapped: "pan" },
+      { id: "g1", text: "UDYAM REGISTRATION CERTIFICATE - MINISTRY OF MSME", confidence: 0.99, box: { x: 15, y: 15, width: 70, height: 6 } },
+      { id: "g2", text: "UDYAM-HR-03-0019284 (Small Enterprise - Manufacturing)", confidence: 0.98, box: { x: 15, y: 28, width: 65, height: 5 }, field_mapped: "udyam" },
+      { id: "g3", text: "Manufacture of Pumps and Compressors (NIC 28131)", confidence: 0.98, box: { x: 15, y: 44, width: 65, height: 6 } },
+      { id: "g4", text: "Apex Engineering Solutions Pvt Ltd (PAN: AAACA1234A)", confidence: 0.97, box: { x: 15, y: 56, width: 65, height: 5 }, field_mapped: "pan" },
+      { id: "g5", text: "GSTIN: 06AAACA1234A1Z5 (Active Regular Taxpayer)", confidence: 0.98, box: { x: 15, y: 68, width: 65, height: 5 }, field_mapped: "gstin" },
     ],
     statutory_entities_detected: {
-      pan: "AAACA1234F",
-      udyam: "UDYAM-TN-02-0041289",
+      pan: "AAACA1234A",
+      gstin: "06AAACA1234A1Z5",
+      udyam: "UDYAM-HR-03-0019284",
     },
     statutory_verification_checks: [
       {
         gateway: "Ministry of MSME (Udyam Portal)",
-        identifier: "UDYAM-TN-02-0041289",
+        identifier: "UDYAM-HR-03-0019284",
         status: "VERIFIED_COMPLIANT",
-        details: "Active Small Enterprise, Manufacturing category. Eligible for GeM purchase preference.",
+        details: "Verified Authentic Udyam Certificate. Small Enterprise, Manufacturing category (NIC 28131). Eligible for GeM purchase preference.",
         confidence: 99,
       },
       {
+        gateway: "Goods and Services Tax Network (GSTN)",
+        identifier: "06AAACA1234A1Z5",
+        status: "VERIFIED_COMPLIANT",
+        details: "Active Regular Taxpayer verified in State jurisdiction (Code 06). GSTR-1 & GSTR-3B filings up to date.",
+        confidence: 98,
+      },
+      {
         gateway: "Central Board of Direct Taxes (CBDT) / PAN",
-        identifier: "AAACA1234F",
+        identifier: "AAACA1234A",
         status: "VERIFIED_COMPLIANT",
         details: "PAN is valid and operational. No CPPP debarment record found.",
         confidence: 99,
@@ -678,7 +851,7 @@ function getPreconfiguredSample(type: "tampered" | "genuine"): DocumentForensics
       risk_score: 10,
       recommendation: "COMPLIANT_VERIFIED",
       flags_count: 0,
-      summary_text: "100% Compliant: Authentic Government of India portal certificate. All statutory checks verified.",
+      summary_text: "100% Compliant: Authentic Government of India portal certificate. All statutory checks verified with zero risk anomalies.",
     },
   };
 }

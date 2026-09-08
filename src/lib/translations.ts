@@ -904,6 +904,9 @@ export function getForensicsDocName(name: string, lang: Language): string {
   const map: Record<string, string> = {
     "CA Turnover Certificate (Photoshop Altered)": "सीए कारोबार प्रमाणपत्र (फ़ोटोशॉप द्वारा परिवर्तित)",
     "Udyam Registration Certificate (Aura Flow Systems)": "उद्यम पंजीकरण प्रमाणपत्र (ऑरा फ्लो सिस्टम्स)",
+    "Udyam Registration Certificate (Apex Engineering Solutions)": "उद्यम पंजीकरण प्रमाणपत्र (एपेक्स इंजीनियरिंग सॉल्यूशंस)",
+    "Statutory Tax Return & Udyam Dossier (Bharat Petro-Tech)": "वैधानिक कर रिटर्न एवं उद्यम डोजियर (भारत पेट्रो-टेक)",
+    "Statutory Eligibility Undertaking (Apex Logistics - Debarred)": "वैधानिक पात्रता घोषणापत्र (एपेक्स लॉजिस्टिक्स - प्रतिबंधित)",
   };
   return map[name] || name;
 }
@@ -916,8 +919,24 @@ export function getForensicsOcrText(text: string, lang: Language): string {
     "Certified Annual Turnover FY 2024-25: INR 18,50,00,000": "प्रमाणित वार्षिक कारोबार वित्त वर्ष 2024-25: ₹ 18,50,00,000",
     "GSTIN: 07AAACD9988P1Z3 (Suo-moto Suspended)": "GSTIN: 07AAACD9988P1Z3 (स्वतः संज्ञान निलंबित)",
     "UDIN: 26099999INVALID9": "UDIN: 26099999INVALID9",
+    "UDIN: 26099999INVALID001": "UDIN: 26099999INVALID001",
     "UDYAM REGISTRATION CERTIFICATE": "उद्यम पंजीकरण प्रमाणपत्र",
+    "UDYAM REGISTRATION CERTIFICATE - MINISTRY OF MSME": "उद्यम पंजीकरण प्रमाणपत्र - एमएसएमई मंत्रालय",
     "UDYAM-TN-02-0041289 (Small Enterprise)": "UDYAM-TN-02-0041289 (लघु उद्यम)",
+    "UDYAM-HR-03-0019284 (Small Enterprise - Manufacturing)": "UDYAM-HR-03-0019284 (लघु उद्यम - विनिर्माण)",
+    "Manufacture of Pumps and Compressors (NIC 28131)": "पंप एवं कंप्रेशर्स का निर्माण (NIC 28131)",
+    "Apex Engineering Solutions Pvt Ltd (PAN: AAACA1234A)": "एपेक्स इंजीनियरिंग सॉल्यूशंस प्राइवेट लिमिटेड (पैन: AAACA1234A)",
+    "GSTIN: 06AAACA1234A1Z5 (Active Regular Taxpayer)": "GSTIN: 06AAACA1234A1Z5 (सक्रिय नियमित करदाता)",
+    "STATUTORY TAX RETURN & MSME REGISTRATION DOSSIER": "वैधानिक कर रिटर्न एवं एमएसएमई पंजीकरण डोजियर",
+    "Vendor: Bharat Petro-Tech Supplies Pvt Ltd (PAN: AAACB5678G)": "विक्रेता: भारत पेट्रो-टेक सप्लाइज प्राइवेट लिमिटेड (पैन: AAACB5678G)",
+    "GSTIN: 27AAACB5678G1Z2 • Maharashtra Jurisdiction": "GSTIN: 27AAACB5678G1Z2 • महाराष्ट्र क्षेत्राधिकार",
+    "MSME: UDYAM-MH-02-0044812 (Services - NIC 74909)": "एमएसएमई: UDYAM-MH-02-0044812 (सेवाएं - NIC 74909)",
+    "Declared Annual Turnover FY 2024-25: INR 4,20,00,000": "घोषित वार्षिक कारोबार वित्त वर्ष 2024-25: ₹ 4,20,00,000",
+    "CENTRAL PUBLIC PROCUREMENT PORTAL - BIDDER INTEGRITY UNDERTAKING": "केंद्रीय सार्वजनिक खरीद पोर्टल - बोलीदाता सत्यनिष्ठा घोषणा",
+    "Bidder: Apex Logistics & Infra Enterprises (PAN: AAACD9988P)": "बोलीदाता: एपेक्स लॉजिस्टिक्स एंड इंफ्रा एंटरप्राइजेज (पैन: AAACD9988P)",
+    "GSTIN: 07AAACD9988P1Z3 (Suo-moto Suspended Rule 21A)": "GSTIN: 07AAACD9988P1Z3 (नियम 21A स्वतः संज्ञान निलंबित)",
+    "DEBARMENT STATUS: BLACKLISTED UNDER ORDER CPPP/2026/BLK-8812": "प्रतिबंध स्थिति: आदेश CPPP/2026/BLK-8812 के तहत ब्लैकलिस्टेड",
+    "Grounds: Collusive tendering and circular bid rigging detected": "कारण: मिलीभगत से निविदा और परिपत्र बोली हेराफेरी चिह्नित",
     "Manufacturing of Pumps & Valves (NIC 28131)": "पंप और वाल्व निर्माण (NIC 28131)",
     "Aura Flow Systems Private Limited (PAN: AAACA1234F)": "ऑरा फ्लो सिस्टम्स प्राइवेट लिमिटेड (पैन: AAACA1234F)",
   };
