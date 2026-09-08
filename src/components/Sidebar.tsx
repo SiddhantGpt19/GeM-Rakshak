@@ -117,20 +117,20 @@ export function Sidebar() {
                   : "text-deep-navy/70 hover:text-deep-navy dark:text-crisp-white/80 dark:hover:text-crisp-white hover:bg-warm-beige/60 dark:hover:bg-dark-navy"
               }`}
             >
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 min-w-0 pr-1">
                 <Icon
-                  className={`w-4 h-4 transition-colors ${
+                  className={`w-4 h-4 shrink-0 transition-colors ${
                     isActive
                       ? "text-crisp-white"
                       : "text-muted-gray group-hover:text-lavender dark:group-hover:text-lavender"
                   }`}
                 />
-                <span>{item.label}</span>
+                <span className="truncate">{item.label}</span>
               </div>
 
               {item.badge && (
                 <span
-                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap shrink-0 ${
                     item.isPulse
                       ? "bg-coral-orange text-white animate-pulse"
                       : isActive

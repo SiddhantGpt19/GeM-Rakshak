@@ -304,7 +304,7 @@ export const translations: Record<Language, TranslationDict> = {
 
     sidebarProcuringEntity: "Procuring Entity",
     sidebarSwitch: "Switch",
-    sidebarActiveTenderBadge: "Active Tender",
+    sidebarActiveTenderBadge: "Active",
     sidebarAlertBadge: "Alert",
     sidebarPlatformDossier: "Platform Dossier",
     sidebarGuardTitle: "GeM Statutory AI Guard",
@@ -572,7 +572,7 @@ export const translations: Record<Language, TranslationDict> = {
 
     sidebarProcuringEntity: "खरीददार सरकारी इकाई",
     sidebarSwitch: "बदलें",
-    sidebarActiveTenderBadge: "सक्रिय निविदा",
+    sidebarActiveTenderBadge: "सक्रिय",
     sidebarAlertBadge: "चेतावनी",
     sidebarPlatformDossier: "प्लेटफॉर्म तकनीकी डोजियर",
     sidebarGuardTitle: "GeM वैधानिक एआई रक्षक",
