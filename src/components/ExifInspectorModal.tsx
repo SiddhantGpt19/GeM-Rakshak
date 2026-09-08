@@ -4,6 +4,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, AlertOctagon, FileSearch, Fingerprint, ShieldAlert } from "lucide-react";
 import { DocumentForensics } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ExifInspectorModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface ExifInspectorModalProps {
 }
 
 export function ExifInspectorModal({ isOpen, onClose, document }: ExifInspectorModalProps) {
+  const { language } = useLanguage();
   if (!isOpen || !document) return null;
 
   const { exif_metadata, file_name, file_hash_sha256 } = document;
@@ -38,9 +40,11 @@ export function ExifInspectorModal({ isOpen, onClose, document }: ExifInspectorM
               </div>
               <div>
                 <h3 className="text-base font-bold">
-                  {isSuspicious ? "CRITICAL FORENSIC ALERT: Raster Tampering Detected" : "PDF Binary & Metadata Provenance"}
+                  {isSuspicious
+                    ? (language === "hi" ? "गंभीर फोरेंसिक चेतावनी: छवि / रेखापुंज छेड़छाड़ की पहचान" : "CRITICAL FORENSIC ALERT: Raster Tampering Detected")
+                    : (language === "hi" ? "पीडीएफ बाइनरी और मेटाडेटा उत्पत्ति विश्लेषण" : "PDF Binary & Metadata Provenance")}
                 </h3>
-                <p className="text-xs text-muted-gray">File: {file_name}</p>
+                <p className="text-xs text-muted-gray">{language === "hi" ? "फ़ाइल:" : "File:"} {file_name}</p>
               </div>
             </div>
             <button onClick={onClose} className="p-1.5 rounded-lg text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white">
@@ -54,18 +58,22 @@ export function ExifInspectorModal({ isOpen, onClose, document }: ExifInspectorM
               <div className="p-4 rounded-xl bg-coral-orange/15 border border-coral-orange/40 text-coral-orange space-y-2">
                 <div className="flex items-center space-x-2 font-bold text-sm">
                   <ShieldAlert className="w-4 h-4" />
-                  <span>XMP / EXIF Software Anomaly</span>
+                  <span>{language === "hi" ? "XMP / EXIF सॉफ़्टवेयर विसंगति" : "XMP / EXIF Software Anomaly"}</span>
                 </div>
                 <p className="text-xs leading-relaxed text-deep-navy dark:text-crisp-white">
-                  {exif_metadata.suspicious_reason ||
-                    "Critical Flag: File modified using Adobe Photoshop CC 2024, not government portal renderer. High probability of fabricated numbers and pasted seal."}
+                  {language === "hi"
+                    ? "गंभीर संकेत: फ़ाइल सरकारी पोर्टल रेंडरर के बजाय Adobe Photoshop CC 2024 से संशोधित की गई है। जाली संख्या और चिपकाई गई सील की अत्यधिक संभावना।"
+                    : (exif_metadata.suspicious_reason ||
+                       "Critical Flag: File modified using Adobe Photoshop CC 2024, not government portal renderer. High probability of fabricated numbers and pasted seal.")}
                 </p>
               </div>
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="p-3 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy">
-                <span className="text-muted-gray block text-[10px] uppercase font-bold">PDF Producer</span>
+                <span className="text-muted-gray block text-[10px] uppercase font-bold">
+                  {language === "hi" ? "पीडीएफ निर्माता (Producer)" : "PDF Producer"}
+                </span>
                 <span className="font-mono font-semibold text-deep-navy dark:text-crisp-white">
                   {exif_metadata.producer}
                 </span>
@@ -76,21 +84,27 @@ export function ExifInspectorModal({ isOpen, onClose, document }: ExifInspectorM
                   ? "border-coral-orange bg-coral-orange/10 font-bold"
                   : "border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy"
               }`}>
-                <span className="text-muted-gray block text-[10px] uppercase font-bold">Creator Tool</span>
+                <span className="text-muted-gray block text-[10px] uppercase font-bold">
+                  {language === "hi" ? "सृजन सॉफ़्टवेयर (Creator Tool)" : "Creator Tool"}
+                </span>
                 <span className={`font-mono ${isSuspicious ? "text-coral-orange" : "text-deep-navy dark:text-crisp-white font-semibold"}`}>
                   {exif_metadata.creator_tool}
                 </span>
               </div>
 
               <div className="p-3 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy">
-                <span className="text-muted-gray block text-[10px] uppercase font-bold">Original Creation Date</span>
+                <span className="text-muted-gray block text-[10px] uppercase font-bold">
+                  {language === "hi" ? "मूल निर्माण तिथि" : "Original Creation Date"}
+                </span>
                 <span className="font-mono text-deep-navy dark:text-crisp-white">
                   {exif_metadata.create_date}
                 </span>
               </div>
 
               <div className="p-3 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy">
-                <span className="text-muted-gray block text-[10px] uppercase font-bold">Last Modification Date</span>
+                <span className="text-muted-gray block text-[10px] uppercase font-bold">
+                  {language === "hi" ? "अंतिम संशोधन तिथि" : "Last Modification Date"}
+                </span>
                 <span className="font-mono text-deep-navy dark:text-crisp-white">
                   {exif_metadata.modify_date}
                 </span>
@@ -102,9 +116,11 @@ export function ExifInspectorModal({ isOpen, onClose, document }: ExifInspectorM
               <div className="flex items-center justify-between text-[11px] text-muted-gray">
                 <span className="flex items-center space-x-1.5 font-bold uppercase">
                   <Fingerprint className="w-3.5 h-3.5 text-lavender" />
-                  <span>SHA-256 Digital Fingerprint</span>
+                  <span>{language === "hi" ? "SHA-256 डिजिटल फ़िंगरप्रिंट" : "SHA-256 Digital Fingerprint"}</span>
                 </span>
-                <span className="text-mint-green font-semibold">Integrity Logged</span>
+                <span className="text-mint-green font-semibold">
+                  {language === "hi" ? "सत्यनिष्ठा सत्यापित" : "Integrity Logged"}
+                </span>
               </div>
               <p className="font-mono text-[11px] break-all text-deep-navy dark:text-crisp-white bg-soft-beige/40 dark:bg-deep-navy p-2 rounded-lg border border-warm-beige dark:border-warm-beige/20">
                 {file_hash_sha256}
@@ -118,7 +134,7 @@ export function ExifInspectorModal({ isOpen, onClose, document }: ExifInspectorM
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-semibold bg-lavender text-crisp-white hover:bg-lavender/90 transition-all shadow-xs"
             >
-              Close Inspector
+              {language === "hi" ? "निरीक्षक बंद करें" : "Close Inspector"}
             </button>
           </div>
         </motion.div>

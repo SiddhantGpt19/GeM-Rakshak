@@ -13,7 +13,7 @@ interface GatewayStatusModalProps {
 
 export function GatewayStatusModal({ isOpen, onClose }: GatewayStatusModalProps) {
   const { gateways } = useTenderData();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   if (!isOpen) return null;
 
@@ -37,7 +37,9 @@ export function GatewayStatusModal({ isOpen, onClose }: GatewayStatusModalProps)
                   {t.modalGatewayTitle}
                 </h2>
                 <p className="text-xs text-muted-gray">
-                  Simulated Real-time Government Data Integrations under GeM API Framework
+                  {language === "hi"
+                    ? "GeM एपीआई फ्रेमवर्क के तहत वास्तविक समय सरकारी डेटा एकीकरण का अनुकरण"
+                    : "Simulated Real-time Government Data Integrations under GeM API Framework"}
                 </p>
               </div>
             </div>
@@ -68,7 +70,7 @@ export function GatewayStatusModal({ isOpen, onClose }: GatewayStatusModalProps)
                     </div>
                     <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-mint-green/15 text-mint-green border border-mint-green/30">
                       <span className="w-1.5 h-1.5 rounded-full bg-mint-green animate-pulse" />
-                      <span>{gw.status}</span>
+                      <span>{language === "hi" ? "सक्रिय" : gw.status}</span>
                     </span>
                   </div>
 
@@ -79,8 +81,8 @@ export function GatewayStatusModal({ isOpen, onClose }: GatewayStatusModalProps)
                   <div className="pt-2 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-[11px] font-mono text-muted-gray">
                     <div className="flex items-center space-x-2">
                       <Activity className="w-3.5 h-3.5 text-lavender" />
-                      <span>Latency: <strong className="text-deep-navy dark:text-crisp-white">{gw.latency_ms}ms</strong></span>
-                      <span>• Uptime: <strong className="text-mint-green">{gw.success_rate}</strong></span>
+                      <span>{language === "hi" ? "विलंबता: " : "Latency: "}<strong className="text-deep-navy dark:text-crisp-white">{gw.latency_ms}ms</strong></span>
+                      <span>{language === "hi" ? "• अपटाइम: " : "• Uptime: "}<strong className="text-mint-green">{gw.success_rate}</strong></span>
                     </div>
                     <span>{gw.last_sync}</span>
                   </div>

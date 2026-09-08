@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Bidder, TenderMetadata, GatewayHealth } from "@/types";
 import { mockTenders } from "@/data/mockTenders";
 import { mockBidders } from "@/data/mockBidders";

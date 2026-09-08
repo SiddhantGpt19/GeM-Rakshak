@@ -45,7 +45,7 @@ interface VerificationResponse {
 
 export default function GatewaysPage() {
   const { gateways: initialGateways, isLiveApiMode, toggleApiMode } = useTenderData();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   const [gateways, setGateways] = useState<GatewayHealth[]>(initialGateways);
   const [isPinging, setIsPinging] = useState(false);
@@ -150,17 +150,17 @@ export default function GatewaysPage() {
         <div>
           <div className="flex items-center space-x-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
-              Infrastructure Telemetry & API Middleware
+              {t.gwInfraTitle}
             </span>
             <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-              Avg Latency: {averageLatency}ms
+              {t.gwAvgLatency}: {averageLatency}ms
             </span>
           </div>
           <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
-            {t.navGateways} (8 Government Authorities)
+            {t.gwPageTitle} (8 Authorities)
           </h1>
           <p className="text-xs text-muted-gray">
-            Real-time API middleware querying official source-of-truth registries
+            {t.gwPageSubtitle}
           </p>
         </div>
 
@@ -171,7 +171,7 @@ export default function GatewaysPage() {
             title="Toggle between local sandbox simulation and live gateway routing"
           >
             <Cpu className="w-3.5 h-3.5 text-lavender" />
-            <span>Mode: {isLiveApiMode ? t.liveGateway : t.mockSandbox}</span>
+            <span>{t.gwMode}: {isLiveApiMode ? t.liveGateway : t.mockSandbox}</span>
           </button>
 
           <button
@@ -180,7 +180,7 @@ export default function GatewaysPage() {
             className="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isPinging ? "animate-spin" : ""}`} />
-            <span>{isPinging ? "Pinging Gateways..." : "Ping All Gateways"}</span>
+            <span>{isPinging ? t.gwPinging : t.gwPingAll}</span>
           </button>
         </div>
       </div>
@@ -190,10 +190,10 @@ export default function GatewaysPage() {
         <Zap className="w-5 h-5 text-lavender shrink-0 mt-0.5" />
         <div className="space-y-1">
           <h4 className="font-bold text-deep-navy dark:text-crisp-white">
-            How Live Statutory Verification Works
+            {t.gwArchTitle}
           </h4>
           <p className="text-muted-gray leading-relaxed">
-            In government production, direct browser calls to <code className="px-1 py-0.5 bg-warm-beige/50 dark:bg-dark-navy rounded font-mono text-[11px]">.gov.in</code> registries are protected behind <strong>API Setu (MeitY)</strong> and GSP enterprise client tokens. GeM-Rakshak’s backend route (<code className="px-1 py-0.5 bg-warm-beige/50 dark:bg-dark-navy rounded font-mono text-[11px]">/api/verify</code>) serves as the secure reverse proxy middleware, standardizing statutory formats and generating cryptographic audit trails for CVC scrutiny.
+            {t.gwArchDesc}
           </p>
         </div>
       </div>
@@ -207,10 +207,10 @@ export default function GatewaysPage() {
             </div>
             <div>
               <h2 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
-                Interactive Statutory API Sandbox & Tester
+                {t.gwSandboxTitle}
               </h2>
               <p className="text-[11px] text-muted-gray">
-                Execute live API calls against our verification engine to test compliance reconciliation
+                {t.gwSandboxSubtitle}
               </p>
             </div>
           </div>
@@ -222,7 +222,7 @@ export default function GatewaysPage() {
         {/* Preset Buttons */}
         <div className="space-y-1.5">
           <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gray">
-            Test Presets:
+            {t.gwPresetsLabel}
           </span>
           <div className="flex flex-wrap gap-2">
             {presets.map((preset, idx) => (
@@ -250,7 +250,7 @@ export default function GatewaysPage() {
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-2">
           <div className="sm:col-span-4">
             <label className="block text-[11px] font-bold text-muted-gray mb-1">
-              Select Registry Authority:
+              {t.gwSelectGateway}:
             </label>
             <select
               value={selectedGateway}
@@ -267,13 +267,13 @@ export default function GatewaysPage() {
 
           <div className="sm:col-span-6">
             <label className="block text-[11px] font-bold text-muted-gray mb-1">
-              Statutory Identifier to Query:
+              {t.gwTargetIdentifier}:
             </label>
             <input
               type="text"
               value={queryInput}
               onChange={(e) => setQueryInput(e.target.value)}
-              placeholder="Enter GSTIN, CIN, PAN, or Udyam number..."
+              placeholder={language === "hi" ? "जीएसटी, सीआईएन, पैन या उद्यम संख्या दर्ज करें..." : "Enter GSTIN, CIN, PAN, or Udyam number..."}
               className="w-full text-xs font-mono px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender uppercase"
             />
           </div>
@@ -285,7 +285,7 @@ export default function GatewaysPage() {
               className="w-full flex items-center justify-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all disabled:opacity-50"
             >
               <Send className={`w-3.5 h-3.5 ${isQuerying ? "animate-pulse" : ""}`} />
-              <span>{isQuerying ? "Sending..." : "Send Request"}</span>
+              <span>{isQuerying ? t.gwVerifying : t.gwBtnVerify}</span>
             </button>
           </div>
         </div>
@@ -299,10 +299,10 @@ export default function GatewaysPage() {
                   HTTP {apiResponse.http_status} OK
                 </span>
                 <span className="text-xs font-semibold text-deep-navy dark:text-crisp-white">
-                  Latency: {apiResponse.query_meta.execution_latency_ms}ms
+                  {t.gwLatency}: {apiResponse.query_meta.execution_latency_ms}ms
                 </span>
                 <span className="text-[11px] text-muted-gray">
-                  • Authority: {apiResponse.query_meta.authority}
+                  • {t.gwAuthority}: {apiResponse.query_meta.authority}
                 </span>
               </div>
 
@@ -311,27 +311,27 @@ export default function GatewaysPage() {
                 {apiResponse.verification_verdict.status === "VERIFIED_COMPLIANT" && (
                   <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span>Compliant</span>
+                    <span>{t.statusCompliant}</span>
                   </span>
                 )}
                 {apiResponse.verification_verdict.status === "CLARIFICATION_NEEDED" && (
                   <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30">
                     <AlertTriangle className="w-3 h-3" />
-                    <span>Discrepancy / Clarification</span>
+                    <span>{t.statusClarification}</span>
                   </span>
                 )}
                 {(apiResponse.verification_verdict.status === "CRITICAL_FRAUD_FLAG" ||
                   apiResponse.verification_verdict.status === "DEBARRED_VENDOR_BAN") && (
                   <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange/15 text-coral-orange border border-coral-orange/30 animate-pulse">
                     <XCircle className="w-3 h-3" />
-                    <span>Fraud Flag / Debarred</span>
+                    <span>{t.statusDebarred}</span>
                   </span>
                 )}
 
                 <button
                   onClick={handleCopyJson}
                   className="p-1 rounded text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white transition-colors"
-                  title="Copy JSON payload"
+                  title={t.gwBtnCopy}
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-mint-green" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
@@ -347,7 +347,7 @@ export default function GatewaysPage() {
             <div className="flex items-center justify-between text-[10px] font-mono text-muted-gray pt-1">
               <span className="flex items-center space-x-1 truncate max-w-md">
                 <ShieldCheck className="w-3 h-3 text-lavender shrink-0" />
-                <span className="truncate">CVC Audit Digest: {apiResponse.audit_trail.sha256_digest}</span>
+                <span className="truncate">{t.gwDigestTitle}: {apiResponse.audit_trail.sha256_digest}</span>
               </span>
               <span>Node: {apiResponse.audit_trail.node_node_ref}</span>
             </div>
@@ -373,7 +373,7 @@ export default function GatewaysPage() {
               </div>
               <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
                 <span className="w-2 h-2 rounded-full bg-mint-green animate-pulse" />
-                <span>{gw.status}</span>
+                <span>{language === "hi" ? "सक्रिय" : gw.status}</span>
               </span>
             </div>
 
@@ -382,7 +382,7 @@ export default function GatewaysPage() {
             </p>
 
             <div className="p-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy font-mono text-[11px] text-muted-gray border border-warm-beige dark:border-warm-beige/20 break-all">
-              Endpoint: <span className="text-deep-navy dark:text-crisp-white">{gw.endpoint}</span>
+              {t.gwEndpoint}: <span className="text-deep-navy dark:text-crisp-white">{gw.endpoint}</span>
             </div>
 
             <div className="pt-3 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-xs font-mono text-muted-gray">
@@ -391,7 +391,7 @@ export default function GatewaysPage() {
                   <Activity className="w-3.5 h-3.5 text-lavender" />
                   <strong>{gw.latency_ms}ms</strong>
                 </span>
-                <span>Uptime: <strong className="text-mint-green">{gw.success_rate}</strong></span>
+                <span>{t.gwUptime}: <strong className="text-mint-green">{gw.success_rate}</strong></span>
               </div>
               <div className="flex items-center space-x-2">
                 <button
@@ -408,9 +408,9 @@ export default function GatewaysPage() {
                   }}
                   className="text-[10px] font-bold text-lavender hover:underline"
                 >
-                  Test in Console &uarr;
+                  {language === "hi" ? "कंसोल में जांचें ↑" : "Test in Console ↑"}
                 </button>
-                <span>• {lastPingTime}</span>
+                <span>• {language === "hi" ? "अभी" : lastPingTime}</span>
               </div>
             </div>
           </div>

@@ -18,6 +18,7 @@ import {
 import { DocumentForensics } from "@/types";
 import { DocumentQRCode } from "./DocumentQRCode";
 import QRCode from "qrcode";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface QRCodeDiffModalProps {
   isOpen: boolean;
@@ -26,6 +27,7 @@ interface QRCodeDiffModalProps {
 }
 
 export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalProps) {
+  const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState<"cross_check" | "qr_generator">("cross_check");
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -135,9 +137,9 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                 <h3 className="text-base font-black tracking-tight">
                   {activeTab === "cross_check"
                     ? isMatch
-                      ? "QR Code Cross-Check: Verified Match"
-                      : "CRITICAL ALERT: QR Payload vs Document Text Mismatch"
-                    : "Live GeM Statutory QR Generator & Verifier"}
+                      ? (language === "hi" ? "QR कोड क्रॉस-चेक: सत्यापित व प्रामाणिक" : "QR Code Cross-Check: Verified Match")
+                      : (language === "hi" ? "गंभीर चेतावनी: QR पेलोड बनाम दस्तावेज़ पाठ्य बेमेल" : "CRITICAL ALERT: QR Payload vs Document Text Mismatch")
+                    : (language === "hi" ? "लाइव GeM वैधानिक QR जनरेटर एवं सत्यापनकर्ता" : "Live GeM Statutory QR Generator & Verifier")}
                 </h3>
                 <p className="text-xs text-muted-gray">{doc_name}</p>
               </div>
@@ -161,7 +163,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
               }`}
             >
               <ShieldCheck className="w-4 h-4" />
-              <span>Document QR Inspection</span>
+              <span>{language === "hi" ? "दस्तावेज़ QR निरीक्षण" : "Document QR Inspection"}</span>
             </button>
             <button
               onClick={() => setActiveTab("qr_generator")}
@@ -172,7 +174,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
               }`}
             >
               <Sparkles className="w-4 h-4" />
-              <span>Live Verifiable QR Generator</span>
+              <span>{language === "hi" ? "लाइव सत्यापन योग्य QR जनरेटर" : "Live Verifiable QR Generator"}</span>
             </button>
           </div>
 
@@ -195,14 +197,13 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                 <div className="text-xs space-y-1">
                   <p className="font-bold text-sm">
                     {isMatch
-                      ? "Cryptographic QR Match Confirmed"
-                      : "Severe Tampering Indicator: QR Code Re-used / Spoofed"}
+                      ? (language === "hi" ? "क्रिप्टोग्राफ़िक QR मिलान की पुष्टि हुई" : "Cryptographic QR Match Confirmed")
+                      : (language === "hi" ? "गंभीर छेड़छाड़ संकेतक: QR कोड पुनः प्रयुक्त / फर्जी" : "Severe Tampering Indicator: QR Code Re-used / Spoofed")}
                   </p>
                   <p className="text-deep-navy dark:text-crisp-white leading-relaxed">
                     {isMatch
-                      ? "The cryptographic payload encoded in this QR barcode aligns 100% with the human-readable text declarations extracted on the certificate face."
-                      : qr_code_cross_check.mismatch_details ||
-                        "The barcode contains historical transaction data conflicting with the face turnover value of the certificate, indicating that an authentic QR code was copied from an unrelated document."}
+                      ? (language === "hi" ? "इस QR बारकोड में एन्कोड किया गया क्रिप्टोग्राफ़िक पेलोड प्रमाणपत्र के मुखपृष्ठ पर दृश्यमान पाठ्य घोषणाओं से 100% मेल खाता है।" : "The cryptographic payload encoded in this QR barcode aligns 100% with the human-readable text declarations extracted on the certificate face.")
+                      : (language === "hi" ? "बारकोड में प्रमाणपत्र के टर्नओवर मूल्य के विपरीत ऐतिहासिक लेनदेन डेटा शामिल है, जिससे संकेत मिलता है कि किसी असंबंधित दस्तावेज़ से प्रामाणिक QR कोड कॉपी किया गया था।" : (qr_code_cross_check.mismatch_details || "The barcode contains historical transaction data conflicting with the face turnover value of the certificate, indicating that an authentic QR code was copied from an unrelated document."))}
                   </p>
                 </div>
               </div>
@@ -213,11 +214,11 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                 <div className="md:col-span-5 p-4 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-center space-y-3 shadow-sm">
                   <div className="flex items-center justify-between text-xs text-muted-gray">
                     <span className="font-bold uppercase tracking-wider text-[10px]">
-                      Real Scannable QR
+                      {language === "hi" ? "वास्तविक स्कैन करने योग्य QR" : "Real Scannable QR"}
                     </span>
                     <span className="flex items-center space-x-1 text-mint-green font-mono text-[10px]">
                       <Smartphone className="w-3 h-3" />
-                      <span>Ready to Scan</span>
+                      <span>{language === "hi" ? "स्कैन हेतु तैयार" : "Ready to Scan"}</span>
                     </span>
                   </div>
 
@@ -229,7 +230,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                       className="mx-auto"
                     />
                     <div className="absolute inset-x-0 bottom-1 text-[9px] font-mono text-center text-gray-500 bg-white/90 py-0.5 rounded">
-                      Scan with any Phone Camera
+                      {language === "hi" ? "किसी भी फ़ोन कैमरे से स्कैन करें" : "Scan with any Phone Camera"}
                     </div>
                   </div>
 
@@ -240,7 +241,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                       title="Copy encoded payload to clipboard"
                     >
                       {copied ? <Check className="w-3.5 h-3.5 text-mint-green" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copied ? "Copied" : "Copy Data"}</span>
+                      <span>{copied ? (language === "hi" ? "कॉपी हो गया" : "Copied") : (language === "hi" ? "डेटा कॉपी करें" : "Copy Data")}</span>
                     </button>
                     <button
                       onClick={() => handleDownloadQR(qr_code_cross_check.scanned_payload, "document_scanned_qr")}
@@ -249,7 +250,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                       title="Download PNG for official audit report"
                     >
                       <Download className="w-3.5 h-3.5 text-lavender" />
-                      <span>Download</span>
+                      <span>{language === "hi" ? "डाउनलोड" : "Download"}</span>
                     </button>
                   </div>
                 </div>
@@ -261,10 +262,10 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                     <div className="flex items-center justify-between text-xs">
                       <div className="flex items-center space-x-1.5 text-lavender font-bold">
                         <QrCode className="w-4 h-4" />
-                        <span>Decoded Data Elements in QR</span>
+                        <span>{language === "hi" ? "QR कोड में डिकोड किए गए डेटा घटक" : "Decoded Data Elements in QR"}</span>
                       </div>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-lavender/15 text-lavender">
-                        Reed-Solomon Decoded
+                        {language === "hi" ? "रीड-सोलोमन डिकोडेड" : "Reed-Solomon Decoded"}
                       </span>
                     </div>
 
@@ -286,7 +287,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
 
                     <div className="pt-2 border-t border-dashed border-warm-beige/50 dark:border-warm-beige/10">
                       <span className="text-[10px] text-muted-gray uppercase font-bold block mb-1">
-                        Raw Stream:
+                        {language === "hi" ? "कच्चा डेटा प्रवाह:" : "Raw Stream:"}
                       </span>
                       <p className="font-mono text-[10px] p-2 rounded bg-soft-beige/30 dark:bg-deep-navy break-all text-deep-navy/80 dark:text-crisp-white/80">
                         {qr_code_cross_check.scanned_payload}
@@ -305,14 +306,16 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold flex items-center space-x-1.5">
                         <ArrowRight className="w-3.5 h-3.5" />
-                        <span>Document Face Value Text</span>
+                        <span>{language === "hi" ? "दस्तावेज़ का अंकित प्रत्यक्ष पाठ (OCR)" : "Document Face Value Text"}</span>
                       </span>
                       <span
                         className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full ${
                           isMatch ? "bg-mint-green text-white" : "bg-coral-orange text-white animate-pulse"
                         }`}
                       >
-                        {isMatch ? "VERIFIED CONSISTENT" : "CONTRADICTION DETECTED"}
+                        {isMatch
+                          ? (language === "hi" ? "सत्यापित संगत" : "VERIFIED CONSISTENT")
+                          : (language === "hi" ? "विसंगति / हेरफेर पाई गई" : "CONTRADICTION DETECTED")}
                       </span>
                     </div>
 
@@ -338,10 +341,12 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                 <Sparkles className="w-5 h-5 text-lavender shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <p className="font-bold text-deep-navy dark:text-crisp-white">
-                    Tamper-Proof GeM Verification QR Matrix Generator
+                    {language === "hi" ? "छेड़छाड़-रोधी GeM सत्यापन QR मैट्रिक्स जनरेटर" : "Tamper-Proof GeM Verification QR Matrix Generator"}
                   </p>
                   <p className="text-muted-gray leading-relaxed">
-                    Generate an official statutory QR code embedded with the document&apos;s cryptographic SHA-256 hash, tender credentials, and GSTIN to affix onto CVC Dossiers and GeM Tender Certificates.
+                    {language === "hi"
+                      ? "दस्तावेज़ के क्रिप्टोग्राफिक SHA-256 हैश, निविदा विवरण और GSTIN के साथ एक आधिकारिक वैधानिक QR कोड जनरेट करें जिसे CVC डोजियर और GeM निविदा प्रमाणपत्रों पर लगाया जा सके।"
+                      : "Generate an official statutory QR code embedded with the document's cryptographic SHA-256 hash, tender credentials, and GSTIN to affix onto CVC Dossiers and GeM Tender Certificates."}
                   </p>
                 </div>
               </div>
@@ -351,7 +356,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                 <div className="md:col-span-7 space-y-3 text-xs">
                   <div>
                     <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                      Procuring Organization / Cell
+                      {language === "hi" ? "खरीदार संगठन / विभाग" : "Procuring Organization / Cell"}
                     </label>
                     <input
                       type="text"
@@ -364,7 +369,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                        Tender Reference ID
+                        {language === "hi" ? "निविदा संदर्भ आईडी" : "Tender Reference ID"}
                       </label>
                       <input
                         type="text"
@@ -375,7 +380,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                     </div>
                     <div>
                       <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                        Statutory GSTIN
+                        {language === "hi" ? "वैधानिक GSTIN" : "Statutory GSTIN"}
                       </label>
                       <input
                         type="text"
@@ -388,7 +393,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
 
                   <div>
                     <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                      Verified Tender / Turnover Value (INR)
+                      {language === "hi" ? "सत्यापित निविदा / कारोबार मूल्य (₹)" : "Verified Tender / Turnover Value (INR)"}
                     </label>
                     <input
                       type="text"
@@ -403,14 +408,14 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                     className="w-full py-2 rounded-xl bg-lavender hover:bg-lavender/90 text-crisp-white font-bold transition-all shadow-md shadow-lavender/25 flex items-center justify-center space-x-1.5"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
-                    <span>Encode Live Statutory QR</span>
+                    <span>{language === "hi" ? "वैधानिक QR कोड जनरेट करें" : "Encode Live Statutory QR"}</span>
                   </button>
                 </div>
 
                 {/* Generated QR Code View */}
                 <div className="md:col-span-5 p-4 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-center space-y-3 shadow-sm">
                   <span className="font-bold uppercase tracking-wider text-[10px] text-lavender block">
-                    Generated GeM QR Matrix
+                    {language === "hi" ? "जनरेटेड GeM QR मैट्रिक्स" : "Generated GeM QR Matrix"}
                   </span>
                   <div className="p-3 bg-white rounded-xl border border-warm-beige/50 inline-block shadow-inner">
                     <DocumentQRCode
@@ -429,7 +434,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                     className="w-full py-2 rounded-xl text-xs font-bold bg-mint-green hover:bg-mint-green/90 text-white transition-all shadow-sm flex items-center justify-center space-x-1.5"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download Stamping QR (.PNG)</span>
+                    <span>{language === "hi" ? "स्टैम्पिंग QR डाउनलोड करें (.PNG)" : "Download Stamping QR (.PNG)"}</span>
                   </button>
                 </div>
               </div>
@@ -445,7 +450,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
               onClick={onClose}
               className="px-5 py-2 rounded-xl text-xs font-bold bg-deep-navy text-crisp-white dark:bg-crisp-white dark:text-deep-navy hover:opacity-90 transition-all shadow-xs"
             >
-              Close Inspector
+              {language === "hi" ? "निरीक्षक बंद करें" : "Close Inspector"}
             </button>
           </div>
         </motion.div>

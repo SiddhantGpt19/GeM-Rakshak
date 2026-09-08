@@ -21,7 +21,7 @@ export function ClarificationNoticeModal({
   tender,
 }: ClarificationNoticeModalProps) {
   const { sendClarificationNotice } = useTenderData();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [copied, setCopied] = useState(false);
   const [noticeText, setNoticeText] = useState("");
 
@@ -103,7 +103,9 @@ GeM Procurement Division`;
                   {t.modalClarificationTitle}
                 </h3>
                 <p className="text-xs text-muted-gray">
-                  Pre-drafted legal representation notice auto-populated with AI discrepancy citations
+                  {language === "hi"
+                    ? "एआई विसंगति उद्धरणों के साथ स्वतः भरा हुआ पूर्व-प्रारूपित कानूनी प्रतिनिधित्व नोटिस"
+                    : "Pre-drafted legal representation notice auto-populated with AI discrepancy citations"}
                 </p>
               </div>
             </div>
@@ -116,7 +118,7 @@ GeM Procurement Division`;
           <div className="p-6 space-y-4 overflow-y-auto flex-1">
             <div className="flex items-center justify-between text-xs">
               <span className="font-semibold text-deep-navy dark:text-crisp-white">
-                Notice Draft (Editable for Procurement Officer):
+                {language === "hi" ? "नोटिस प्रारूप (खरीद अधिकारी द्वारा संपादन योग्य):" : "Notice Draft (Editable for Procurement Officer):"}
               </span>
               <button
                 onClick={handleCopy}
@@ -137,7 +139,9 @@ GeM Procurement Division`;
             <div className="p-3 rounded-xl bg-lavender/15 border border-lavender/30 text-xs text-deep-navy dark:text-crisp-white flex items-start space-x-2">
               <AlertCircle className="w-4 h-4 text-lavender shrink-0 mt-0.5" />
               <span>
-                Dispatching this notice will log an immutable entry into the CVC audit trail and open a 72-hour clarification submission window on the GeM portal.
+                {language === "hi"
+                  ? "यह नोटिस भेजने से सीवीसी ऑडिट ट्रेल में एक अपरिवर्तनीय प्रविष्टि दर्ज होगी और GeM पोर्टल पर 72 घंटे की स्पष्टीकरण प्रस्तुति विंडो खुलेगी।"
+                  : "Dispatching this notice will log an immutable entry into the CVC audit trail and open a 72-hour clarification submission window on the GeM portal."}
               </span>
             </div>
           </div>
@@ -148,14 +152,14 @@ GeM Procurement Division`;
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-semibold text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
             >
-              Cancel
+              {language === "hi" ? "रद्द करें" : "Cancel"}
             </button>
             <button
               onClick={handleDispatch}
               className="flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>Dispatch Notice via GeM Gateway</span>
+              <span>{language === "hi" ? "GeM गेटवे के माध्यम से नोटिस भेजें" : "Dispatch Notice via GeM Gateway"}</span>
             </button>
           </div>
         </motion.div>

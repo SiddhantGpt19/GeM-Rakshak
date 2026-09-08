@@ -114,7 +114,7 @@ export default function AuditLogPage() {
           <div className="flex items-center space-x-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-lavender flex items-center space-x-1">
               <Lock className="w-3 h-3" />
-              <span>Central Vigilance Commission (CVC) Statutory Records</span>
+              <span>{t.auditCvcBadge}</span>
             </span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-warm-beige dark:bg-dark-navy text-muted-gray font-mono font-medium">
               {activeEntity.orgName}
@@ -124,7 +124,7 @@ export default function AuditLogPage() {
             {t.navAuditLog}
           </h1>
           <p className="text-xs text-muted-gray">
-            Immutable, cryptographically chained forensic ledger of all automated scrutiny events and committee decisions.
+            {t.auditSubtitle}
           </p>
         </div>
 
@@ -133,7 +133,7 @@ export default function AuditLogPage() {
           {/* Sealed badge */}
           <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>SHA-256 Sealed</span>
+            <span>{t.auditSha256Badge}</span>
           </div>
         </div>
       </div>
@@ -142,57 +142,57 @@ export default function AuditLogPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
-            <span>Total Sealed Logs</span>
+            <span>{t.auditTotalSealed}</span>
             <Hash className="w-3.5 h-3.5 text-lavender" />
           </div>
           <div className="text-xl font-bold text-deep-navy dark:text-crisp-white">
             {stats.total}
           </div>
-          <p className="text-[10px] text-muted-gray mt-0.5">100% Cryptographic Trail</p>
+          <p className="text-[10px] text-muted-gray mt-0.5">{t.auditCryptoTrail}</p>
         </div>
 
         <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
-            <span>Critical Alerts</span>
+            <span>{t.auditCriticalAlerts}</span>
             <AlertTriangle className="w-3.5 h-3.5 text-coral-orange" />
           </div>
           <div className="text-xl font-bold text-coral-orange">
             {stats.critical}
           </div>
-          <p className="text-[10px] text-coral-orange/80 mt-0.5">Debarment &amp; QR Forgery</p>
+          <p className="text-[10px] text-coral-orange/80 mt-0.5">{t.auditDebarmentSub}</p>
         </div>
 
         <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
-            <span>Compliant / Passed</span>
+            <span>{t.auditCompliantPassed}</span>
             <CheckCircle2 className="w-3.5 h-3.5 text-mint-green" />
           </div>
           <div className="text-xl font-bold text-mint-green">
             {stats.compliant}
           </div>
-          <p className="text-[10px] text-muted-gray mt-0.5">Technical Criteria Met</p>
+          <p className="text-[10px] text-muted-gray mt-0.5">{t.auditTechMetSub}</p>
         </div>
 
         <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
-            <span>Gateway Polls</span>
+            <span>{t.auditGatewayPolls}</span>
             <Server className="w-3.5 h-3.5 text-sky-500" />
           </div>
           <div className="text-xl font-bold text-sky-500">
             {stats.gateway}
           </div>
-          <p className="text-[10px] text-muted-gray mt-0.5">GSTN / Udyam / CBDT</p>
+          <p className="text-[10px] text-muted-gray mt-0.5">{t.auditGatewaySub}</p>
         </div>
 
         <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 col-span-2 sm:col-span-1">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
-            <span>Clarifications</span>
+            <span>{t.auditClarifications}</span>
             <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
           </div>
           <div className="text-xl font-bold text-amber-500">
             {stats.clarifications}
           </div>
-          <p className="text-[10px] text-muted-gray mt-0.5">Rule 173(iv) Active Notices</p>
+          <p className="text-[10px] text-muted-gray mt-0.5">{t.auditClarificationsSub}</p>
         </div>
       </div>
 
@@ -203,7 +203,7 @@ export default function AuditLogPage() {
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-gray" />
           <input
             type="text"
-            placeholder="Search by Bidder, Log ID, Action, Officer, or Statutory Clause..."
+            placeholder={t.auditSearchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-xs text-deep-navy dark:text-crisp-white placeholder:text-muted-gray focus:outline-hidden focus:border-lavender transition-all"
@@ -213,7 +213,7 @@ export default function AuditLogPage() {
               onClick={() => setSearchQuery("")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white text-xs"
             >
-              Clear
+              {t.lblClear}
             </button>
           )}
         </div>
@@ -228,7 +228,7 @@ export default function AuditLogPage() {
                 : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
             }`}
           >
-            All Logs ({auditLogs.length})
+            {t.auditFilterAll} ({auditLogs.length})
           </button>
           <button
             onClick={() => setSelectedFilter("CRITICAL")}
@@ -238,7 +238,7 @@ export default function AuditLogPage() {
                 : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-coral-orange border border-warm-beige dark:border-warm-beige/20"
             }`}
           >
-            Critical ({stats.critical})
+            {t.auditFilterCritical} ({stats.critical})
           </button>
           <button
             onClick={() => setSelectedFilter("COMPLIANT")}
@@ -248,7 +248,7 @@ export default function AuditLogPage() {
                 : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-mint-green border border-warm-beige dark:border-warm-beige/20"
             }`}
           >
-            Compliant ({stats.compliant})
+            {t.auditFilterCompliant} ({stats.compliant})
           </button>
           <button
             onClick={() => setSelectedFilter("GATEWAY")}
@@ -258,7 +258,7 @@ export default function AuditLogPage() {
                 : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-sky-500 border border-warm-beige dark:border-warm-beige/20"
             }`}
           >
-            Gateways ({stats.gateway})
+            {t.auditFilterGateway} ({stats.gateway})
           </button>
           <button
             onClick={() => setSelectedFilter("CLARIFICATION")}
@@ -268,7 +268,7 @@ export default function AuditLogPage() {
                 : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-amber-500 border border-warm-beige dark:border-warm-beige/20"
             }`}
           >
-            Clarifications ({stats.clarifications})
+            {t.auditFilterClarification} ({stats.clarifications})
           </button>
         </div>
       </div>
@@ -279,14 +279,14 @@ export default function AuditLogPage() {
           <table className="w-full text-left text-xs">
             <thead className="bg-warm-beige/50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider">
               <tr>
-                <th className="py-3 px-4">Log ID &amp; Time</th>
-                <th className="py-3 px-4">Tender Reference</th>
-                <th className="py-3 px-4">Bidder / Subsystem</th>
-                <th className="py-3 px-4">Action &amp; Statutory Authority</th>
-                <th className="py-3 px-4">Auditor / Agent</th>
-                <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">SHA-256 Digest</th>
-                <th className="py-3 px-4 text-right">Details</th>
+                <th className="py-3 px-4">{t.auditColLogIdTime}</th>
+                <th className="py-3 px-4">{t.auditColTenderRef}</th>
+                <th className="py-3 px-4">{t.auditColBidderSubsystem}</th>
+                <th className="py-3 px-4">{t.auditColActionAuthority}</th>
+                <th className="py-3 px-4">{t.auditColAuditorAgent}</th>
+                <th className="py-3 px-4">{t.auditColStatus}</th>
+                <th className="py-3 px-4">{t.auditColShaDigest}</th>
+                <th className="py-3 px-4 text-right">{t.auditColDetails}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-warm-beige dark:divide-warm-beige/20">
@@ -294,7 +294,7 @@ export default function AuditLogPage() {
                 <tr>
                   <td colSpan={8} className="py-12 text-center text-muted-gray">
                     <Filter className="w-8 h-8 mx-auto mb-2 opacity-40" />
-                    <p className="font-semibold">No statutory audit records match the selected filters.</p>
+                    <p className="font-semibold">{t.auditNoRecords}</p>
                     <button
                       onClick={() => {
                         setSearchQuery("");
@@ -302,7 +302,7 @@ export default function AuditLogPage() {
                       }}
                       className="mt-2 text-lavender hover:underline text-xs"
                     >
-                      Reset all filters
+                      {t.auditResetFilters}
                     </button>
                   </td>
                 </tr>
@@ -403,7 +403,7 @@ export default function AuditLogPage() {
                     {/* Inspect Link */}
                     <td className="py-3.5 px-4 text-right">
                       <span className="text-xs font-semibold text-lavender group-hover:underline inline-flex items-center space-x-1">
-                        <span>Inspect</span>
+                        <span>{t.auditBtnInspect}</span>
                         <ExternalLink className="w-3 h-3" />
                       </span>
                     </td>
@@ -424,7 +424,7 @@ export default function AuditLogPage() {
               <div>
                 <div className="flex items-center space-x-2">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
-                    CVC Statutory Record Certificate
+                    {t.auditModalTitle}
                   </span>
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getStatusBadge(selectedLog.status)}`}>
                     {selectedLog.status}
@@ -445,7 +445,7 @@ export default function AuditLogPage() {
             {/* Grid Attributes */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <span className="text-muted-gray block font-medium">Exact Statutory Timestamp</span>
+                <span className="text-muted-gray block font-medium">{t.auditModalTimestamp}</span>
                 <span className="font-bold text-deep-navy dark:text-crisp-white">
                   {new Date(selectedLog.timestamp).toLocaleString("en-IN", {
                     dateStyle: "full",
@@ -455,30 +455,30 @@ export default function AuditLogPage() {
               </div>
 
               <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <span className="text-muted-gray block font-medium">Tender Reference ID</span>
+                <span className="text-muted-gray block font-medium">{t.auditModalTenderId}</span>
                 <span className="font-bold font-mono text-deep-navy dark:text-crisp-white">
                   {selectedLog.tenderId}
                 </span>
               </div>
 
               <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <span className="text-muted-gray block font-medium">Subject Legal Entity</span>
+                <span className="text-muted-gray block font-medium">{t.auditModalEntity}</span>
                 <span className="font-bold text-deep-navy dark:text-crisp-white">
                   {selectedLog.bidderName}
                 </span>
                 <span className="text-[10px] text-muted-gray font-mono block">
-                  Identifier: {selectedLog.bidderId}
+                  ID: {selectedLog.bidderId}
                 </span>
               </div>
 
               <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <span className="text-muted-gray block font-medium">Auditor / Agent Identity</span>
+                <span className="text-muted-gray block font-medium">{t.auditModalAuditor}</span>
                 <span className="font-bold font-mono text-lavender">
                   {selectedLog.officerId}
                 </span>
                 {selectedLog.ipAddress && (
                   <span className="text-[10px] text-muted-gray font-mono block">
-                    Source IP: {selectedLog.ipAddress}
+                    IP: {selectedLog.ipAddress}
                   </span>
                 )}
               </div>
@@ -488,7 +488,7 @@ export default function AuditLogPage() {
             {selectedLog.statutoryClause && (
               <div className="p-3.5 rounded-xl bg-lavender/10 border border-lavender/25 text-xs">
                 <span className="font-bold text-lavender block text-[11px] uppercase tracking-wider mb-0.5">
-                  Governing Statutory Authority &amp; Procurement Rule
+                  {t.auditModalAuthority}
                 </span>
                 <p className="text-deep-navy dark:text-crisp-white font-medium">
                   {selectedLog.statutoryClause}
@@ -500,7 +500,7 @@ export default function AuditLogPage() {
             {selectedLog.notes && (
               <div className="p-3.5 rounded-xl bg-warm-beige/40 dark:bg-dark-navy/60 border border-warm-beige dark:border-warm-beige/20 text-xs">
                 <span className="font-bold text-deep-navy dark:text-crisp-white block mb-1">
-                  Forensic Examination &amp; Gateway Findings:
+                  {t.auditModalFindings}
                 </span>
                 <p className="text-muted-gray leading-relaxed font-sans">
                   {selectedLog.notes}
@@ -513,10 +513,10 @@ export default function AuditLogPage() {
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-deep-navy dark:text-crisp-white flex items-center space-x-1.5">
                   <ShieldCheck className="w-4 h-4 text-mint-green" />
-                  <span>CVC Non-Repudiation Cryptographic Digest</span>
+                  <span>{t.auditModalDigestTitle}</span>
                 </span>
                 <span className="text-[10px] font-mono text-mint-green font-bold">
-                  VERIFIED &amp; UNALTERED
+                  {t.auditModalVerified}
                 </span>
               </div>
               <div className="flex items-center justify-between p-2 rounded-lg bg-soft-beige dark:bg-deep-navy font-mono text-[11px] text-muted-gray break-all">
@@ -528,12 +528,12 @@ export default function AuditLogPage() {
                   {copiedHash === selectedLog.hash ? (
                     <span className="text-mint-green flex items-center space-x-1">
                       <Check className="w-3 h-3" />
-                      <span className="text-[10px]">Copied</span>
+                      <span className="text-[10px]">{t.auditModalCopied}</span>
                     </span>
                   ) : (
                     <span className="flex items-center space-x-1">
                       <Copy className="w-3 h-3" />
-                      <span className="text-[10px]">Copy</span>
+                      <span className="text-[10px]">{t.auditModalCopy}</span>
                     </span>
                   )}
                 </button>
@@ -552,13 +552,13 @@ export default function AuditLogPage() {
                 }}
                 className="px-4 py-2 rounded-xl text-xs font-semibold bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white hover:border-lavender transition-all"
               >
-                Export Record (JSON)
+                {t.auditModalExportJson}
               </button>
               <button
                 onClick={() => setSelectedLog(null)}
                 className="px-4 py-2 rounded-xl text-xs font-semibold bg-lavender text-crisp-white hover:bg-lavender/90 transition-all"
               >
-                Close Dossier
+                {t.auditModalClose}
               </button>
             </div>
           </div>

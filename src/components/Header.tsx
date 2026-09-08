@@ -39,7 +39,9 @@ export function Header() {
                     </span>
                   </div>
                   <p className="text-[11px] font-medium text-muted-gray truncate max-w-[260px] sm:max-w-md">
-                    {activeEntity.orgName} • {activeEntity.department}
+                    {language === "hi" && activeEntity.orgName === "CPCL Manali Refinery"
+                      ? "सीपीसीएल मनाली रिफाइनरी • पेट्रोलियम और प्राकृतिक गैस मंत्रालय"
+                      : `${activeEntity.orgName} • ${activeEntity.department}`}
                   </p>
                 </div>
               </Link>

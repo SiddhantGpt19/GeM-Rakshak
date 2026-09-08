@@ -2,7 +2,8 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Scan, ShieldAlert, CheckCircle2 } from "lucide-react";
+import { Scan } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface LaserScanOverlayProps {
   isScanning: boolean;
@@ -13,8 +14,11 @@ interface LaserScanOverlayProps {
 
 export function LaserScanOverlay({
   isScanning,
-  label = "AI Forensic Neural OCR Scanning...",
+  label,
 }: LaserScanOverlayProps) {
+  const { language } = useLanguage();
+  const displayLabel = label || (language === "hi" ? "एआई फोरेंसिक न्यूरल ओसीआर स्कैनिंग..." : "AI Forensic Neural OCR Scanning...");
+
   if (!isScanning) return null;
 
   return (
@@ -49,12 +53,12 @@ export function LaserScanOverlay({
           <div className="flex items-center space-x-2.5">
             <Scan className="w-4 h-4 text-lavender animate-pulse" />
             <span className="text-xs font-medium tracking-wide">
-              {label}
+              {displayLabel}
             </span>
           </div>
           <div className="flex items-center space-x-1.5 text-[11px] text-lavender font-mono">
             <span className="inline-block w-2 h-2 rounded-full bg-mint-green animate-ping" />
-            <span>OCR + ELA active</span>
+            <span>{language === "hi" ? "ओसीआर + ELA सक्रिय" : "OCR + ELA active"}</span>
           </div>
         </div>
       </div>

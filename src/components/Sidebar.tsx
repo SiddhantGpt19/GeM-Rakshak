@@ -21,7 +21,7 @@ import { ProcuringEntityModal } from "./ProcuringEntityModal";
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { activeEntity } = useTenderData();
   const [isEntityModalOpen, setIsEntityModalOpen] = useState(false);
 
@@ -37,14 +37,14 @@ export function Sidebar() {
       href: "/tenders/GEM-2026-B-9823410/bidders",
       icon: FileCheck2,
       match: pathname.startsWith("/tenders") && !pathname.includes("cartel-network"),
-      badge: "Active Tender",
+      badge: t.sidebarActiveTenderBadge,
     },
     {
       label: t.navCartelRadar,
       href: "/tenders/GEM-2026-B-9823410/cartel-network",
       icon: Radar,
       match: pathname.includes("cartel-network"),
-      badge: "Alert",
+      badge: t.sidebarAlertBadge,
       isPulse: true,
     },
     {
@@ -78,20 +78,22 @@ export function Sidebar() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-1.5">
             <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gray">
-              Procuring Entity
+              {t.sidebarProcuringEntity}
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-mint-green animate-pulse" />
           </div>
           <span className="text-[9px] font-bold text-lavender flex items-center space-x-0.5 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
-            <span>Switch</span>
+            <span>{t.sidebarSwitch}</span>
             <ArrowLeftRight className="w-2.5 h-2.5" />
           </span>
         </div>
         <p className="text-xs font-bold text-deep-navy dark:text-crisp-white group-hover:text-lavender transition-colors line-clamp-1">
-          {activeEntity.orgName}
+          {language === "hi" && activeEntity.orgName === "CPCL Manali Refinery"
+            ? "सीपीसीएल मनाली रिफाइनरी"
+            : activeEntity.orgName}
         </p>
         <p className="text-[10px] text-muted-gray font-mono truncate">
-          Tender ID: {activeEntity.tenderId}
+          {language === "hi" ? "निविदा आईडी:" : "Tender ID:"} {activeEntity.tenderId}
         </p>
       </div>
 
@@ -156,7 +158,7 @@ export function Sidebar() {
       >
         <div className="flex items-center space-x-2.5">
           <FileText className="w-4 h-4 text-lavender group-hover:scale-110 transition-transform" />
-          <span className="font-bold">Platform Dossier</span>
+          <span className="font-bold">{t.sidebarPlatformDossier}</span>
         </div>
         <span className="flex items-center space-x-1 text-[10px] bg-lavender/20 px-1.5 py-0.5 rounded font-mono">
           <span>PDF</span>
@@ -168,10 +170,10 @@ export function Sidebar() {
       <div className="p-3.5 rounded-xl bg-lavender/10 dark:bg-lavender/15 border border-lavender/25 dark:border-lavender/30 space-y-2 text-xs">
         <div className="flex items-center space-x-1.5 text-lavender font-bold text-[11px]">
           <Flame className="w-3.5 h-3.5" />
-          <span>GeM Statutory AI Guard</span>
+          <span>{t.sidebarGuardTitle}</span>
         </div>
         <p className="text-[11px] text-deep-navy/75 dark:text-crisp-white/70 leading-relaxed">
-          Zero-tolerance anti-forgery scanning active under GeM General Terms & Conditions Clause 14.
+          {t.sidebarGuardDesc}
         </p>
       </div>
     </aside>

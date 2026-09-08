@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Ban, AlertTriangle } from "lucide-react";
 import { Bidder, TenderMetadata } from "@/types";
 import { useTenderData } from "@/context/TenderDataContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface DisqualificationModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export function DisqualificationModal({
   tender,
 }: DisqualificationModalProps) {
   const { disqualifyBidder } = useTenderData();
+  const { language } = useLanguage();
   const [justificationNotes, setJustificationNotes] = useState(
     `Disqualified due to statutory non-compliance: Material discrepancies identified in submitted certificates against portal records. Bidder failed to fulfill mandatory criteria under GeM GTC & CPCL Tender Terms.`
   );
@@ -31,19 +33,37 @@ export function DisqualificationModal({
   if (!isOpen) return null;
 
   const reasonOptions = [
-    "False or misleading documentation / Forensic alteration",
-    "Active CPSE / Ministry Debarment status",
-    "Failure to meet minimum financial turnover (₹15.00 Cr threshold)",
-    "Non-compliance with Make in India Class-I local content (≥50%)",
-    "Udyam registration category mismatch (Services instead of Manufacturing)",
-    "Cartelization / Proxy bidding ring detected",
+    {
+      id: "False or misleading documentation / Forensic alteration",
+      label: language === "hi" ? "गलत या भ्रामक दस्तावेज़ / फोरेंसिक हेरफेर" : "False or misleading documentation / Forensic alteration",
+    },
+    {
+      id: "Active CPSE / Ministry Debarment status",
+      label: language === "hi" ? "सक्रिय CPSE / मंत्रालय प्रतिबंध स्थिति" : "Active CPSE / Ministry Debarment status",
+    },
+    {
+      id: "Failure to meet minimum financial turnover (₹15.00 Cr threshold)",
+      label: language === "hi" ? "न्यूनतम वित्तीय कारोबार में विफलता (₹15.00 करोड़ सीमा)" : "Failure to meet minimum financial turnover (₹15.00 Cr threshold)",
+    },
+    {
+      id: "Non-compliance with Make in India Class-I local content (≥50%)",
+      label: language === "hi" ? "मेक इन इंडिया कक्षा-I स्थानीय सामग्री का गैर-अनुपालन (≥50%)" : "Non-compliance with Make in India Class-I local content (≥50%)",
+    },
+    {
+      id: "Udyam registration category mismatch (Services instead of Manufacturing)",
+      label: language === "hi" ? "उद्यम पंजीकरण श्रेणी बेमेल (विनिर्माण के बजाय सेवाएं)" : "Udyam registration category mismatch (Services instead of Manufacturing)",
+    },
+    {
+      id: "Cartelization / Proxy bidding ring detected",
+      label: language === "hi" ? "कार्टेल मिलीभगत / छद्म बोली सिंडिकेट की पहचान" : "Cartelization / Proxy bidding ring detected",
+    },
   ];
 
-  const toggleReason = (r: string) => {
-    if (selectedReasons.includes(r)) {
-      setSelectedReasons(selectedReasons.filter((x) => x !== r));
+  const toggleReason = (id: string) => {
+    if (selectedReasons.includes(id)) {
+      setSelectedReasons(selectedReasons.filter((x) => x !== id));
     } else {
-      setSelectedReasons([...selectedReasons, r]);
+      setSelectedReasons([...selectedReasons, id]);
     }
   };
 
@@ -70,10 +90,10 @@ export function DisqualificationModal({
               </div>
               <div>
                 <h3 className="text-base font-bold text-coral-orange">
-                  Statutory Disqualification & Rejection
+                  {language === "hi" ? "वैधानिक अयोग्यता और अस्वीकृति" : "Statutory Disqualification & Rejection"}
                 </h3>
                 <p className="text-xs text-muted-gray">
-                  Entity: {bidder.legal_name} ({bidder.seller_id})
+                  {language === "hi" ? "इकाई: " : "Entity: "} {bidder.legal_name} ({bidder.seller_id}) {tender ? `• ${tender.tender_id}` : ""}
                 </p>
               </div>
             </div>
@@ -87,25 +107,27 @@ export function DisqualificationModal({
             <div className="p-3.5 rounded-xl bg-coral-orange/10 border border-coral-orange/30 text-deep-navy dark:text-crisp-white space-y-1">
               <div className="flex items-center space-x-1.5 text-coral-orange font-bold">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
-                <span>CVC Statutory Compliance Notice</span>
+                <span>{language === "hi" ? "CVC वैधानिक अनुपालन सूचना" : "CVC Statutory Compliance Notice"}</span>
               </div>
               <p className="text-muted-gray text-[11px] leading-relaxed">
-                Disqualification is legally binding under Section 34 of GeM GTC. Every rejection requires recorded statutory justification for CVC vigilance and potential arbitration audit.
+                {language === "hi"
+                  ? "GeM सामान्य शर्तों की धारा 34 के तहत अयोग्यता कानूनी रूप से बाध्यकारी है। CVC सतर्कता और संभावित मध्यस्थता ऑडिट के लिए प्रत्येक अस्वीकृति का दर्ज वैधानिक औचित्य आवश्यक है।"
+                  : "Disqualification is legally binding under Section 34 of GeM GTC. Every rejection requires recorded statutory justification for CVC vigilance and potential arbitration audit."}
               </p>
             </div>
 
             {/* Checklist of Reasons */}
             <div className="space-y-2">
               <label className="font-bold text-deep-navy dark:text-crisp-white block">
-                Select Statutory Grounds for Disqualification:
+                {language === "hi" ? "अयोग्यता के वैधानिक आधार चुनें:" : "Select Statutory Grounds for Disqualification:"}
               </label>
               <div className="space-y-1.5">
-                {reasonOptions.map((reason) => {
-                  const isChecked = selectedReasons.includes(reason);
+                {reasonOptions.map((opt) => {
+                  const isChecked = selectedReasons.includes(opt.id);
                   return (
                     <label
-                      key={reason}
-                      onClick={() => toggleReason(reason)}
+                      key={opt.id}
+                      onClick={() => toggleReason(opt.id)}
                       className={`flex items-center space-x-2.5 p-2.5 rounded-xl border cursor-pointer transition-all ${
                         isChecked
                           ? "border-coral-orange bg-coral-orange/15 font-semibold text-deep-navy dark:text-crisp-white"
@@ -118,7 +140,7 @@ export function DisqualificationModal({
                         readOnly
                         className="rounded text-coral-orange focus:ring-coral-orange"
                       />
-                      <span>{reason}</span>
+                      <span>{opt.label}</span>
                     </label>
                   );
                 })}
@@ -128,7 +150,7 @@ export function DisqualificationModal({
             {/* Justification Notes */}
             <div className="space-y-1.5">
               <label className="font-bold text-deep-navy dark:text-crisp-white block">
-                Procurement Officer Final Remarks & Justification:
+                {language === "hi" ? "खरीद अधिकारी की अंतिम टिप्पणी और औचित्य:" : "Procurement Officer Final Remarks & Justification:"}
               </label>
               <textarea
                 value={justificationNotes}
@@ -145,14 +167,14 @@ export function DisqualificationModal({
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-semibold text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
             >
-              Cancel
+              {language === "hi" ? "रद्द करें" : "Cancel"}
             </button>
             <button
               onClick={handleDisqualify}
               className="flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-coral-orange hover:bg-coral-orange-600 text-white shadow-md shadow-coral-orange/30 transition-all"
             >
               <Ban className="w-3.5 h-3.5" />
-              <span>Confirm Statutory Disqualification</span>
+              <span>{language === "hi" ? "वैधानिक अयोग्यता की पुष्टि करें" : "Confirm Statutory Disqualification"}</span>
             </button>
           </div>
         </motion.div>

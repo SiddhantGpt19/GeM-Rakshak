@@ -24,7 +24,7 @@ interface DocumentViewerProps {
 }
 
 export function DocumentViewer({ bidder }: DocumentViewerProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedDocIndex, setSelectedDocIndex] = useState(0);
   const [activeForensicMode, setActiveForensicMode] = useState<"normal" | "ela">("normal");
   const [isScanning, setIsScanning] = useState(false);
@@ -50,7 +50,7 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
   if (!currentDoc) {
     return (
       <div className="p-8 text-center text-muted-gray border border-dashed border-warm-beige dark:border-warm-beige/20 rounded-xl">
-        No documents uploaded for this bidder.
+        {language === "hi" ? "इस बोलीदाता के लिए कोई दस्तावेज़ अपलोड नहीं किया गया है।" : "No documents uploaded for this bidder."}
       </div>
     );
   }
@@ -81,7 +81,7 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
               <FileText className={`w-3.5 h-3.5 ${isSelected ? "text-crisp-white" : "text-muted-gray"}`} />
               <span>{doc.doc_name}</span>
               {hasTamper && (
-                <span className="w-2 h-2 rounded-full bg-coral-orange animate-pulse" title="Tampering Detected" />
+                <span className="w-2 h-2 rounded-full bg-coral-orange animate-pulse" title={language === "hi" ? "छेड़छाड़ की पहचान" : "Tampering Detected"} />
               )}
             </button>
           );
@@ -132,7 +132,9 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
             <Search className="w-3.5 h-3.5" />
             <span>{t.toolExif}</span>
             {currentDoc.exif_metadata.suspicious_flag && (
-              <span className="text-[10px] bg-coral-orange text-white px-1 rounded">Photoshop!</span>
+              <span className="text-[10px] bg-coral-orange text-white px-1 rounded">
+                {language === "hi" ? "फ़ोटोशॉप!" : "Photoshop!"}
+              </span>
             )}
           </button>
 
@@ -148,9 +150,13 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
             <QrCode className="w-3.5 h-3.5" />
             <span>{t.toolQR}</span>
             {!currentDoc.qr_code_cross_check.is_match ? (
-              <span className="text-[10px] bg-coral-orange text-white px-1 rounded">Mismatch</span>
+              <span className="text-[10px] bg-coral-orange text-white px-1 rounded">
+                {language === "hi" ? "बेमेल" : "Mismatch"}
+              </span>
             ) : (
-              <span className="text-[10px] text-mint-green font-bold">✓ Match</span>
+              <span className="text-[10px] text-mint-green font-bold">
+                {language === "hi" ? "✓ मेल खाया" : "✓ Match"}
+              </span>
             )}
           </button>
 
@@ -167,7 +173,9 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
               <Landmark className="w-3.5 h-3.5" />
               <span>{t.toolUDIN}</span>
               <span className="text-[10px] font-mono">
-                {currentDoc.udin_check.status === "FORGED" ? "FAKE" : "VALID"}
+                {currentDoc.udin_check.status === "FORGED"
+                  ? (language === "hi" ? "जाली" : "FAKE")
+                  : (language === "hi" ? "वैध" : "VALID")}
               </span>
             </button>
           )}
@@ -182,7 +190,7 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
           className="flex items-center space-x-1 text-[11px] text-lavender hover:underline font-medium px-2 py-1 shrink-0 whitespace-nowrap"
         >
           <Sparkles className="w-3 h-3" />
-          <span>Laser Rescan</span>
+          <span>{language === "hi" ? "लेज़र पुनः स्कैन" : "Laser Rescan"}</span>
         </button>
       </div>
 
@@ -200,7 +208,7 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
           >
             <div className="absolute top-3 right-3 bg-deep-navy/90 border border-coral-orange text-coral-orange px-3 py-1 rounded-full text-[11px] font-mono font-bold flex items-center space-x-1.5 shadow-lg">
               <span className="w-2 h-2 rounded-full bg-coral-orange animate-ping" />
-              <span>ELA HEATMAP ACTIVE • 8x8 DCT Compression Delta Analysis</span>
+              <span>{language === "hi" ? "ELA ताप-मानचित्र सक्रिय • 8x8 DCT संपीड़न डेल्टा विश्लेषण" : "ELA HEATMAP ACTIVE • 8x8 DCT Compression Delta Analysis"}</span>
             </div>
           </motion.div>
         )}
@@ -208,30 +216,34 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
         {/* Watermark in background */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04] dark:opacity-[0.03]">
           <span className="text-7xl font-black rotate-[-25deg] uppercase text-deep-navy dark:text-crisp-white">
-            GOVERNMENT OF INDIA
+            {language === "hi" ? "भारत सरकार" : "GOVERNMENT OF INDIA"}
           </span>
         </div>
 
         {/* Document Header Representation */}
         <div className="border-b-2 border-warm-beige dark:border-warm-beige/30 pb-4 text-center space-y-1 relative px-14 sm:px-20">
           <div className="inline-block px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-lavender/15 text-lavender border border-lavender/30">
-            OFFICIAL STATUTORY DOCUMENT
+            {language === "hi" ? "आधिकारिक वैधानिक दस्तावेज़" : "OFFICIAL STATUTORY DOCUMENT"}
           </div>
           <h2 className="text-base sm:text-lg font-bold uppercase tracking-wider text-deep-navy dark:text-crisp-white break-words">
             {currentDoc.doc_name}
           </h2>
           <p className="text-xs text-muted-gray truncate">
-            Government e-Marketplace (GeM) Submission Record • Tender GEM/2026/B/9823410
+            {language === "hi"
+              ? "गवर्नमेंट ई-मार्केटप्लेस (GeM) प्रस्तुति रिकॉर्ड • निविदा GEM/2026/B/9823410"
+              : "Government e-Marketplace (GeM) Submission Record • Tender GEM/2026/B/9823410"}
           </p>
 
           {/* QR Code Graphic in top corner */}
           <div
             onClick={() => setIsQRModalOpen(true)}
             className="absolute top-0 right-0 p-1.5 bg-crisp-white dark:bg-deep-navy rounded-lg border border-warm-beige dark:border-warm-beige/30 cursor-pointer hover:border-lavender transition-all shadow-xs"
-            title="Click to cross-check QR code"
+            title={language === "hi" ? "QR कोड की जांच करने के लिए क्लिक करें" : "Click to cross-check QR code"}
           >
             <QrCode className="w-9 h-9 text-deep-navy dark:text-crisp-white" />
-            <span className="block text-[8px] text-center font-mono font-bold text-lavender">VERIFY</span>
+            <span className="block text-[8px] text-center font-mono font-bold text-lavender">
+              {language === "hi" ? "सत्यापित" : "VERIFY"}
+            </span>
           </div>
         </div>
 
@@ -265,7 +277,7 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
                         {block.field_mapped}
                       </span>
                     )}
-                    <span>{(block.confidence * 100).toFixed(0)}% Conf</span>
+                    <span>{(block.confidence * 100).toFixed(0)}% {language === "hi" ? "सटीकता" : "Conf"}</span>
                   </div>
                 </div>
 
@@ -278,10 +290,12 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
                   >
                     <div className="flex items-center space-x-1 font-bold">
                       <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
-                      <span>Forensic Anomaly: Compression Discrepancy & Incongruent Baseline</span>
+                      <span>{language === "hi" ? "फोरेंसिक विसंगति: संपीड़न विसंगति और असंगत बेसलाइन" : "Forensic Anomaly: Compression Discrepancy & Incongruent Baseline"}</span>
                     </div>
                     <p className="text-deep-navy dark:text-crisp-white">
-                      Field value diverges from Government Portal verified API response or indicates copy-paste raster alteration.
+                      {language === "hi"
+                        ? "फ़ील्ड मान सरकारी पोर्टल सत्यापित एपीआई प्रतिक्रिया से भिन्न है या कॉपी-पेस्ट छवि हेरफेर का संकेत देता है।"
+                        : "Field value diverges from Government Portal verified API response or indicates copy-paste raster alteration."}
                     </p>
                   </motion.div>
                 )}
@@ -293,7 +307,7 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
         {/* Document Footer with Official Seal & Signature */}
         <div className="pt-4 border-t border-dashed border-warm-beige dark:border-warm-beige/20 flex items-end justify-between text-xs text-muted-gray">
           <div>
-            <p className="font-mono text-[10px]">Doc ID: {currentDoc.doc_id}</p>
+            <p className="font-mono text-[10px]">{language === "hi" ? "दस्तावेज़ आईडी: " : "Doc ID: "}{currentDoc.doc_id}</p>
             <p className="font-mono text-[10px] truncate max-w-[220px]">
               SHA256: {currentDoc.file_hash_sha256}
             </p>
@@ -301,10 +315,10 @@ export function DocumentViewer({ bidder }: DocumentViewerProps) {
 
           <div className="text-right space-y-1">
             <div className="inline-block border-2 border-mint-green/60 text-mint-green font-bold text-[10px] uppercase px-3 py-1 rounded-md rotate-[-6deg]">
-              GeM-RAKSHAK VERIFIED
+              {language === "hi" ? "GeM-रक्षक सत्यापित" : "GeM-RAKSHAK VERIFIED"}
             </div>
             <p className="text-[10px] font-semibold text-deep-navy dark:text-crisp-white">
-              AI Ingestion Complete
+              {language === "hi" ? "एआई समावेशन पूर्ण" : "AI Ingestion Complete"}
             </p>
           </div>
         </div>

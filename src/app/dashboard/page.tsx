@@ -27,19 +27,19 @@ import {
 } from "recharts";
 
 export default function DashboardPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { tenders } = useTenderData();
 
   // Chart data matching exact tokens
   const riskDistribution = [
-    { name: "Compliant / Authentic", value: 18, color: "#10B981" },
-    { name: "Clarification Needed", value: 17, color: "#F59E0B" },
-    { name: "High Risk / Forgeries", value: 7, color: "#F4643C" },
+    { name: t.dashCompliantLabel, value: 18, color: "#10B981" },
+    { name: t.dashClarificationLabel, value: 17, color: "#F59E0B" },
+    { name: t.dashHighRiskLabel, value: 7, color: "#F4643C" },
   ];
 
   const savingsData = [
-    { name: "Manual Scrutiny", hours: 108, fill: "#647080" },
-    { name: "GeM-Rakshak AI", hours: 0.23, fill: "#6366F1" },
+    { name: t.dashManualScrutinyLabel, hours: 108, fill: "#647080" },
+    { name: t.dashAiScrutinyLabel, hours: 0.23, fill: "#6366F1" },
   ];
 
   return (
@@ -49,15 +49,15 @@ export default function DashboardPage() {
         <div>
           <div className="flex items-center space-x-2">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-lavender/15 text-lavender border border-lavender/30">
-              CPCL Procurement Cell • Manali Refinery
+              {t.dashWelcomeOrg}
             </span>
-            <span className="text-xs text-muted-gray">Live Scrutiny Console</span>
+            <span className="text-xs text-muted-gray">{t.dashLiveConsole}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-deep-navy dark:text-crisp-white mt-1">
             {t.appTitle} – {t.appSubtitle}
           </h1>
           <p className="text-xs sm:text-sm text-muted-gray mt-1 max-w-2xl">
-            Automated statutory cross-verification engine reconciling bidder submissions across MCA21, GSTN, Udyam, EPFO, and CPPP debarment databases.
+            {t.dashHeroDesc}
           </p>
         </div>
 
@@ -67,13 +67,13 @@ export default function DashboardPage() {
             className="flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-coral-orange/15 hover:bg-coral-orange/25 text-coral-orange border border-coral-orange/30 transition-all shadow-sm"
           >
             <Radar className="w-4 h-4 animate-spin" style={{ animationDuration: "8s" }} />
-            <span>Cartel Radar: 1 Ring Detected</span>
+            <span>{t.dashCartelAlertBtn}</span>
           </Link>
           <Link
             href="/tenders/GEM-2026-B-9823410/bidders"
             className="flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all"
           >
-            <span>Evaluate Active Tender</span>
+            <span>{t.dashEvaluateBtn}</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -103,8 +103,8 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="mt-3 pt-3 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-[11px] font-semibold text-lavender">
-            <span>Hydrocarbon & Pumps Category</span>
-            <span>Active</span>
+            <span>{language === "hi" ? "हाइड्रोकार्बन एवं पंप श्रेणी" : "Hydrocarbon & Pumps Category"}</span>
+            <span>{t.lblActive}</span>
           </div>
         </motion.div>
 
@@ -130,8 +130,8 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="mt-3 pt-3 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-[11px] font-semibold text-mint-green">
-            <span>100% Real-time Automated Verification</span>
-            <span>+14 today</span>
+            <span>{language === "hi" ? "100% रीयल-टाइम स्वचालित सत्यापन" : "100% Real-time Automated Verification"}</span>
+            <span>{language === "hi" ? "+14 आज" : "+14 today"}</span>
           </div>
         </motion.div>
 
@@ -153,12 +153,12 @@ export default function DashboardPage() {
               {t.kpiFraudBlockedBadge}
             </div>
             <p className="text-xs text-muted-gray mt-2">
-              Photoshop tampering, fake UDINs & debarred bidders
+              {language === "hi" ? "फ़ोटोशॉप संपादन, फ़र्ज़ी UDIN और डिबार बोलीदाता" : "Photoshop tampering, fake UDINs & debarred bidders"}
             </p>
           </div>
           <div className="mt-3 pt-3 border-t border-coral-orange/20 flex items-center justify-between text-[11px] font-bold text-coral-orange">
-            <span>Zero False Negatives</span>
-            <span>Critical Alert</span>
+            <span>{language === "hi" ? "शून्य असत्य नकारात्मक" : "Zero False Negatives"}</span>
+            <span>{language === "hi" ? "अतिसंवेदनशील चेतावनी" : "Critical Alert"}</span>
           </div>
         </motion.div>
 
@@ -180,12 +180,12 @@ export default function DashboardPage() {
               {t.kpiTimeSavedBadge}
             </div>
             <p className="text-xs text-muted-gray mt-2">
-              Down from 4.5 days manual cross-checking
+              {language === "hi" ? "4.5 दिनों की मानवीय संवीक्षा घटकर तत्काल हुई" : "Down from 4.5 days manual cross-checking"}
             </p>
           </div>
           <div className="mt-3 pt-3 border-t border-mint-green/20 flex items-center justify-between text-[11px] font-bold text-mint-green">
-            <span>CVC Audit Compliant</span>
-            <span>99.9% Faster</span>
+            <span>{language === "hi" ? "CVC ऑडिट अनुपालित" : "CVC Audit Compliant"}</span>
+            <span>{language === "hi" ? "99.9% तीव्रतम" : "99.9% Faster"}</span>
           </div>
         </motion.div>
       </div>
@@ -202,7 +202,7 @@ export default function DashboardPage() {
             </p>
           </div>
           <span className="px-3 py-1 rounded-full text-xs font-bold bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
-            {tenders.length} Active CPCL Procurements
+            {tenders.length} {language === "hi" ? "सक्रिय CPCL अधिप्राप्तियां" : "Active CPCL Procurements"}
           </span>
         </div>
 
@@ -232,7 +232,7 @@ export default function DashboardPage() {
                         <span>{tender.tender_id}</span>
                         {isPrimary && (
                           <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-lavender text-crisp-white">
-                            Active
+                            {t.lblActive}
                           </span>
                         )}
                       </div>
@@ -252,13 +252,13 @@ export default function DashboardPage() {
                     </td>
                     <td className="py-3.5 px-4">
                       <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
-                        {tender.total_bids} Bidders
+                        {tender.total_bids} {language === "hi" ? "बोलीदाता" : "Bidders"}
                       </span>
                     </td>
                     <td className="py-3.5 px-4 min-w-[140px]">
                       <div className="space-y-1">
                         <div className="flex justify-between text-[10px] font-semibold text-muted-gray">
-                          <span>Scrutiny</span>
+                          <span>{language === "hi" ? "संवीक्षा" : "Scrutiny"}</span>
                           <span>{tender.scrutiny_progress}%</span>
                         </div>
                         <div className="w-full h-2 rounded-full bg-warm-beige/60 dark:bg-dark-navy overflow-hidden">
@@ -275,7 +275,7 @@ export default function DashboardPage() {
                           <Link
                             href="/tenders/GEM-2026-B-9823410/cartel-network"
                             className="p-1.5 rounded-lg border border-coral-orange/40 text-coral-orange hover:bg-coral-orange/15 transition-all"
-                            title="View Cartel Radar"
+                            title={language === "hi" ? "कार्टेल रडार देखें" : "View Cartel Radar"}
                           >
                             <Radar className="w-4 h-4" />
                           </Link>
@@ -301,10 +301,10 @@ export default function DashboardPage() {
         {/* Compliance Risk Breakdown Donut */}
         <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3">
           <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
-            Bidder Compliance Status Breakdown
+            {t.dashRiskDistribution}
           </h3>
           <p className="text-xs text-muted-gray">
-            42 Total Bids Scrutinized Across CPCL Tenders
+            {language === "hi" ? "CPCL निविदाओं में कुल 42 बोलियों की संवीक्षा" : "42 Total Bids Scrutinized Across CPCL Tenders"}
           </p>
 
           <div className="h-52 flex items-center justify-center">
@@ -352,10 +352,10 @@ export default function DashboardPage() {
         {/* Evaluation Velocity Comparison */}
         <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3">
           <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
-            Evaluation Velocity Benchmark (Hours)
+            {t.dashTimeSavedChart}
           </h3>
           <p className="text-xs text-muted-gray">
-            Manual Human Verification vs GeM-Rakshak AI Pipeline
+            {language === "hi" ? "पारंपरिक मानवीय सत्यापन बनाम GeM-रक्षक एआई इंजन" : "Manual Human Verification vs GeM-Rakshak AI Pipeline"}
           </p>
 
           <div className="h-52 flex items-center justify-center">
@@ -379,7 +379,7 @@ export default function DashboardPage() {
 
           <div className="p-3 rounded-xl bg-mint-green/15 border border-mint-green/30 text-xs text-mint-green font-semibold flex items-center space-x-2">
             <TrendingUp className="w-4 h-4 shrink-0" />
-            <span>82% turnaround improvement per CPSE tender cycle</span>
+            <span>{language === "hi" ? "प्रति CPSE निविदा चक्र में 82% समय की बचत" : "82% turnaround improvement per CPSE tender cycle"}</span>
           </div>
         </div>
 
@@ -387,42 +387,42 @@ export default function DashboardPage() {
         <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
-              Recent Forensic Detections
+              {language === "hi" ? "हालिया फोरेंसिक विसंगतियां" : "Recent Forensic Detections"}
             </h3>
             <span className="w-2 h-2 rounded-full bg-coral-orange animate-ping" />
           </div>
           <p className="text-xs text-muted-gray">
-            Automated alerts flagged in CPCL Hydrocarbon tenders
+            {language === "hi" ? "CPCL हाइड्रोकार्बन निविदाओं में स्वचालित अलर्ट" : "Automated alerts flagged in CPCL Hydrocarbon tenders"}
           </p>
 
           <div className="space-y-2.5 overflow-y-auto max-h-56">
             <div className="p-3 rounded-xl bg-coral-orange/15 border border-coral-orange/40 space-y-1 text-xs">
               <div className="flex items-center justify-between font-bold text-coral-orange">
-                <span>IOCL Debarment Active</span>
-                <span className="font-mono text-[10px]">Just now</span>
+                <span>{language === "hi" ? "IOCL डिबारमेंट सक्रिय" : "IOCL Debarment Active"}</span>
+                <span className="font-mono text-[10px]">{language === "hi" ? "अभी-अभी" : "Just now"}</span>
               </div>
               <p className="text-deep-navy dark:text-crisp-white text-[11px]">
-                Apex Engineering debarred across CPSEs until Oct 2027 under GFR Rule 151.
+                {language === "hi" ? "GFR नियम 151 के अंतर्गत अक्टूबर 2027 तक CPSEs में एपेक्स इंजीनियरिंग प्रतिबंधित।" : "Apex Engineering debarred across CPSEs until Oct 2027 under GFR Rule 151."}
               </p>
             </div>
 
             <div className="p-3 rounded-xl bg-coral-orange/15 border border-coral-orange/40 space-y-1 text-xs">
               <div className="flex items-center justify-between font-bold text-coral-orange">
-                <span>Photoshop CC 2024 Alteration</span>
-                <span className="font-mono text-[10px]">10m ago</span>
+                <span>{language === "hi" ? "फ़ोटोशॉप CC 2024 संपादन" : "Photoshop CC 2024 Alteration"}</span>
+                <span className="font-mono text-[10px]">{language === "hi" ? "10 मिनट पूर्व" : "10m ago"}</span>
               </div>
               <p className="text-deep-navy dark:text-crisp-white text-[11px]">
-                Turnover digits edited from ₹1.5 Cr to ₹18.5 Cr in CA Net Worth certificate.
+                {language === "hi" ? "CA नेटवर्थ प्रमाणपत्र में टर्नओवर अंक ₹1.5 करोड़ से बदलकर ₹18.5 करोड़ किए गए।" : "Turnover digits edited from ₹1.5 Cr to ₹18.5 Cr in CA Net Worth certificate."}
               </p>
             </div>
 
             <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-500/40 space-y-1 text-xs">
               <div className="flex items-center justify-between font-bold text-amber-500">
-                <span>MSME NIC Category Mismatch</span>
-                <span className="font-mono text-[10px]">25m ago</span>
+                <span>{language === "hi" ? "MSME NIC श्रेणी बेमेल" : "MSME NIC Category Mismatch"}</span>
+                <span className="font-mono text-[10px]">{language === "hi" ? "25 मिनट पूर्व" : "25m ago"}</span>
               </div>
               <p className="text-deep-navy dark:text-crisp-white text-[11px]">
-                Bharat Petro registered for Services (74909), tender mandates Manufacturing.
+                {language === "hi" ? "भारत पेट्रो सेवाओं (74909) के लिए पंजीकृत, जबकि निविदा विनिर्माण की मांग करती है।" : "Bharat Petro registered for Services (74909), tender mandates Manufacturing."}
               </p>
             </div>
           </div>

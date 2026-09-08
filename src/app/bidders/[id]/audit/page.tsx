@@ -33,7 +33,7 @@ export default function BidderAuditPage() {
   const params = useParams();
   const bidderId = (params?.id as string) || "BID-CPCL-001";
 
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { getBidderById, getTenderById, qualifyBidder } = useTenderData();
 
   const bidder = getBidderById(bidderId) || getBidderById("BID-CPCL-001");
@@ -55,7 +55,7 @@ export default function BidderAuditPage() {
   if (!bidder || !tender) {
     return (
       <div className="p-12 text-center text-muted-gray">
-        Bidder not found.
+        {language === "hi" ? "बोलीदाता नहीं मिला।" : "Bidder not found."}
       </div>
     );
   }
@@ -99,7 +99,7 @@ export default function BidderAuditPage() {
               className="flex items-center space-x-1 hover:text-lavender transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Bidders</span>
+              <span>{language === "hi" ? "बोलीदाताओं की सूची पर वापस" : "Back to Bidders"}</span>
             </Link>
             <span>/</span>
             <span className="font-mono">{bidder.bidder_id}</span>
@@ -114,7 +114,8 @@ export default function BidderAuditPage() {
             </span>
           </div>
           <p className="text-xs text-muted-gray">
-            Evaluating Bid Value: <strong>₹{(bidder.bid_value_inr / 10000000).toFixed(2)} Cr</strong> | Tender: GEM/2026/B/9823410
+            {language === "hi" ? "मूल्यांकनधीन निविदा मूल्य: " : "Evaluating Bid Value: "}
+            <strong>₹{(bidder.bid_value_inr / 10000000).toFixed(2)} {language === "hi" ? "करोड़" : "Cr"}</strong> | {language === "hi" ? "निविदा: " : "Tender: "} GEM/2026/B/9823410
           </p>
         </div>
 
@@ -159,7 +160,7 @@ export default function BidderAuditPage() {
               </p>
             </div>
             <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-lavender/15 text-lavender border border-lavender/30">
-              Forensics Engine v4.8
+              {language === "hi" ? "फोरेंसिक इंजन संस्करण 4.8" : "Forensics Engine v4.8"}
             </span>
           </div>
 
@@ -186,10 +187,10 @@ export default function BidderAuditPage() {
               <div className="flex items-center justify-between">
                 <span className="font-bold text-xs uppercase tracking-wider text-muted-gray flex items-center space-x-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-lavender" />
-                  <span>AI Comprehensive Finding</span>
+                  <span>{language === "hi" ? "एआई समग्र निष्कर्ष" : "AI Comprehensive Finding"}</span>
                 </span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
-                  Recommendation: {bidder.ai_evaluation.ai_recommendation}
+                  {language === "hi" ? "सिफारिश: " : "Recommendation: "}{bidder.ai_evaluation.ai_recommendation}
                 </span>
               </div>
               <p className="text-deep-navy dark:text-crisp-white leading-relaxed bg-crisp-white dark:bg-dark-navy p-3.5 rounded-xl border border-warm-beige dark:border-warm-beige/20">
@@ -215,11 +216,11 @@ export default function BidderAuditPage() {
                 <div className="flex items-center space-x-2">
                   {isDebarred ? (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white animate-pulse">
-                      Debarred by IOCL
+                      {language === "hi" ? "IOCL द्वारा प्रतिबंधित" : "Debarred by IOCL"}
                     </span>
                   ) : (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
-                      MCA21 Active
+                      {language === "hi" ? "MCA21 सक्रिय" : "MCA21 Active"}
                     </span>
                   )}
                   {openAccordions.mca21 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -236,21 +237,23 @@ export default function BidderAuditPage() {
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
-                        <span className="text-muted-gray block">Company Status:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "कंपनी स्थिति:" : "Company Status:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.mca21_api.company_status}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Incorporation Date:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "निगमन तिथि:" : "Incorporation Date:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.mca21_api.incorporation_date}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Paid Up Capital:</span>
-                        <strong className="text-deep-navy dark:text-crisp-white">₹{(bidder.portal_api_responses.mca21_api.paid_up_capital_inr / 100000).toFixed(2)} Lakhs</strong>
+                        <span className="text-muted-gray block">{language === "hi" ? "चुकता पूंजी:" : "Paid Up Capital:"}</span>
+                        <strong className="text-deep-navy dark:text-crisp-white">₹{(bidder.portal_api_responses.mca21_api.paid_up_capital_inr / 100000).toFixed(2)} {language === "hi" ? "लाख" : "Lakhs"}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">CPPP Debarment:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "CPPP प्रतिबंध:" : "CPPP Debarment:"}</span>
                         <strong className={isDebarred ? "text-coral-orange" : "text-mint-green"}>
-                          {isDebarred ? "CRITICAL: Active Debarment until Oct 2027" : "CLEAN (Not Debarred)"}
+                          {isDebarred
+                            ? (language === "hi" ? "गंभीर: अक्टूबर 2027 तक सक्रिय प्रतिबंध" : "CRITICAL: Active Debarment until Oct 2027")
+                            : (language === "hi" ? "स्वच्छ (कोई प्रतिबंध नहीं)" : "CLEAN (Not Debarred)")}
                         </strong>
                       </div>
                     </div>
@@ -274,15 +277,15 @@ export default function BidderAuditPage() {
                 <div className="flex items-center space-x-2">
                   {hasNICMismatch ? (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
-                      NIC Mismatch (Services)
+                      {language === "hi" ? "NIC बेमेल (सेवाएं)" : "NIC Mismatch (Services)"}
                     </span>
                   ) : bidder.portal_api_responses.udyam_api.valid ? (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
-                      Valid Mfg Scope
+                      {language === "hi" ? "वैध विनिर्माण दायरा" : "Valid Mfg Scope"}
                     </span>
                   ) : (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
-                      Invalid Udyam
+                      {language === "hi" ? "अमान्य उद्यम" : "Invalid Udyam"}
                     </span>
                   )}
                   {openAccordions.udyam ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -299,27 +302,29 @@ export default function BidderAuditPage() {
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
-                        <span className="text-muted-gray block">Udyam Number:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "उद्यम संख्या:" : "Udyam Number:"}</span>
                         <strong className="font-mono text-deep-navy dark:text-crisp-white">{bidder.submitted_data.udyam_number}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Enterprise Type:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "उद्यम प्रकार:" : "Enterprise Type:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.udyam_api.enterprise_type}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Major Activity:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "प्रमुख गतिविधि:" : "Major Activity:"}</span>
                         <strong className={hasNICMismatch ? "text-coral-orange font-bold" : "text-deep-navy dark:text-crisp-white"}>
                           {bidder.portal_api_responses.udyam_api.major_activity}
                         </strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">NIC 5-Digit Code:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "NIC 5-अंकीय कोड:" : "NIC 5-Digit Code:"}</span>
                         <strong className="font-mono text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.udyam_api.nic_5_digit_code || "None"}</strong>
                       </div>
                     </div>
                     {hasNICMismatch && (
                       <div className="p-2.5 rounded-xl bg-coral-orange/15 border border-coral-orange/40 text-coral-orange text-[11px]">
-                        ⚠️ <strong>Discrepancy:</strong> Bidder registered under NIC 74909 (Services) rather than mandatory NIC 28132 (Valves Manufacturing). Ineligible for MSME price preference exemption!
+                        {language === "hi"
+                          ? "⚠️ विसंगति: बोलीदाता अनिवार्य NIC 28132 (वाल्व विनिर्माण) के बजाय NIC 74909 (व्यावसायिक सेवाएं) के तहत पंजीकृत है। MSME मूल्य प्राथमिकता छूट के लिए अपात्र!"
+                          : "⚠️ Discrepancy: Bidder registered under NIC 74909 (Services) rather than mandatory NIC 28132 (Valves Manufacturing). Ineligible for MSME price preference exemption!"}
                       </div>
                     )}
                   </motion.div>
@@ -342,15 +347,15 @@ export default function BidderAuditPage() {
                 <div className="flex items-center space-x-2">
                   {isSuspendedGST ? (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
-                      GST Suspended
+                      {language === "hi" ? "GST निलंबित" : "GST Suspended"}
                     </span>
                   ) : bidder.portal_api_responses.gstn_api.return_compliance_score.includes("Defaulter") ? (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-white">
-                      2 Filings Pending
+                      {language === "hi" ? "2 रिटर्न लंबित" : "2 Filings Pending"}
                     </span>
                   ) : (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
-                      100% Tax Compliant
+                      {language === "hi" ? "100% कर अनुपालित" : "100% Tax Compliant"}
                     </span>
                   )}
                   {openAccordions.tax ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -367,24 +372,24 @@ export default function BidderAuditPage() {
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
-                        <span className="text-muted-gray block">GSTIN Status:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "GSTIN स्थिति:" : "GSTIN Status:"}</span>
                         <strong className={isSuspendedGST ? "text-coral-orange" : "text-deep-navy dark:text-crisp-white"}>
                           {bidder.portal_api_responses.gstn_api.status}
                         </strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">GSTR-3B Regularity:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "GSTR-3B नियमितता:" : "GSTR-3B Regularity:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.gstn_api.return_compliance_score}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Income Tax Sec 206AB Non-Filer:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "आयकर धारा 206AB गैर-दाखिलकर्ता:" : "Income Tax Sec 206AB Non-Filer:"}</span>
                         <strong className={bidder.portal_api_responses.pan_income_tax_api.sec_206ab_specified_person === "Yes" ? "text-coral-orange" : "text-mint-green"}>
                           {bidder.portal_api_responses.pan_income_tax_api.sec_206ab_specified_person}
                         </strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Portal Reported Turnover:</span>
-                        <strong className="font-mono text-deep-navy dark:text-crisp-white">₹{(bidder.portal_api_responses.gstn_api.turnover_reported_inr / 10000000).toFixed(2)} Cr</strong>
+                        <span className="text-muted-gray block">{language === "hi" ? "पोर्टल दर्ज कारोबार:" : "Portal Reported Turnover:"}</span>
+                        <strong className="font-mono text-deep-navy dark:text-crisp-white">₹{(bidder.portal_api_responses.gstn_api.turnover_reported_inr / 10000000).toFixed(2)} {language === "hi" ? "करोड़" : "Cr"}</strong>
                       </div>
                     </div>
                   </motion.div>
@@ -407,11 +412,11 @@ export default function BidderAuditPage() {
                 <div className="flex items-center space-x-2">
                   {bidder.submitted_data.claimed_mii_percentage >= 50 ? (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
-                      Class-I ({bidder.submitted_data.claimed_mii_percentage}%)
+                      {language === "hi" ? "कक्षा-I" : "Class-I"} ({bidder.submitted_data.claimed_mii_percentage}%)
                     </span>
                   ) : (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
-                      Fails Class-I ({bidder.submitted_data.claimed_mii_percentage}%)
+                      {language === "hi" ? "कक्षा-I में विफल" : "Fails Class-I"} ({bidder.submitted_data.claimed_mii_percentage}%)
                     </span>
                   )}
                   {openAccordions.mii ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -428,11 +433,11 @@ export default function BidderAuditPage() {
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
-                        <span className="text-muted-gray block">Local Content Percentage:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "स्थानीय सामग्री प्रतिशतता:" : "Local Content Percentage:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.submitted_data.claimed_mii_percentage}%</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Certification Type:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "प्रमाणीकरण प्रकार:" : "Certification Type:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.submitted_data.mii_cert_type}</strong>
                       </div>
                     </div>
@@ -461,7 +466,9 @@ export default function BidderAuditPage() {
                         : "bg-coral-orange text-white"
                     }`}
                   >
-                    {bidder.portal_api_responses.epfo_esic_api.epfo_status}
+                    {bidder.portal_api_responses.epfo_esic_api.epfo_status === "Active"
+                      ? (language === "hi" ? "सक्रिय" : "Active")
+                      : bidder.portal_api_responses.epfo_esic_api.epfo_status}
                   </span>
                   {openAccordions.epfo ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </div>
@@ -477,12 +484,12 @@ export default function BidderAuditPage() {
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
-                        <span className="text-muted-gray block">Last ECR Wage Month:</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "अंतिम ECR वेतन माह:" : "Last ECR Wage Month:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.epfo_esic_api.last_ecr_wage_month}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">Active Subscribers:</span>
-                        <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.epfo_esic_api.active_subscribers} Employees</strong>
+                        <span className="text-muted-gray block">{language === "hi" ? "सक्रिय अंशदाता:" : "Active Subscribers:"}</span>
+                        <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.epfo_esic_api.active_subscribers} {language === "hi" ? "कर्मचारी" : "Employees"}</strong>
                       </div>
                     </div>
                   </motion.div>
@@ -499,7 +506,7 @@ export default function BidderAuditPage() {
           {/* AI Recommendation Disclaimer */}
           <div className="text-xs text-muted-gray max-w-md lg:max-w-lg text-center lg:text-left leading-relaxed">
             <span className="font-semibold text-deep-navy dark:text-crisp-white">
-              Decision Support Notice:
+              {language === "hi" ? "निर्णय समर्थन वैधानिक सूचना:" : "Decision Support Notice:"}
             </span>{" "}
             {t.aiDisclaimer}
           </div>

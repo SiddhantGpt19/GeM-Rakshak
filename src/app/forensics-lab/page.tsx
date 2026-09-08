@@ -38,7 +38,7 @@ interface AuditSummary {
 }
 
 export default function ForensicsLabPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [isScanning, setIsScanning] = useState(false);
@@ -49,7 +49,7 @@ export default function ForensicsLabPage() {
 
   // Drag-and-drop & upload state
   const [isDragging, setIsDragging] = useState(false);
-  const [scanStepText, setScanStepText] = useState("AI Optical Forensics Scanning In Progress...");
+  const [scanStepText, setScanStepText] = useState(t.laserScanActive);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [detectedEntities, setDetectedEntities] = useState<StatutoryEntities | null>(null);
   const [auditSummary, setAuditSummary] = useState<AuditSummary | null>(null);
@@ -188,15 +188,15 @@ export default function ForensicsLabPage() {
     setSelectedSample("uploaded");
 
     // Stage 1: File Reading & Hash
-    setScanStepText("1/4: Reading byte stream & calculating cryptographic SHA-256 hash...");
+    setScanStepText(t.forensicsScanStep1);
     await new Promise((r) => setTimeout(r, 600));
 
     // Stage 2: Exif & XMP Metadata
-    setScanStepText("2/4: Extracting XMP metadata, catalog producer & font stream tables...");
+    setScanStepText(t.forensicsScanStep2);
     await new Promise((r) => setTimeout(r, 600));
 
     // Stage 3: OCR & Statutory parsing
-    setScanStepText("3/4: Running neural OCR extraction & identifying statutory entities...");
+    setScanStepText(t.forensicsScanStep3);
 
     try {
       const formData = new FormData();
@@ -211,7 +211,7 @@ export default function ForensicsLabPage() {
         const json = await res.json();
         if (json.success && json.data) {
           // Stage 4: Cross-registry checks
-          setScanStepText("4/4: Cross-reconciling extracted PAN, GSTIN, UDYAM & UDIN against live registries...");
+          setScanStepText(t.forensicsScanStep4);
           await new Promise((r) => setTimeout(r, 700));
 
           setActiveDoc(json.data);
@@ -232,13 +232,13 @@ export default function ForensicsLabPage() {
     setUploadedFileName("Sample_Tender_Forensics_Test.pdf");
     setSelectedSample("uploaded");
 
-    setScanStepText("1/4: Reading byte stream & calculating cryptographic SHA-256 hash...");
+    setScanStepText(t.forensicsScanStep1);
     await new Promise((r) => setTimeout(r, 600));
 
-    setScanStepText("2/4: Extracting XMP metadata, catalog producer & font stream tables...");
+    setScanStepText(t.forensicsScanStep2);
     await new Promise((r) => setTimeout(r, 600));
 
-    setScanStepText("3/4: Running neural OCR extraction & identifying statutory entities...");
+    setScanStepText(t.forensicsScanStep3);
     await new Promise((r) => setTimeout(r, 600));
 
     try {
@@ -251,7 +251,7 @@ export default function ForensicsLabPage() {
       if (res.ok) {
         const json = await res.json();
         if (json.success && json.data) {
-          setScanStepText("4/4: Cross-reconciling extracted PAN, GSTIN, UDYAM & UDIN against live registries...");
+          setScanStepText(t.forensicsScanStep4);
           await new Promise((r) => setTimeout(r, 700));
 
           setActiveDoc(json.data);
@@ -309,13 +309,13 @@ export default function ForensicsLabPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-sm">
         <div>
           <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
-            Neural Image & Document Verification Sandbox
+            {language === "hi" ? "न्यूरल छवि एवं दस्तावेज़ सत्यापन सैंडबॉक्स" : "Neural Image & Document Verification Sandbox"}
           </span>
           <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
             {t.navForensicsLab}
           </h1>
           <p className="text-xs text-muted-gray">
-            Upload your own PDF or inspect test documents with real-time OCR extraction & statutory cross-checks
+            {t.forensicsHeroSubtitle}
           </p>
         </div>
 
@@ -338,7 +338,7 @@ export default function ForensicsLabPage() {
                 : "bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
             }`}
           >
-            Sample: Photoshop Altered
+            {t.forensicsSampleTampered}
           </button>
           <button
             onClick={() => {
@@ -353,7 +353,7 @@ export default function ForensicsLabPage() {
                 : "bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
             }`}
           >
-            Sample: Authentic Udyam
+            {t.forensicsSampleGenuine}
           </button>
         </div>
       </div>
@@ -374,7 +374,7 @@ export default function ForensicsLabPage() {
                 }`}
               >
                 <Eye className="w-3.5 h-3.5" />
-                <span>Normal View</span>
+                <span>{t.toolNormal}</span>
               </button>
               <button
                 onClick={() => setActiveTool(activeTool === "ela" ? "normal" : "ela")}
@@ -387,21 +387,21 @@ export default function ForensicsLabPage() {
                 }`}
               >
                 <Flame className="w-3.5 h-3.5 text-coral-orange" />
-                <span>ELA Heatmap</span>
+                <span>{t.toolELA}</span>
               </button>
               <button
                 onClick={() => setIsExifModalOpen(true)}
                 className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white hover:border-lavender"
               >
                 <Search className="w-3.5 h-3.5" />
-                <span>Exif Metadata</span>
+                <span>{t.toolExif}</span>
               </button>
               <button
                 onClick={() => setIsQRModalOpen(true)}
                 className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white hover:border-lavender"
               >
                 <QrCode className="w-3.5 h-3.5" />
-                <span>QR Cross-Check</span>
+                <span>{t.toolQR}</span>
               </button>
               {activeDoc.udin_check && (
                 <button
@@ -409,7 +409,7 @@ export default function ForensicsLabPage() {
                   className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white hover:border-lavender"
                 >
                   <Landmark className="w-3.5 h-3.5" />
-                  <span>UDIN Status</span>
+                  <span>{t.toolUDIN}</span>
                 </button>
               )}
             </div>
@@ -423,7 +423,7 @@ export default function ForensicsLabPage() {
               className="flex items-center space-x-1.5 text-xs text-lavender font-bold hover:underline"
             >
               <Sparkles className="w-4 h-4" />
-              <span>Laser Sweep</span>
+              <span>{language === "hi" ? "लेज़र स्वीप" : "Laser Sweep"}</span>
             </button>
           </div>
 
@@ -434,20 +434,20 @@ export default function ForensicsLabPage() {
             {activeTool === "ela" && activeDoc.ela_tamper_detected && (
               <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-purple-950/40 to-red-950/40 z-10">
                 <div className="absolute top-3 right-3 bg-deep-navy/90 border border-coral-orange text-coral-orange px-3 py-1 rounded-full text-[11px] font-mono font-bold animate-pulse shadow-lg">
-                  ELA HIGH COMPRESSION RESIDUAL ANOMALY DETECTED
+                  {language === "hi" ? "ELA उच्च संपीड़न अवशेष विसंगति चिह्नित" : "ELA HIGH COMPRESSION RESIDUAL ANOMALY DETECTED"}
                 </div>
               </div>
             )}
 
             <div className="text-center border-b pb-4 border-warm-beige dark:border-warm-beige/20 relative pr-16">
               <span className="px-2.5 py-0.5 rounded text-[10px] font-mono uppercase bg-lavender/15 text-lavender font-bold">
-                FORENSICS OCR CANVAS
+                {language === "hi" ? "फोरेंसिक ओसीआर कैनवास" : "FORENSICS OCR CANVAS"}
               </span>
               <h2 className="text-base sm:text-lg font-bold text-deep-navy dark:text-crisp-white mt-1 break-words">
                 {activeDoc.doc_name}
               </h2>
               <p className="text-xs text-muted-gray">
-                Source File: {activeDoc.file_name} • Scanned via GeM-Rakshak Neural Engine
+                {language === "hi" ? `स्रोत फ़ाइल: ${activeDoc.file_name} • GeM-रक्षक न्यूरल इंजन द्वारा स्कैन` : `Source File: ${activeDoc.file_name} • Scanned via GeM-Rakshak Neural Engine`}
               </p>
 
               {/* Real Scannable QR Matrix */}
@@ -464,12 +464,12 @@ export default function ForensicsLabPage() {
                   />
                   <div className="absolute inset-0 bg-lavender/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span className="text-[7px] font-black uppercase tracking-tighter text-lavender bg-white/95 dark:bg-deep-navy/95 px-1 py-0.5 rounded shadow">
-                      SCAN
+                      {language === "hi" ? "स्कैन" : "SCAN"}
                     </span>
                   </div>
                 </div>
                 <span className="block text-[8px] text-center font-mono font-bold text-lavender mt-0.5">
-                  LIVE QR
+                  {language === "hi" ? "सक्रिय QR" : "LIVE QR"}
                 </span>
               </div>
             </div>
@@ -500,7 +500,7 @@ export default function ForensicsLabPage() {
                   </div>
                   {block.is_anomalous && (
                     <p className="text-[10px] font-sans text-coral-orange mt-1.5 font-medium">
-                      ⚠️ Tampering alert: Pixel variance and font raster compression anomaly detected.
+                      {language === "hi" ? "⚠️ छेड़छाड़ चेतावनी: पिक्सेल भिन्नता एवं फ़ॉन्ट रास्टर संपीड़न विसंगति चिह्नित।" : "⚠️ Tampering alert: Pixel variance and font raster compression anomaly detected."}
                     </p>
                   )}
                 </div>
@@ -510,7 +510,7 @@ export default function ForensicsLabPage() {
             {/* Document Hash & Footer */}
             <div className="pt-4 border-t border-dashed border-warm-beige dark:border-warm-beige/20 flex flex-col sm:flex-row items-center justify-between text-[11px] text-muted-gray font-mono gap-2">
               <span className="truncate max-w-md">SHA-256: {activeDoc.file_hash_sha256}</span>
-              <span className="text-lavender font-bold shrink-0">GeM-Rakshak Neural Sandbox</span>
+              <span className="text-lavender font-bold shrink-0">{language === "hi" ? "GeM-रक्षक न्यूरल सैंडबॉक्स" : "GeM-Rakshak Neural Sandbox"}</span>
             </div>
           </div>
         </div>
@@ -536,10 +536,10 @@ export default function ForensicsLabPage() {
             </div>
             <div className="space-y-1">
               <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
-                Drop Document for Instant Forensics
+                {t.forensicsDropzoneTitle}
               </h3>
               <p className="text-xs text-muted-gray">
-                Supports PDF, TIFF, and high-res Scans up to 50MB
+                {t.forensicsDropzoneSubtitle}
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-1">
@@ -549,7 +549,7 @@ export default function ForensicsLabPage() {
                 className="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all flex items-center justify-center space-x-1.5"
               >
                 <Upload className="w-3.5 h-3.5" />
-                <span>Choose PDF from Computer</span>
+                <span>{language === "hi" ? "कंप्यूटर से PDF चुनें" : "Choose PDF from Computer"}</span>
               </button>
               <button
                 type="button"
@@ -558,7 +558,7 @@ export default function ForensicsLabPage() {
                 className="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold bg-crisp-white dark:bg-dark-navy hover:bg-soft-beige dark:hover:bg-deep-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/30 transition-all flex items-center justify-center space-x-1.5 shadow-xs"
               >
                 <Sparkles className="w-3.5 h-3.5 text-lavender" />
-                <span>Analyze Test Document</span>
+                <span>{t.forensicsBtnInstantTest}</span>
               </button>
             </div>
           </div>
@@ -569,11 +569,11 @@ export default function ForensicsLabPage() {
               <div className="flex items-center space-x-2">
                 <FileCheck className="w-4 h-4 text-mint-green" />
                 <h3 className="font-bold text-deep-navy dark:text-crisp-white">
-                  Extracted Statutory Data
+                  {language === "hi" ? "निष्कर्षित वैधानिक विवरण" : "Extracted Statutory Data"}
                 </h3>
               </div>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-lavender/15 text-lavender font-bold">
-                Auto-Parsed
+                {language === "hi" ? "स्वचालित विश्लेषित" : "Auto-Parsed"}
               </span>
             </div>
 
@@ -583,12 +583,12 @@ export default function ForensicsLabPage() {
                 <div>
                   <span className="text-[10px] font-bold uppercase text-muted-gray block">GSTIN</span>
                   <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.gstin || "Not detected in text"}
+                    {detectedEntities?.gstin || (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")}
                   </span>
                 </div>
                 {detectedEntities?.gstin ? (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                    Format Valid
+                    {language === "hi" ? "प्रारूप वैध" : "Format Valid"}
                   </span>
                 ) : (
                   <span className="text-[10px] text-muted-gray font-mono">N/A</span>
@@ -600,17 +600,17 @@ export default function ForensicsLabPage() {
                 <div>
                   <span className="text-[10px] font-bold uppercase text-muted-gray block">PAN</span>
                   <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.pan || "Not detected in text"}
+                    {detectedEntities?.pan || (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")}
                   </span>
                 </div>
                 {detectedEntities?.pan ? (
                   detectedEntities.pan === "AAACD9988P" ? (
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-coral-orange/15 text-coral-orange border border-coral-orange/30 animate-pulse">
-                      Debarred Entity
+                      {language === "hi" ? "प्रतिबंधित संस्था" : "Debarred Entity"}
                     </span>
                   ) : (
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                      CPPP Clear
+                      {language === "hi" ? "CPPP स्वीकृत" : "CPPP Clear"}
                     </span>
                   )
                 ) : (
@@ -621,14 +621,14 @@ export default function ForensicsLabPage() {
               {/* Udyam */}
               <div className="flex items-center justify-between p-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
                 <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-gray block">MSME Udyam No</span>
+                  <span className="text-[10px] font-bold uppercase text-muted-gray block">{language === "hi" ? "एमएसएमई उद्यम संख्या" : "MSME Udyam No"}</span>
                   <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.udyam || "Not detected in text"}
+                    {detectedEntities?.udyam || (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")}
                   </span>
                 </div>
                 {detectedEntities?.udyam ? (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                    MSME Verified
+                    {language === "hi" ? "MSME सत्यापित" : "MSME Verified"}
                   </span>
                 ) : (
                   <span className="text-[10px] text-muted-gray font-mono">N/A</span>
@@ -638,19 +638,19 @@ export default function ForensicsLabPage() {
               {/* UDIN */}
               <div className="flex items-center justify-between p-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
                 <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-gray block">CA UDIN</span>
+                  <span className="text-[10px] font-bold uppercase text-muted-gray block">{language === "hi" ? "सीए UDIN" : "CA UDIN"}</span>
                   <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.udin || "Not detected in text"}
+                    {detectedEntities?.udin || (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")}
                   </span>
                 </div>
                 {detectedEntities?.udin ? (
                   detectedEntities.udin.includes("INVALID") ? (
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-coral-orange/15 text-coral-orange border border-coral-orange/30 animate-pulse">
-                      ICAI Forgery
+                      {language === "hi" ? "ICAI जालसाजी" : "ICAI Forgery"}
                     </span>
                   ) : (
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                      ICAI Valid
+                      {language === "hi" ? "ICAI वैध" : "ICAI Valid"}
                     </span>
                   )
                 ) : (
@@ -664,7 +664,7 @@ export default function ForensicsLabPage() {
               href="/gateways"
               className="flex items-center justify-between p-2 rounded-xl bg-lavender/10 hover:bg-lavender/20 text-lavender font-semibold text-[11px] transition-all"
             >
-              <span>Cross-check with Gateway Middleware &rarr;</span>
+              <span>{language === "hi" ? "गेटवे मिडलवेयर के साथ क्रॉस-चेक करें →" : "Cross-check with Gateway Middleware →"}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -676,11 +676,11 @@ export default function ForensicsLabPage() {
                 <div className="flex items-center space-x-2">
                   <ShieldCheck className="w-4 h-4 text-lavender" />
                   <h3 className="font-bold text-deep-navy dark:text-crisp-white">
-                    AI Cross-Registry Audit
+                    {language === "hi" ? "एआई अंतर-रजिस्ट्री ऑडिट" : "AI Cross-Registry Audit"}
                   </h3>
                 </div>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-mint-green/15 text-mint-green font-bold">
-                  Live Checked
+                  {language === "hi" ? "लाइव सत्यापित" : "Live Checked"}
                 </span>
               </div>
 
@@ -714,16 +714,16 @@ export default function ForensicsLabPage() {
                         }`}
                       >
                         {chk.status === "VERIFIED_COMPLIANT"
-                          ? "VERIFIED"
+                          ? (language === "hi" ? "सत्यापित" : "VERIFIED")
                           : chk.status === "FLAGGED_ANOMALY"
-                          ? "FLAGGED"
+                          ? (language === "hi" ? "चिह्नित" : "FLAGGED")
                           : chk.status === "DISQUALIFIED"
-                          ? "DISQUALIFIED"
-                          : "NOT FOUND"}
+                          ? (language === "hi" ? "अयोग्य" : "DISQUALIFIED")
+                          : (language === "hi" ? "अनुपलब्ध" : "NOT FOUND")}
                       </span>
                     </div>
                     <div className="font-mono text-[10px] text-muted-gray">
-                      ID: {chk.identifier} • {chk.confidence}% Confidence
+                      ID: {chk.identifier} • {chk.confidence}% {language === "hi" ? "विश्वसनीयता" : "Confidence"}
                     </div>
                     <p className="text-[11px] leading-relaxed">
                       {chk.details}
@@ -738,34 +738,34 @@ export default function ForensicsLabPage() {
           <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3 text-xs">
             <h3 className="font-bold text-deep-navy dark:text-crisp-white flex items-center space-x-1.5">
               <Layers className="w-4 h-4 text-lavender" />
-              <span>Forensics Findings & Provenance</span>
+              <span>{t.forensicsDocOverview}</span>
             </h3>
 
             <div className="space-y-2 font-mono text-[11px]">
               <div className="flex justify-between border-b border-warm-beige/40 dark:border-warm-beige/10 pb-1">
-                <span className="text-muted-gray">Producer:</span>
+                <span className="text-muted-gray">{language === "hi" ? "निर्माता सॉफ़्टवेयर:" : "Producer:"}</span>
                 <span className="font-bold text-deep-navy dark:text-crisp-white truncate max-w-[170px]" title={activeDoc.exif_metadata.producer}>
                   {activeDoc.exif_metadata.producer}
                 </span>
               </div>
               {auditSummary && (
                 <div className="flex justify-between border-b border-warm-beige/40 dark:border-warm-beige/10 pb-1">
-                  <span className="text-muted-gray">Risk Score:</span>
+                  <span className="text-muted-gray">{language === "hi" ? "जोखिम स्कोर:" : "Risk Score:"}</span>
                   <span className={`font-bold ${auditSummary.risk_score > 50 ? "text-coral-orange" : "text-mint-green"}`}>
                     {auditSummary.risk_score}/100 ({auditSummary.recommendation.replace(/_/g, " ")})
                   </span>
                 </div>
               )}
               <div className="flex justify-between border-b border-warm-beige/40 dark:border-warm-beige/10 pb-1">
-                <span className="text-muted-gray">Tampering Flag:</span>
+                <span className="text-muted-gray">{language === "hi" ? "छेड़छाड़ फ्लैग:" : "Tampering Flag:"}</span>
                 <span className={`font-bold ${activeDoc.exif_metadata.suspicious_flag ? "text-coral-orange" : "text-mint-green"}`}>
-                  {activeDoc.exif_metadata.suspicious_flag ? "TAMPERING SUSPECTED" : "NO MODIFICATIONS"}
+                  {activeDoc.exif_metadata.suspicious_flag ? (language === "hi" ? "छेड़छाड़ संदिग्ध" : "TAMPERING SUSPECTED") : (language === "hi" ? "कोई संपादन नहीं" : "NO MODIFICATIONS")}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-gray">QR Integrity:</span>
+                <span className="text-muted-gray">{language === "hi" ? "QR अखंडता:" : "QR Integrity:"}</span>
                 <span className={`font-bold ${activeDoc.qr_code_cross_check.is_match ? "text-mint-green" : "text-coral-orange"}`}>
-                  {activeDoc.qr_code_cross_check.is_match ? "PAYLOAD MATCH" : "PAYLOAD MISMATCH"}
+                  {activeDoc.qr_code_cross_check.is_match ? (language === "hi" ? "पेलोड मेल खाया" : "PAYLOAD MATCH") : (language === "hi" ? "पेलोड बेमेल" : "PAYLOAD MISMATCH")}
                 </span>
               </div>
             </div>

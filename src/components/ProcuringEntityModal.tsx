@@ -13,6 +13,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useTenderData, ActiveProcuringEntity } from "@/context/TenderDataContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProcuringEntityModalProps {
   isOpen: boolean;
@@ -21,6 +22,7 @@ interface ProcuringEntityModalProps {
 
 export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalProps) {
   const { tenders, activeEntity, setActiveEntity, switchTender } = useTenderData();
+  const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<"preset" | "custom">("preset");
 
   // Custom entity form state
@@ -42,9 +44,9 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
 
     const newEntity: ActiveProcuringEntity = {
       orgName: customOrg.trim(),
-      department: customDept.trim() || "Public Procurement Department",
+      department: customDept.trim() || (language === "hi" ? "सार्वजनिक खरीद विभाग" : "Public Procurement Department"),
       tenderId: customTenderId.trim(),
-      itemCategory: customItem.trim() || "Industrial Equipment & Goods",
+      itemCategory: customItem.trim() || (language === "hi" ? "औद्योगिक उपकरण एवं वस्तुएं" : "Industrial Equipment & Goods"),
     };
 
     setActiveEntity(newEntity);
@@ -68,10 +70,10 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
               </div>
               <div>
                 <h3 className="text-base font-black tracking-tight">
-                  Change Procuring Entity & Active Tender Scope
+                  {t.modalEntityTitle}
                 </h3>
                 <p className="text-xs text-muted-gray">
-                  Select an authenticated public buyer or enter a custom procurement department
+                  {t.modalEntitySubtitle}
                 </p>
               </div>
             </div>
@@ -94,7 +96,7 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
               }`}
             >
               <Landmark className="w-4 h-4" />
-              <span>Public Sector Undertakings (PSUs)</span>
+              <span>{t.modalTabPsu}</span>
             </button>
             <button
               onClick={() => setActiveTab("custom")}
@@ -105,7 +107,7 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
               }`}
             >
               <Sparkles className="w-4 h-4" />
-              <span>Custom Department & Tender ID</span>
+              <span>{t.modalTabCustom}</span>
             </button>
           </div>
 
@@ -114,7 +116,7 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
             {activeTab === "preset" && (
               <div className="space-y-3">
                 <p className="text-xs text-muted-gray">
-                  Switch the active procurement session to any of the integrated public entities below:
+                  {language === "hi" ? "नीचे दी गई किसी भी एकीकृत सरकारी इकाई पर सक्रिय खरीद सत्र बदलें:" : "Switch the active procurement session to any of the integrated public entities below:"}
                 </p>
 
                 <div className="space-y-2.5">
@@ -139,7 +141,7 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
                             {isSelected && (
                               <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-mint-green text-white flex items-center space-x-1">
                                 <Check className="w-2.5 h-2.5" />
-                                <span>Active</span>
+                                <span>{t.lblActive}</span>
                               </span>
                             )}
                           </div>
@@ -149,9 +151,9 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
                           <div className="flex items-center space-x-3 text-[10px] font-mono text-muted-gray pt-1">
                             <span className="text-lavender font-bold">ID: {tender.tender_id}</span>
                             <span>•</span>
-                            <span>Est: ₹{(tender.estimated_value_inr / 10000000).toFixed(1)} Cr</span>
+                            <span>{language === "hi" ? `अनुमानित: ₹${(tender.estimated_value_inr / 10000000).toFixed(1)} करोड़` : `Est: ₹${(tender.estimated_value_inr / 10000000).toFixed(1)} Cr`}</span>
                             <span>•</span>
-                            <span>{tender.total_bids} Bidders</span>
+                            <span>{tender.total_bids} {language === "hi" ? "बोलीदाता" : "Bidders"}</span>
                           </div>
                         </div>
 
@@ -177,23 +179,23 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
               <form onSubmit={handleApplyCustom} className="space-y-3.5 text-xs">
                 <div className="p-3.5 rounded-xl bg-lavender/10 border border-lavender/25 space-y-1">
                   <p className="font-bold text-deep-navy dark:text-crisp-white text-[11px]">
-                    Configure Custom Government Buyer Context
+                    {t.modalCustomHeading}
                   </p>
                   <p className="text-muted-gray text-[11px] leading-relaxed">
-                    Set a custom Ministry, State Department, or PSU entity for simulated evaluation or live auditing on GeM.
+                    {language === "hi" ? "GeM पर अनुकरण या लाइव ऑडिट हेतु कस्टम मंत्रालय, राज्य विभाग या PSU इकाई निर्धारित करें।" : "Set a custom Ministry, State Department, or PSU entity for simulated evaluation or live auditing on GeM."}
                   </p>
                 </div>
 
                 <div>
                   <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                    Procuring Entity / Organization Name *
+                    {t.modalLblOrgName}
                   </label>
                   <input
                     type="text"
                     required
                     value={customOrg}
                     onChange={(e) => setCustomOrg(e.target.value)}
-                    placeholder="e.g. National Thermal Power Corporation (NTPC Dadri)"
+                    placeholder={language === "hi" ? "उदा. नेशनल थर्मल पावर कॉर्पोरेशन (NTPC दादरी)" : "e.g. National Thermal Power Corporation (NTPC Dadri)"}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/30 font-medium text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
                   />
                 </div>
@@ -201,20 +203,20 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                      Parent Department / Ministry
+                      {t.modalLblDept}
                     </label>
                     <input
                       type="text"
                       value={customDept}
                       onChange={(e) => setCustomDept(e.target.value)}
-                      placeholder="e.g. Ministry of Power"
+                      placeholder={language === "hi" ? "उदा. विद्युत मंत्रालय" : "e.g. Ministry of Power"}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/30 font-medium text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
                     />
                   </div>
 
                   <div>
                     <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                      GeM Tender Reference ID *
+                      {t.modalLblTenderId}
                     </label>
                     <input
                       type="text"
@@ -229,13 +231,13 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
 
                 <div>
                   <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                    Procurement Item Scope / Category
+                    {t.modalLblCategory}
                   </label>
                   <input
                     type="text"
                     value={customItem}
                     onChange={(e) => setCustomItem(e.target.value)}
-                    placeholder="e.g. Heavy Duty Turbine Pumps & High-Pressure Valves"
+                    placeholder={language === "hi" ? "उदा. हेवी ड्यूटी टर्बाइन पंप एवं उच्च दबाव वाल्व" : "e.g. Heavy Duty Turbine Pumps & High-Pressure Valves"}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/30 font-medium text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
                   />
                 </div>
@@ -246,7 +248,7 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
                     className="w-full py-2.5 rounded-xl bg-lavender hover:bg-lavender/90 text-crisp-white font-bold transition-all shadow-md shadow-lavender/25 flex items-center justify-center space-x-1.5"
                   >
                     <FileText className="w-4 h-4" />
-                    <span>Apply Custom Procuring Entity</span>
+                    <span>{t.modalBtnApplyScope}</span>
                   </button>
                 </div>
               </form>
@@ -259,7 +261,7 @@ export function ProcuringEntityModal({ isOpen, onClose }: ProcuringEntityModalPr
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-semibold bg-deep-navy text-crisp-white dark:bg-crisp-white dark:text-deep-navy hover:opacity-90 transition-all shadow-xs"
             >
-              Close
+              {t.modalClose}
             </button>
           </div>
         </motion.div>

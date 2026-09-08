@@ -22,7 +22,7 @@ export default function BidderComparisonPage() {
   const rawId = (params?.id as string) || "GEM-2026-B-9823410";
   const tenderId = rawId.replace(/-/g, "/");
 
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { bidders, getTenderById } = useTenderData();
   const tender = getTenderById(tenderId) || getTenderById("GEM/2026/B/9823410");
 
@@ -54,13 +54,15 @@ export default function BidderComparisonPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-warm-beige dark:border-warm-beige/20 pb-3">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
-              Tender Scrutiny Workspace • CPCL Manali Refinery
+              {language === "hi" ? "निविदा संवीक्षा कार्यक्षेत्र • सीपीसीएल मनाली रिफाइनरी" : "Tender Scrutiny Workspace • CPCL Manali Refinery"}
             </span>
             <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
-              {tender ? tender.title : "Supply of High-Pressure Hydrocarbon Valves"}
+              {tender
+                ? (language === "hi" ? "उच्च दबाव हाइड्रोकार्बन वाल्व की आपूर्ति" : tender.title)
+                : (language === "hi" ? "उच्च दबाव हाइड्रोकार्बन वाल्व की आपूर्ति" : "Supply of High-Pressure Hydrocarbon Valves")}
             </h1>
             <p className="text-xs font-mono text-muted-gray">
-              Tender Ref: {tender ? tender.tender_id : "GEM/2026/B/9823410"} | Est. Value: ₹4.50 Cr
+              {language === "hi" ? "निविदा संदर्भ: " : "Tender Ref: "}{tender ? tender.tender_id : "GEM/2026/B/9823410"} | {language === "hi" ? "अनुमानित मूल्य: ₹4.50 करोड़" : "Est. Value: ₹4.50 Cr"}
             </p>
           </div>
 
@@ -69,7 +71,7 @@ export default function BidderComparisonPage() {
               href="/dashboard"
               className="px-3.5 py-1.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs font-semibold text-deep-navy dark:text-crisp-white hover:border-lavender transition-all"
             >
-              Back to Dashboard
+              {language === "hi" ? "डैशबोर्ड पर वापस" : "Back to Dashboard"}
             </Link>
           </div>
         </div>
@@ -117,7 +119,9 @@ export default function BidderComparisonPage() {
                   {t.cartelBannerWarning}
                 </h3>
                 <p className="text-deep-navy dark:text-crisp-white mt-0.5">
-                  Nexus discovered between <strong>BID-CPCL-003</strong> and <strong>BID-CPCL-004</strong> sharing Common Director DIN 08492019 and Subnet IP 192.168.44.0/24.
+                  {language === "hi"
+                    ? "BID-CPCL-003 और BID-CPCL-004 के बीच साझा निदेशक DIN 08492019 और सबनेट आईपी 192.168.44.0/24 का सिंडिकेट पकड़ा गया।"
+                    : "Nexus discovered between BID-CPCL-003 and BID-CPCL-004 sharing Common Director DIN 08492019 and Subnet IP 192.168.44.0/24."}
                 </p>
               </div>
             </div>
@@ -237,12 +241,12 @@ export default function BidderComparisonPage() {
                           </span>
                           {bidder.bidder_id === "BID-CPCL-001" && (
                             <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-mint-green/15 text-mint-green border border-mint-green/30">
-                              Class-I MII
+                              {language === "hi" ? "कक्षा-I MII" : "Class-I MII"}
                             </span>
                           )}
                           {bidder.bidder_id === "BID-CPCL-003" && (
                             <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-coral-orange text-white animate-pulse">
-                              Debarred / Forgery
+                              {language === "hi" ? "प्रतिबंधित / जालसाजी" : "Debarred / Forgery"}
                             </span>
                           )}
                         </div>
@@ -261,7 +265,7 @@ export default function BidderComparisonPage() {
 
                     {/* Bid Value */}
                     <td className="py-4 px-4 font-mono font-bold text-deep-navy dark:text-crisp-white">
-                      ₹{(bidder.bid_value_inr / 10000000).toFixed(2)} Cr
+                      ₹{(bidder.bid_value_inr / 10000000).toFixed(2)} {language === "hi" ? "करोड़" : "Cr"}
                     </td>
 
                     {/* Compliance Score Gauge (Radial SVG Meter) */}
