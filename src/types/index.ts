@@ -90,6 +90,19 @@ export interface DocumentForensics {
     details: string;
     confidence: number;
   }[];
+  ai_verification?: {
+    verdict: "REAL_AUTHENTIC" | "FAKE_TAMPERED" | "PROCEDURAL_QUERY";
+    real_percentage: number;
+    risk_percentage: number;
+    doc_classification: string;
+    headline: string;
+    summary: string;
+    findings: {
+      check: string;
+      status: "PASS" | "FAIL" | "WARN";
+      detail: string;
+    }[];
+  };
   audit_summary?: {
     risk_score: number;
     recommendation: string;
