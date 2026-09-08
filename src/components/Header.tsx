@@ -13,7 +13,6 @@ import {
   Globe,
   Cpu,
   ChevronDown,
-  FileText,
 } from "lucide-react";
 
 export function Header() {
@@ -61,19 +60,6 @@ export function Header() {
 
             {/* Right: Global Controls */}
             <div className="flex items-center space-x-2.5">
-              {/* Architecture Dossier PDF Link */}
-              <a
-                href="/docs/GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download="GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
-                className="hidden md:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs font-semibold text-deep-navy dark:text-crisp-white hover:border-lavender transition-all shadow-xs"
-                title="Download official GeM-Rakshak System Architecture & Technical Dossier PDF"
-              >
-                <FileText className="w-3.5 h-3.5 text-lavender" />
-                <span>Dossier PDF</span>
-              </a>
-
               {/* Environment Mode Toggle: [Mock Sandbox | Live Gateway] */}
               <button
                 onClick={toggleApiMode}
