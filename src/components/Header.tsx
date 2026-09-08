@@ -51,25 +51,25 @@ export function Header() {
             <div className="hidden lg:flex items-center">
               <button
                 onClick={() => setIsGatewayModalOpen(true)}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-mint-green/40 bg-mint-green/10 text-mint-green text-xs font-semibold hover:bg-mint-green/20 transition-all shadow-xs group"
+                className="flex items-center space-x-2 px-3 py-1 rounded-full border border-mint-green/30 bg-mint-green/10 text-mint-green text-xs font-semibold hover:bg-mint-green/15 transition-all group"
                 title="Click to view detailed telemetry for all 8 Government Gateways"
               >
-                <span className="w-2 h-2 rounded-full bg-mint-green animate-ping" />
+                <span className="w-1.5 h-1.5 rounded-full bg-mint-green animate-pulse" />
                 <span>{t.gatewayStatusBadge}</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-y-0.5 transition-transform" />
+                <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100 group-hover:translate-y-0.5 transition-transform" />
               </button>
             </div>
 
-            {/* Right: Global Controls */}
-            <div className="flex items-center space-x-2.5">
-              {/* Environment Mode Toggle: [Mock Sandbox | Live Gateway] */}
+            {/* Right: Streamlined Global Controls Capsule */}
+            <div className="flex items-center p-1 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige/70 dark:border-white/10 shadow-xs space-x-1">
+              {/* Environment Mode Toggle */}
               <button
                 onClick={toggleApiMode}
-                className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs font-medium text-deep-navy dark:text-crisp-white hover:border-lavender/60 transition-all shadow-xs"
+                className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs font-medium text-deep-navy dark:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
                 title="Toggle between Simulated Mock Environment and Live API Gateway mode"
               >
                 <Cpu className={`w-3.5 h-3.5 ${isLiveApiMode ? "text-mint-green" : "text-lavender"}`} />
-                <span className="hidden sm:inline">
+                <span className="hidden sm:inline font-semibold">
                   {isLiveApiMode ? t.liveGateway : t.mockSandbox}
                 </span>
                 <span
@@ -79,26 +79,30 @@ export function Header() {
                 />
               </button>
 
-              {/* Language Switcher: [English | हिन्दी] */}
+              <div className="w-px h-3.5 bg-warm-beige/60 dark:bg-white/10" />
+
+              {/* Language Switcher */}
               <button
                 onClick={toggleLanguage}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs font-semibold text-deep-navy dark:text-crisp-white hover:border-lavender transition-all shadow-xs"
+                className="flex items-center space-x-1.5 px-2 py-1 rounded-lg text-xs font-semibold text-deep-navy dark:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
                 aria-label="Toggle language"
               >
                 <Globe className="w-3.5 h-3.5 text-lavender" />
                 <span>{language === "en" ? "हिन्दी" : "English"}</span>
               </button>
 
-              {/* Theme Switcher: [Light | Dark] */}
+              <div className="w-px h-3.5 bg-warm-beige/60 dark:bg-white/10" />
+
+              {/* Theme Switcher */}
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white hover:border-lavender transition-all shadow-xs"
+                className="p-1.5 rounded-lg text-deep-navy dark:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
                 aria-label="Toggle theme"
               >
                 {theme === "dark" ? (
-                  <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
+                  <Sun className="w-3.5 h-3.5 text-amber-400 hover:rotate-45 transition-transform" />
                 ) : (
-                  <Moon className="w-4 h-4 text-lavender hover:-rotate-12 transition-transform" />
+                  <Moon className="w-3.5 h-3.5 text-lavender hover:-rotate-12 transition-transform" />
                 )}
               </button>
             </div>

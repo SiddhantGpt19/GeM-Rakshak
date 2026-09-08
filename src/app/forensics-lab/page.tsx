@@ -368,51 +368,57 @@ export default function ForensicsLabPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Interactive Forensics Canvas */}
         <div className="lg:col-span-2 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy p-5 shadow-sm space-y-4">
-          {/* Forensics Toolbar */}
-          <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-warm-beige dark:border-warm-beige/20">
-            <div className="flex items-center space-x-2">
+          {/* Streamlined Forensics Toolstrip */}
+          <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-warm-beige/70 dark:border-white/10">
+            <div className="flex items-center p-1 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige/70 dark:border-white/10 shadow-xs space-x-1">
               <button
                 onClick={() => setActiveTool("normal")}
-                className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeTool === "normal"
-                    ? "bg-deep-navy text-crisp-white dark:bg-crisp-white dark:text-deep-navy shadow-xs"
+                    ? "bg-deep-navy text-crisp-white dark:bg-white dark:text-deep-navy shadow-xs font-bold"
                     : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
                 }`}
               >
                 <Eye className="w-3.5 h-3.5" />
                 <span>{t.toolNormal}</span>
               </button>
+
               <button
                 onClick={() => setActiveTool(activeTool === "ela" ? "normal" : "ela")}
-                className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold ${
+                className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   activeTool === "ela"
                     ? "bg-coral-orange text-white shadow-xs"
                     : activeDoc.ela_tamper_detected
-                    ? "bg-coral-orange/15 text-coral-orange border border-coral-orange/40 hover:bg-coral-orange/25"
+                    ? "text-coral-orange hover:bg-coral-orange/10"
                     : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
                 }`}
               >
                 <Flame className="w-3.5 h-3.5 text-coral-orange" />
                 <span>{t.toolELA}</span>
               </button>
+
+              <div className="w-px h-3.5 bg-warm-beige/60 dark:bg-white/10" />
+
               <button
                 onClick={() => setIsExifModalOpen(true)}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white hover:border-lavender"
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>{t.toolExif}</span>
               </button>
+
               <button
                 onClick={() => setIsQRModalOpen(true)}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white hover:border-lavender"
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
               >
                 <QrCode className="w-3.5 h-3.5" />
                 <span>{t.toolQR}</span>
               </button>
+
               {activeDoc.udin_check && (
                 <button
                   onClick={() => setIsUDINModalOpen(true)}
-                  className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white hover:border-lavender"
+                  className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
                 >
                   <Landmark className="w-3.5 h-3.5" />
                   <span>{t.toolUDIN}</span>
@@ -426,15 +432,15 @@ export default function ForensicsLabPage() {
                 setTimeout(() => setIsScanning(false), 2400);
               }}
               disabled={isScanning}
-              className="flex items-center space-x-1.5 text-xs text-lavender font-bold hover:underline"
+              className="flex items-center space-x-1.5 text-xs text-lavender font-semibold hover:bg-lavender/10 px-3 py-1.5 rounded-lg transition-all"
             >
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-3.5 h-3.5" />
               <span>{language === "hi" ? "लेज़र स्वीप" : "Laser Sweep"}</span>
             </button>
           </div>
 
           {/* Canvas with Laser Scan */}
-          <div className="relative min-h-[480px] rounded-2xl border-2 border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy p-6 shadow-inner flex flex-col justify-between overflow-hidden">
+          <div className="relative min-h-[480px] rounded-2xl border border-warm-beige/70 dark:border-white/10 bg-crisp-white dark:bg-dark-navy p-6 shadow-sm flex flex-col justify-between overflow-hidden">
             <LaserScanOverlay isScanning={isScanning} label={scanStepText} />
 
             {activeTool === "ela" && activeDoc.ela_tamper_detected && (
@@ -445,7 +451,7 @@ export default function ForensicsLabPage() {
               </div>
             )}
 
-            <div className="text-center border-b pb-4 border-warm-beige dark:border-warm-beige/20 relative pr-16">
+            <div className="text-center border-b pb-4 border-warm-beige/60 dark:border-white/10 relative pr-16">
               <span className="px-2.5 py-0.5 rounded text-[10px] font-mono uppercase bg-lavender/15 text-lavender font-bold">
                 {language === "hi" ? "फोरेंसिक ओसीआर कैनवास" : "FORENSICS OCR CANVAS"}
               </span>
@@ -459,7 +465,7 @@ export default function ForensicsLabPage() {
               {/* Real Scannable QR Matrix */}
               <div
                 onClick={() => setIsQRModalOpen(true)}
-                className="absolute top-0 right-0 p-1.5 bg-white dark:bg-deep-navy rounded-xl border-2 border-warm-beige dark:border-warm-beige/30 cursor-pointer hover:border-lavender hover:scale-105 transition-all shadow-md group"
+                className="absolute top-0 right-0 p-1.5 bg-white dark:bg-deep-navy rounded-xl border border-warm-beige/80 dark:border-white/15 cursor-pointer hover:border-lavender hover:scale-105 transition-all shadow-sm group"
                 title="Click to cross-check & scan embedded QR code"
               >
                 <div className="relative w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden">
@@ -481,7 +487,7 @@ export default function ForensicsLabPage() {
             </div>
 
             {/* Interactive OCR Text Bounding Blocks */}
-            <div className="space-y-3 my-6 z-10 relative">
+            <div className="space-y-2.5 my-6 z-10 relative">
               {activeDoc.ocr_text_blocks.map((block) => (
                 <div
                   key={block.id}
@@ -489,8 +495,8 @@ export default function ForensicsLabPage() {
                     activeTool === "ela" && block.is_anomalous
                       ? "ela-tamper-glow bg-coral-orange/20 text-coral-orange font-bold border border-coral-orange"
                       : block.is_anomalous
-                      ? "border border-coral-orange bg-coral-orange/10 text-coral-orange"
-                      : "border border-dashed border-warm-beige dark:border-warm-beige/20 bg-soft-beige/20 dark:bg-deep-navy/40 text-deep-navy dark:text-crisp-white hover:border-lavender"
+                      ? "border border-coral-orange/70 bg-coral-orange/10 text-coral-orange"
+                      : "border border-warm-beige/70 dark:border-white/10 bg-soft-beige/25 dark:bg-deep-navy/40 text-deep-navy dark:text-crisp-white hover:border-lavender/60 shadow-xs"
                   }`}
                 >
                   <div className="flex justify-between items-center">

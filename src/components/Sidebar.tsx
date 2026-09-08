@@ -11,7 +11,6 @@ import {
   Fingerprint,
   Server,
   FileSpreadsheet,
-  Flame,
   ArrowLeftRight,
   FileText,
   Download,
@@ -147,34 +146,22 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Platform Documentation PDF Download */}
-      <a
-        href="/docs/GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        download="GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
-        className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold bg-lavender/10 hover:bg-lavender/20 text-lavender border border-lavender/30 transition-all group shadow-xs"
-        title="Download official CVC-compliant GeM-Rakshak Platform Architecture Dossier (PDF)"
-      >
-        <div className="flex items-center space-x-2.5">
-          <FileText className="w-4 h-4 text-lavender group-hover:scale-110 transition-transform" />
-          <span className="font-bold">{t.sidebarPlatformDossier}</span>
-        </div>
-        <span className="flex items-center space-x-1 text-[10px] bg-lavender/20 px-1.5 py-0.5 rounded font-mono">
-          <span>PDF</span>
-          <Download className="w-3 h-3 opacity-80 group-hover:translate-y-0.5 transition-transform" />
-        </span>
-      </a>
-
-      {/* Bottom Information Card */}
-      <div className="p-3.5 rounded-xl bg-lavender/10 dark:bg-lavender/15 border border-lavender/25 dark:border-lavender/30 space-y-2 text-xs">
-        <div className="flex items-center space-x-1.5 text-lavender font-bold text-[11px]">
-          <Flame className="w-3.5 h-3.5" />
-          <span>{t.sidebarGuardTitle}</span>
-        </div>
-        <p className="text-[11px] text-deep-navy/75 dark:text-crisp-white/70 leading-relaxed">
-          {t.sidebarGuardDesc}
-        </p>
+      {/* Platform Documentation Minimal Footer Link */}
+      <div className="pt-3 border-t border-warm-beige/70 dark:border-white/10">
+        <a
+          href="/docs/GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          download="GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
+          className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-muted-gray hover:text-lavender hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all group"
+          title="Download official CVC-compliant GeM-Rakshak Platform Architecture Dossier (PDF)"
+        >
+          <div className="flex items-center space-x-2">
+            <FileText className="w-3.5 h-3.5 text-lavender" />
+            <span className="font-semibold text-[11px]">{t.sidebarPlatformDossier}</span>
+          </div>
+          <Download className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-y-0.5 transition-transform" />
+        </a>
       </div>
     </aside>
   );

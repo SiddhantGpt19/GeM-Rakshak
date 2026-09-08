@@ -14,6 +14,8 @@ import {
   Terminal,
   ShieldCheck,
   Zap,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { useTenderData } from "@/context/TenderDataContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -59,6 +61,7 @@ export default function GatewaysPage() {
   const [isQuerying, setIsQuerying] = useState<boolean>(false);
   const [apiResponse, setApiResponse] = useState<VerificationResponse | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+  const [showRawJson, setShowRawJson] = useState<boolean>(false);
 
   // Ping All Gateways via real /api/gateways/ping Next.js backend route
   const handlePingAll = async () => {
@@ -307,7 +310,7 @@ export default function GatewaysPage() {
                 </span>
               </div>
 
-              {/* Status Verdict Pill */}
+              {/* Status Verdict Pill & Actions */}
               <div className="flex items-center space-x-2">
                 {apiResponse.verification_verdict.status === "VERIFIED_COMPLIANT" && (
                   <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
@@ -330,8 +333,17 @@ export default function GatewaysPage() {
                 )}
 
                 <button
+                  onClick={() => setShowRawJson(!showRawJson)}
+                  className="flex items-center space-x-1 text-[11px] font-semibold text-lavender hover:bg-lavender/10 px-2 py-1 rounded-lg transition-all"
+                  title="Toggle raw JSON response"
+                >
+                  <span>{showRawJson ? (language === "hi" ? "JSON छिपाएं" : "Hide JSON") : (language === "hi" ? "रॉ JSON देखें" : "View JSON")}</span>
+                  {showRawJson ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                </button>
+
+                <button
                   onClick={handleCopyJson}
-                  className="p-1 rounded text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white transition-colors"
+                  className="p-1.5 rounded-lg text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
                   title={t.gwBtnCopy}
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-mint-green" /> : <Copy className="w-3.5 h-3.5" />}
@@ -339,10 +351,12 @@ export default function GatewaysPage() {
               </div>
             </div>
 
-            {/* JSON Code Block */}
-            <pre className="p-3.5 rounded-xl bg-deep-navy text-crisp-white font-mono text-[11px] overflow-x-auto max-h-72 leading-relaxed border border-warm-beige/20 shadow-inner">
-              {JSON.stringify(apiResponse, null, 2)}
-            </pre>
+            {/* Expandable JSON Code Block */}
+            {showRawJson && (
+              <pre className="p-3.5 rounded-xl bg-deep-navy text-crisp-white font-mono text-[11px] overflow-x-auto max-h-72 leading-relaxed border border-warm-beige/20 shadow-inner">
+                {JSON.stringify(apiResponse, null, 2)}
+              </pre>
+            )}
 
             {/* SHA-256 Audit Trail */}
             <div className="flex items-center justify-between text-[10px] font-mono text-muted-gray pt-1">
@@ -363,7 +377,7 @@ export default function GatewaysPage() {
           return (
             <div
               key={gw.id}
-              className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3 hover:border-lavender/50 transition-all"
+              className="p-5 rounded-2xl border border-warm-beige/70 dark:border-white/10 bg-soft-beige/40 dark:bg-deep-navy shadow-xs space-y-3 hover:border-lavender/50 hover:shadow-md transition-all"
             >
               <div className="flex items-start justify-between">
                 <div>
