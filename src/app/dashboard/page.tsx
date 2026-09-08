@@ -366,14 +366,34 @@ export default function DashboardPage() {
                   contentStyle={{
                     backgroundColor: "#0C141C",
                     borderRadius: "12px",
-                    border: "1px solid #E4DCD4",
+                    border: "1px solid rgba(226, 232, 240, 0.2)",
                     color: "#FCFCFC",
                     fontSize: "11px",
                   }}
                 />
-                <Bar dataKey="hours" radius={[0, 6, 6, 0]} />
+                <Bar dataKey="hours" radius={[0, 6, 6, 0]} minPointSize={28}>
+                  {savingsData.map((entry, index) => (
+                    <Cell key={`bar-${index}`} fill={entry.fill} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
+          </div>
+
+          <div className="space-y-1.5 pt-2 border-t border-warm-beige dark:border-warm-beige/20 text-xs">
+            {savingsData.map((item) => (
+              <div key={item.name} className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.fill }} />
+                  <span className="text-deep-navy dark:text-crisp-white font-medium">{item.name}</span>
+                </div>
+                <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
+                  {item.hours >= 1
+                    ? `${item.hours}h (${language === "hi" ? "4.5 दिन" : "4.5 days"})`
+                    : `< 30s (${language === "hi" ? "तत्काल" : "Instant"})`}
+                </span>
+              </div>
+            ))}
           </div>
 
           <div className="p-3 rounded-xl bg-mint-green/15 border border-mint-green/30 text-xs text-mint-green font-semibold flex items-center space-x-2">
