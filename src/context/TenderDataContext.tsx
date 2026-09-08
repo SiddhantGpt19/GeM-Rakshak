@@ -19,12 +19,22 @@ interface AuditLogEntry {
   hash: string;
 }
 
+export interface ActiveProcuringEntity {
+  orgName: string;
+  department: string;
+  tenderId: string;
+  itemCategory: string;
+}
+
 interface TenderDataContextType {
   tenders: TenderMetadata[];
   bidders: Bidder[];
   gateways: GatewayHealth[];
   auditLogs: AuditLogEntry[];
   isLiveApiMode: boolean;
+  activeEntity: ActiveProcuringEntity;
+  setActiveEntity: (entity: ActiveProcuringEntity) => void;
+  switchTender: (tenderId: string) => void;
   toggleApiMode: () => void;
   getBidderById: (bidderId: string) => Bidder | undefined;
   getTenderById: (tenderId: string) => TenderMetadata | undefined;
@@ -40,6 +50,12 @@ export function TenderDataProvider({ children }: { children: React.ReactNode }) 
   const [bidders, setBidders] = useState<Bidder[]>(mockBidders);
   const [gateways] = useState<GatewayHealth[]>(mockGateways);
   const [isLiveApiMode, setIsLiveApiMode] = useState<boolean>(false);
+  const [activeEntity, setActiveEntityState] = useState<ActiveProcuringEntity>({
+    orgName: "CPCL Manali Refinery",
+    department: "Ministry of Petroleum & Natural Gas",
+    tenderId: "GEM/2026/B/9823410",
+    itemCategory: "High Pressure Centrifugal Flow Pumps & Critical Valves",
+  });
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([
     {
       id: "LOG-9812",
@@ -68,6 +84,22 @@ export function TenderDataProvider({ children }: { children: React.ReactNode }) 
 
   const toggleApiMode = () => {
     setIsLiveApiMode((prev) => !prev);
+  };
+
+  const setActiveEntity = (entity: ActiveProcuringEntity) => {
+    setActiveEntityState(entity);
+  };
+
+  const switchTender = (tenderId: string) => {
+    const found = tenders.find((t) => t.tender_id === tenderId);
+    if (found) {
+      setActiveEntityState({
+        orgName: found.buyer_organization,
+        department: found.department,
+        tenderId: found.tender_id,
+        itemCategory: found.item_category,
+      });
+    }
   };
 
   const getBidderById = (bidderId: string) => {
@@ -221,6 +253,9 @@ export function TenderDataProvider({ children }: { children: React.ReactNode }) 
         gateways,
         auditLogs,
         isLiveApiMode,
+        activeEntity,
+        setActiveEntity,
+        switchTender,
         toggleApiMode,
         getBidderById,
         getTenderById,

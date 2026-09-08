@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -12,11 +12,16 @@ import {
   Server,
   FileSpreadsheet,
   Flame,
+  ArrowLeftRight,
 } from "lucide-react";
+import { useTenderData } from "@/context/TenderDataContext";
+import { ProcuringEntityModal } from "./ProcuringEntityModal";
 
 export function Sidebar() {
   const pathname = usePathname();
   const { t } = useLanguage();
+  const { activeEntity } = useTenderData();
+  const [isEntityModalOpen, setIsEntityModalOpen] = useState(false);
 
   const navItems = [
     {
@@ -62,21 +67,36 @@ export function Sidebar() {
 
   return (
     <aside className="w-64 shrink-0 hidden md:flex flex-col border-r border-warm-beige dark:border-warm-beige/20 bg-soft-beige/70 dark:bg-deep-navy text-deep-navy dark:text-crisp-white min-h-[calc(100vh-4rem)] p-4 space-y-6 transition-colors">
-      {/* CPCL Unit Identifier */}
-      <div className="p-3.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy shadow-xs space-y-1">
+      {/* Procuring Entity Context Card (Clickable to switch) */}
+      <div
+        onClick={() => setIsEntityModalOpen(true)}
+        className="p-3.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy shadow-xs space-y-1.5 cursor-pointer hover:border-lavender/60 hover:shadow-md transition-all group"
+        title="Click to switch or customize Procuring Entity & Tender ID"
+      >
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gray">
-            Procuring Entity
+          <div className="flex items-center space-x-1.5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gray">
+              Procuring Entity
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-mint-green animate-pulse" />
+          </div>
+          <span className="text-[9px] font-bold text-lavender flex items-center space-x-0.5 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
+            <span>Switch</span>
+            <ArrowLeftRight className="w-2.5 h-2.5" />
           </span>
-          <span className="w-2 h-2 rounded-full bg-mint-green animate-pulse" />
         </div>
-        <p className="text-xs font-bold text-deep-navy dark:text-crisp-white">
-          CPCL Manali Refinery
+        <p className="text-xs font-bold text-deep-navy dark:text-crisp-white group-hover:text-lavender transition-colors line-clamp-1">
+          {activeEntity.orgName}
         </p>
-        <p className="text-[11px] text-muted-gray font-mono">
-          Tender ID: GEM/2026/B/9823410
+        <p className="text-[10px] text-muted-gray font-mono truncate">
+          Tender ID: {activeEntity.tenderId}
         </p>
       </div>
+
+      <ProcuringEntityModal
+        isOpen={isEntityModalOpen}
+        onClose={() => setIsEntityModalOpen(false)}
+      />
 
       {/* Navigation Links */}
       <nav className="space-y-1.5 flex-1">

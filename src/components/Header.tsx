@@ -18,7 +18,7 @@ import {
 export function Header() {
   const { theme, setTheme } = useTheme();
   const { language, toggleLanguage, t } = useLanguage();
-  const { isLiveApiMode, toggleApiMode } = useTenderData();
+  const { isLiveApiMode, toggleApiMode, activeEntity } = useTenderData();
   const [isGatewayModalOpen, setIsGatewayModalOpen] = useState(false);
 
   return (
@@ -39,7 +39,7 @@ export function Header() {
                     </span>
                   </div>
                   <p className="text-[11px] font-medium text-muted-gray truncate max-w-[260px] sm:max-w-md">
-                    {t.orgName}
+                    {activeEntity.orgName} • {activeEntity.department}
                   </p>
                 </div>
               </Link>
