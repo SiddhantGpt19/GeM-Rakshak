@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Radar,
   Zap,
+  Users,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTenderData } from "@/context/TenderDataContext";
@@ -203,16 +204,16 @@ export default function DashboardPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[760px]">
             <thead className="bg-slate-50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider text-[11px]">
               <tr>
-                <th className="py-3 px-4">{t.colTenderId}</th>
-                <th className="py-3 px-4">{t.colTitle}</th>
-                <th className="py-3 px-4">{t.colCategory}</th>
-                <th className="py-3 px-4">{t.colDeadline}</th>
-                <th className="py-3 px-4">{t.colTotalBids}</th>
-                <th className="py-3 px-4">{t.colProgress}</th>
-                <th className="py-3 px-4 text-right">{t.colAction}</th>
+                <th className="py-3 px-4 whitespace-nowrap">{t.colTenderId}</th>
+                <th className="py-3 px-4 min-w-[220px]">{t.colTitle}</th>
+                <th className="py-3 px-4 whitespace-nowrap">{t.colCategory}</th>
+                <th className="py-3 px-4 whitespace-nowrap">{t.colDeadline}</th>
+                <th className="py-3 px-4 whitespace-nowrap">{t.colTotalBids}</th>
+                <th className="py-3 px-4 whitespace-nowrap min-w-[140px]">{t.colProgress}</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">{t.colAction}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-warm-beige/60 dark:divide-warm-beige/15">
@@ -223,7 +224,7 @@ export default function DashboardPage() {
                     key={tender.tender_id}
                     className="hover:bg-slate-50/70 dark:hover:bg-dark-navy/40 transition-colors"
                   >
-                    <td className="py-3.5 px-4 font-mono font-bold text-deep-navy dark:text-crisp-white">
+                    <td className="py-3.5 px-4 font-mono font-bold text-deep-navy dark:text-crisp-white whitespace-nowrap">
                       <div className="flex items-center space-x-1.5">
                         <span>{tender.tender_id}</span>
                         {isPrimary && (
@@ -236,19 +237,21 @@ export default function DashboardPage() {
                     <td className="py-3.5 px-4 font-medium text-deep-navy dark:text-crisp-white max-w-xs truncate">
                       {tender.title}
                     </td>
-                    <td className="py-3.5 px-4 text-muted-gray">
+                    <td className="py-3.5 px-4 text-muted-gray whitespace-nowrap">
                       {tender.item_category}
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-muted-gray">
+                    <td className="py-3.5 px-4 font-mono text-muted-gray whitespace-nowrap">
                       {new Date(tender.bid_deadline).toLocaleDateString("en-IN", {
                         day: "2-digit",
                         month: "short",
                         year: "numeric",
                       })}
                     </td>
-                    <td className="py-3.5 px-4">
-                      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
-                        {tender.total_bids} {language === "hi" ? "बोलीदाता" : "Bidders"}
+                    <td className="py-3.5 px-4 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100/90 dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20 whitespace-nowrap">
+                        <Users className="w-3.5 h-3.5 text-muted-gray shrink-0" />
+                        <span>{tender.total_bids}</span>
+                        <span className="text-muted-gray font-normal">{language === "hi" ? "बोलीदाता" : "Bidders"}</span>
                       </span>
                     </td>
                     <td className="py-3.5 px-4 min-w-[140px]">

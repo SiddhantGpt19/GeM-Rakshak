@@ -209,15 +209,15 @@ export default function BidderComparisonPage() {
       {/* 4. Comparative Bidder Scrutiny Table */}
       <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[760px]">
             <thead className="bg-slate-50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider text-[11px]">
               <tr>
-                <th className="py-3 px-4">{t.colBidderName}</th>
-                <th className="py-3 px-4">{t.colSellerId}</th>
-                <th className="py-3 px-4">{t.colBidValue}</th>
-                <th className="py-3 px-4 text-center">{t.colScoreGauge}</th>
-                <th className="py-3 px-4">{t.colRiskBadge}</th>
-                <th className="py-3 px-4 text-right">{t.colDeepDive}</th>
+                <th className="py-3 px-4 min-w-[200px]">{t.colBidderName}</th>
+                <th className="py-3 px-4 whitespace-nowrap">{t.colSellerId}</th>
+                <th className="py-3 px-4 whitespace-nowrap">{t.colBidValue}</th>
+                <th className="py-3 px-4 text-center whitespace-nowrap">{t.colScoreGauge}</th>
+                <th className="py-3 px-4 whitespace-nowrap">{t.colRiskBadge}</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">{t.colDeepDive}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-warm-beige/60 dark:divide-warm-beige/15">
@@ -241,12 +241,12 @@ export default function BidderComparisonPage() {
                             {getBidderLegalName(bidder.legal_name, language)}
                           </span>
                           {bidder.bidder_id === "BID-CPCL-001" && (
-                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-mint-green/15 text-mint-green border border-mint-green/30">
+                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-mint-green/15 text-mint-green border border-mint-green/30 whitespace-nowrap">
                               {language === "hi" ? "कक्षा-I MII" : "Class-I MII"}
                             </span>
                           )}
                           {bidder.bidder_id === "BID-CPCL-003" && (
-                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-coral-orange text-white animate-pulse">
+                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-coral-orange text-white animate-pulse whitespace-nowrap">
                               {language === "hi" ? "प्रतिबंधित / जालसाजी" : "Debarred / Forgery"}
                             </span>
                           )}
@@ -260,17 +260,17 @@ export default function BidderComparisonPage() {
                     </td>
 
                     {/* GeM Seller ID */}
-                    <td className="py-4 px-4 font-mono font-semibold text-deep-navy dark:text-crisp-white">
+                    <td className="py-4 px-4 font-mono font-semibold text-deep-navy dark:text-crisp-white whitespace-nowrap">
                       {bidder.seller_id}
                     </td>
 
                     {/* Bid Value */}
-                    <td className="py-4 px-4 font-mono font-bold text-deep-navy dark:text-crisp-white">
+                    <td className="py-4 px-4 font-mono font-bold text-deep-navy dark:text-crisp-white whitespace-nowrap">
                       ₹{(bidder.bid_value_inr / 10000000).toFixed(2)} {language === "hi" ? "करोड़" : "Cr"}
                     </td>
 
                     {/* Compliance Score Gauge (Radial SVG Meter) */}
-                    <td className="py-4 px-4 text-center">
+                    <td className="py-4 px-4 text-center whitespace-nowrap">
                       <div className="flex items-center justify-center">
                         <AnimatedRadialGauge
                           score={score}
@@ -282,21 +282,21 @@ export default function BidderComparisonPage() {
                     </td>
 
                     {/* Risk Status Badge */}
-                    <td className="py-4 px-4">
+                    <td className="py-4 px-4 whitespace-nowrap">
                       {isCompliant && (
-                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
+                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-mint-green/15 text-mint-green border border-mint-green/30 whitespace-nowrap">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>{t.statusCompliant}</span>
                         </span>
                       )}
                       {isClarification && (
-                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30">
+                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30 whitespace-nowrap">
                           <AlertTriangle className="w-3.5 h-3.5" />
                           <span>{t.statusClarification}</span>
                         </span>
                       )}
                       {isHighRisk && (
-                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-coral-orange/15 text-coral-orange border border-coral-orange/40 animate-pulse">
+                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-coral-orange/15 text-coral-orange border border-coral-orange/40 animate-pulse whitespace-nowrap">
                           <Ban className="w-3.5 h-3.5" />
                           <span>{status === "DISQUALIFIED" ? t.statusDebarred : t.statusHighRisk}</span>
                         </span>
@@ -304,10 +304,10 @@ export default function BidderComparisonPage() {
                     </td>
 
                     {/* Deep Dive Audit CTA Button */}
-                    <td className="py-4 px-4 text-right">
+                    <td className="py-4 px-4 text-right whitespace-nowrap">
                       <Link
                         href={`/bidders/${bidder.bidder_id}/audit`}
-                        className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all group"
+                        className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all group whitespace-nowrap"
                       >
                         <span>{t.colDeepDive}</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
