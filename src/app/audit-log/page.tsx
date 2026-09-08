@@ -3,6 +3,7 @@
 import React from "react";
 import { useTenderData } from "@/context/TenderDataContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { FileText, Download } from "lucide-react";
 
 export default function AuditLogPage() {
   const { auditLogs } = useTenderData();
@@ -24,7 +25,20 @@ export default function AuditLogPage() {
           </p>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <a
+            href="/docs/GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            download="GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-lavender text-crisp-white shadow-xs hover:bg-lavender/90 transition-all"
+            title="Download full CVC statutory architecture and technical dossier (PDF)"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Platform Dossier (PDF)</span>
+            <Download className="w-3 h-3 ml-0.5 opacity-80" />
+          </a>
+
           <span className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
             SHA-256 Integrity Sealed
           </span>

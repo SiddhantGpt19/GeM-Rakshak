@@ -13,6 +13,8 @@ import {
   FileSpreadsheet,
   Flame,
   ArrowLeftRight,
+  FileText,
+  Download,
 } from "lucide-react";
 import { useTenderData } from "@/context/TenderDataContext";
 import { ProcuringEntityModal } from "./ProcuringEntityModal";
@@ -142,6 +144,25 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Platform Documentation PDF Download */}
+      <a
+        href="/docs/GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        download="GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
+        className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold bg-lavender/10 hover:bg-lavender/20 text-lavender border border-lavender/30 transition-all group shadow-xs"
+        title="Download official CVC-compliant GeM-Rakshak Platform Architecture Dossier (PDF)"
+      >
+        <div className="flex items-center space-x-2.5">
+          <FileText className="w-4 h-4 text-lavender group-hover:scale-110 transition-transform" />
+          <span className="font-bold">Platform Dossier</span>
+        </div>
+        <span className="flex items-center space-x-1 text-[10px] bg-lavender/20 px-1.5 py-0.5 rounded font-mono">
+          <span>PDF</span>
+          <Download className="w-3 h-3 opacity-80 group-hover:translate-y-0.5 transition-transform" />
+        </span>
+      </a>
 
       {/* Bottom Information Card */}
       <div className="p-3.5 rounded-xl bg-lavender/10 dark:bg-lavender/15 border border-lavender/25 dark:border-lavender/30 space-y-2 text-xs">
