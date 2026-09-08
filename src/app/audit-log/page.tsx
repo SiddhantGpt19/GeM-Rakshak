@@ -5,8 +5,6 @@ import { useTenderData } from "@/context/TenderDataContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { AuditLogEntry } from "@/context/TenderDataContext";
 import {
-  FileText,
-  Download,
   ShieldCheck,
   Search,
   Filter,
@@ -89,39 +87,6 @@ export default function AuditLogPage() {
     setTimeout(() => setCopiedHash(null), 2500);
   };
 
-  const exportToJson = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(auditLogs, null, 2));
-    const downloadAnchor = document.createElement("a");
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `CVC_Audit_Log_Full_${new Date().toISOString().slice(0, 10)}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  };
-
-  const exportToCsv = () => {
-    const headers = ["Log ID", "Timestamp", "Tender ID", "Bidder Name", "Action", "Officer ID", "Status", "Statutory Clause", "SHA256 Hash"];
-    const rows = auditLogs.map((l) => [
-      l.id,
-      l.timestamp,
-      l.tenderId,
-      `"${l.bidderName.replace(/"/g, '""')}"`,
-      `"${l.action.replace(/"/g, '""')}"`,
-      l.officerId,
-      l.status,
-      `"${(l.statutoryClause || "").replace(/"/g, '""')}"`,
-      l.hash,
-    ]);
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `CVC_Audit_Trail_${new Date().toISOString().slice(0, 10)}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  };
-
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "COMPLIANT":
@@ -164,27 +129,7 @@ export default function AuditLogPage() {
         </div>
 
         {/* Global Actions */}
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Export JSON */}
-          <button
-            onClick={exportToJson}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white hover:border-lavender transition-all shadow-xs"
-            title="Export complete immutable log to JSON"
-          >
-            <Download className="w-3.5 h-3.5 text-lavender" />
-            <span>Export JSON</span>
-          </button>
-
-          {/* Export CSV */}
-          <button
-            onClick={exportToCsv}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white hover:border-lavender transition-all shadow-xs"
-            title="Export audit log to CSV spreadsheet"
-          >
-            <FileText className="w-3.5 h-3.5 text-mint-green" />
-            <span>CSV</span>
-          </button>
-
+        <div className="flex items-center space-x-2">
           {/* Sealed badge */}
           <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
             <ShieldCheck className="w-3.5 h-3.5" />
