@@ -22,6 +22,12 @@ import { QRCodeDiffModal } from "@/components/QRCodeDiffModal";
 import { UDINVerifierModal } from "@/components/UDINVerifierModal";
 import { DocumentQRCode } from "@/components/DocumentQRCode";
 import Link from "next/link";
+import {
+  getForensicsDocName,
+  getForensicsOcrText,
+  getForensicsGatewayName,
+  getForensicsGatewayDetail,
+} from "@/lib/translations";
 
 interface StatutoryEntities {
   gstin?: string | null;
@@ -444,7 +450,7 @@ export default function ForensicsLabPage() {
                 {language === "hi" ? "फोरेंसिक ओसीआर कैनवास" : "FORENSICS OCR CANVAS"}
               </span>
               <h2 className="text-base sm:text-lg font-bold text-deep-navy dark:text-crisp-white mt-1 break-words">
-                {activeDoc.doc_name}
+                {getForensicsDocName(activeDoc.doc_name, language)}
               </h2>
               <p className="text-xs text-muted-gray">
                 {language === "hi" ? `स्रोत फ़ाइल: ${activeDoc.file_name} • GeM-रक्षक न्यूरल इंजन द्वारा स्कैन` : `Source File: ${activeDoc.file_name} • Scanned via GeM-Rakshak Neural Engine`}
@@ -488,7 +494,7 @@ export default function ForensicsLabPage() {
                   }`}
                 >
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold">{block.text}</span>
+                    <span className="font-semibold">{getForensicsOcrText(block.text, language)}</span>
                     <div className="flex items-center space-x-1.5 text-[10px] text-muted-gray font-sans">
                       {block.field_mapped && (
                         <span className="px-1.5 py-0.2 rounded bg-lavender/15 text-lavender font-bold uppercase text-[9px]">
@@ -700,7 +706,7 @@ export default function ForensicsLabPage() {
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-[11px] truncate max-w-[180px]">
-                        {chk.gateway}
+                        {getForensicsGatewayName(chk.gateway, language)}
                       </span>
                       <span
                         className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase ${
@@ -726,7 +732,7 @@ export default function ForensicsLabPage() {
                       ID: {chk.identifier} • {chk.confidence}% {language === "hi" ? "विश्वसनीयता" : "Confidence"}
                     </div>
                     <p className="text-[11px] leading-relaxed">
-                      {chk.details}
+                      {getForensicsGatewayDetail(chk.details, language)}
                     </p>
                   </div>
                 ))}
@@ -752,7 +758,7 @@ export default function ForensicsLabPage() {
                 <div className="flex justify-between border-b border-warm-beige/40 dark:border-warm-beige/10 pb-1">
                   <span className="text-muted-gray">{language === "hi" ? "जोखिम स्कोर:" : "Risk Score:"}</span>
                   <span className={`font-bold ${auditSummary.risk_score > 50 ? "text-coral-orange" : "text-mint-green"}`}>
-                    {auditSummary.risk_score}/100 ({auditSummary.recommendation.replace(/_/g, " ")})
+                    {auditSummary.risk_score}/100 ({language === "hi" ? (auditSummary.recommendation === "DISQUALIFY_FRAUD_DETECTED" ? "जालसाजी के कारण अयोग्य" : "सत्यापित अनुपालन") : auditSummary.recommendation.replace(/_/g, " ")})
                   </span>
                 </div>
               )}

@@ -28,6 +28,7 @@ import { DocumentViewer } from "@/components/DocumentViewer";
 import { ClarificationNoticeModal } from "@/components/ClarificationNoticeModal";
 import { DisqualificationModal } from "@/components/DisqualificationModal";
 import { exportAuditDossier } from "@/lib/pdfDossierGenerator";
+import { getBidderLegalName } from "@/lib/translations";
 
 export default function BidderAuditPage() {
   const params = useParams();
@@ -107,7 +108,7 @@ export default function BidderAuditPage() {
 
           <div className="flex items-center space-x-3">
             <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
-              {bidder.legal_name}
+              {getBidderLegalName(bidder.legal_name, language)}
             </h1>
             <span className="px-2.5 py-0.5 rounded-xl text-xs font-bold font-mono bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
               {bidder.seller_id}

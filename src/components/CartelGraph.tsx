@@ -8,6 +8,12 @@ import {
 import { mockCartelGraph } from "@/data/mockCartelGraph";
 import { CartelNode } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
+import {
+  getCartelNodeLabel,
+  getCartelNodeType,
+  getCartelNodeDetails,
+  getCartelFactorText,
+} from "@/lib/translations";
 
 export function CartelGraph() {
   const { language } = useLanguage();
@@ -147,14 +153,17 @@ export function CartelGraph() {
                     textAnchor="middle"
                     className="text-[11px] font-sans font-semibold fill-deep-navy dark:fill-crisp-white"
                   >
-                    {node.label.length > 20 ? `${node.label.slice(0, 18)}...` : node.label}
+                    {(() => {
+                      const displayLabel = getCartelNodeLabel(node.label, language);
+                      return displayLabel.length > 20 ? `${displayLabel.slice(0, 18)}...` : displayLabel;
+                    })()}
                   </text>
                   <text
                     y="45"
                     textAnchor="middle"
                     className="text-[9px] font-mono fill-muted-gray uppercase"
                   >
-                    {node.type}
+                    {getCartelNodeType(node.type, language)}
                   </text>
                 </g>
               );
@@ -205,10 +214,10 @@ export function CartelGraph() {
 
             <div>
               <h3 className="text-base font-bold text-deep-navy dark:text-crisp-white">
-                {selectedNode.label}
+                {getCartelNodeLabel(selectedNode.label, language)}
               </h3>
               <span className="text-xs font-mono uppercase text-lavender font-bold">
-                {language === "hi" ? "श्रेणी:" : "Category:"} {selectedNode.type}
+                {language === "hi" ? "श्रेणी:" : "Category:"} {getCartelNodeType(selectedNode.type, language)}
               </span>
             </div>
 
@@ -217,7 +226,7 @@ export function CartelGraph() {
                 {language === "hi" ? "साक्ष्य विवरण" : "Evidence Details"}
               </span>
               <p className="text-deep-navy dark:text-crisp-white leading-relaxed">
-                {selectedNode.details}
+                {getCartelNodeDetails(selectedNode.id, selectedNode.details, language)}
               </p>
             </div>
 
@@ -233,7 +242,7 @@ export function CartelGraph() {
                     className="p-2.5 rounded-xl border border-coral-orange/40 bg-coral-orange/10 text-deep-navy dark:text-crisp-white flex items-start space-x-2"
                   >
                     <AlertTriangle className="w-4 h-4 text-coral-orange shrink-0 mt-0.5" />
-                    <span>{factor}</span>
+                    <span>{getCartelFactorText(factor, language)}</span>
                   </li>
                 ))}
               </ul>

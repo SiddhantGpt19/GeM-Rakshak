@@ -16,6 +16,7 @@ import {
 import { useLanguage } from "@/context/LanguageContext";
 import { useTenderData } from "@/context/TenderDataContext";
 import { AnimatedRadialGauge } from "@/components/AnimatedRadialGauge";
+import { getBidderLegalName } from "@/lib/translations";
 
 export default function BidderComparisonPage() {
   const params = useParams();
@@ -237,7 +238,7 @@ export default function BidderComparisonPage() {
                       <div className="space-y-1">
                         <div className="flex items-center space-x-2">
                           <span className="font-bold text-sm text-deep-navy dark:text-crisp-white">
-                            {bidder.legal_name}
+                            {getBidderLegalName(bidder.legal_name, language)}
                           </span>
                           {bidder.bidder_id === "BID-CPCL-001" && (
                             <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-mint-green/15 text-mint-green border border-mint-green/30">

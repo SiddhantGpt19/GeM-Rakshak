@@ -822,3 +822,188 @@ export const translations: Record<Language, TranslationDict> = {
     lblCancel: "रद्द करें",
   },
 };
+
+// --- BILINGUAL DATA HELPERS (MOCK & STATUTORY CONTENT) ---
+
+export function getBidderLegalName(name: string, lang: Language): string {
+  if (lang !== "hi") return name;
+  const map: Record<string, string> = {
+    "Aura Flow Systems Private Limited": "ऑरा फ्लो सिस्टम्स प्राइवेट लिमिटेड",
+    "Bharat Petro-Tech Solutions": "भारत पेट्रो-टेक सॉल्यूशंस",
+    "Apex Engineering & Logistics Enterprises": "एपेक्स इंजीनियरिंग एंड लॉजिस्टिक्स एंटरप्राइजेज",
+    "Apex Flow Dynamics LLP": "एपेक्स फ्लो डायनेमिक्स एलएलपी",
+  };
+  return map[name] || name;
+}
+
+export function getCartelNodeLabel(label: string, lang: Language): string {
+  if (lang !== "hi") return label;
+  const map: Record<string, string> = {
+    "Aura Flow Systems": "ऑरा फ्लो सिस्टम्स",
+    "Bharat Petro-Tech": "भारत पेट्रो-टेक",
+    "Apex Engineering": "एपेक्स इंजीनियरिंग",
+    "Apex Flow Dynamics": "एपेक्स फ्लो डायनेमिक्स",
+    "DIN 08492019 (Vikram Singhal)": "DIN 08492019 (विक्रम सिंघल)",
+    "Subnet 192.168.44.0/24": "सबनेट 192.168.44.0/24",
+    "IFSC HDFC0001294": "बैंक IFSC HDFC0001294",
+    "Photoshop CC 2024 (Mac)": "फ़ोटोशॉप CC 2024 हैश",
+    "DIN 07812940 (S. Ramanathan)": "DIN 07812940 (एस. रामनाथन)",
+    "IP 122.178.91.44 (Chennai)": "आईपी 122.178.91.44 (चेन्नई)",
+  };
+  return map[label] || label;
+}
+
+export function getCartelNodeType(type: string, lang: Language): string {
+  if (lang !== "hi") return type;
+  const map: Record<string, string> = {
+    bidder: "बोलीदाता",
+    director: "निदेशक",
+    ip_subnet: "आईपी सबनेट",
+    bank: "बैंक खाता",
+    pdf_hash: "पीडीएफ मेटाडेटा हैश",
+  };
+  return map[type] || type;
+}
+
+export function getCartelNodeDetails(id: string, defaultDetails: string | undefined, lang: Language): string {
+  if (lang !== "hi") return defaultDetails || "";
+  const map: Record<string, string> = {
+    "BID-001": "वास्तविक स्वतंत्र बोलीदाता। कोई साझा निदेशक या डिजिटल फिंगरप्रिंट नहीं।",
+    "BID-002": "स्वतंत्र इकाई; मामूली वैधानिक प्रक्रियात्मक त्रुटियां।",
+    "BID-003": "IOCL द्वारा प्रतिबंधित। प्राथमिक सिंडिकेट नोड।",
+    "BID-004": "प्रतिस्पर्धी मूल्य निर्धारण को दबाने के लिए इस्तेमाल की गई मुखौटा (शेल) प्रॉक्सी बोलीदाता।",
+    "DIN-08492019": "दोनों एपेक्स संस्थाओं में एमसीए21 में पंजीकृत साझा निदेशक।",
+    "IP-SUBNET": "दोनों बोलियां ओखला, नई दिल्ली में एक ही स्थिर फाइबर ब्लॉक से अपलोड की गईं।",
+    "BANK-HDFC": "ईएमडी बैंक गारंटी/खाता एक ही शाखा में खोला गया।",
+    "PDF-METADATA": "प्रस्तुत पीडीएफ फाइलों में एक समान एक्सएमपी मेटाडेटा फिंगरप्रिंट का पता चला।",
+    "DIN-07812940": "स्वतंत्र सत्यापित बोर्ड सदस्य।",
+    "IP-CHENNAI": "चेन्नई में स्वतंत्र व्यावसायिक लीज्ड लाइन।",
+  };
+  return map[id] || defaultDetails || "";
+}
+
+export function getCartelFactorText(factor: string, lang: Language): string {
+  if (lang !== "hi") return factor;
+  if (factor.includes("Common Director DIN 08492019")) {
+    return "साझा निदेशक DIN 08492019 (विक्रम सिंघल)";
+  }
+  if (factor.includes("Identical Bid Upload IP Subnet")) {
+    return "समान बोली अपलोड आईपी सबनेट: 192.168.44.0/24 (समय अंतर: 4 मिनट 12 सेकंड)";
+  }
+  if (factor.includes("Matching Bank Branch & IFSC")) {
+    return "समान बैंक शाखा एवं IFSC: HDFC0001294 (ओखला औद्योगिक क्षेत्र)";
+  }
+  if (factor.includes("Identical PDF Creator Tool Hash")) {
+    return "समान पीडीएफ निर्माता टूल हैश: Adobe Photoshop CC 2024 (Macintosh)";
+  }
+  return factor;
+}
+
+export function getForensicsDocName(name: string, lang: Language): string {
+  if (lang !== "hi") return name;
+  const map: Record<string, string> = {
+    "CA Turnover Certificate (Photoshop Altered)": "सीए कारोबार प्रमाणपत्र (फ़ोटोशॉप द्वारा परिवर्तित)",
+    "Udyam Registration Certificate (Aura Flow Systems)": "उद्यम पंजीकरण प्रमाणपत्र (ऑरा फ्लो सिस्टम्स)",
+  };
+  return map[name] || name;
+}
+
+export function getForensicsOcrText(text: string, lang: Language): string {
+  if (lang !== "hi") return text;
+  const map: Record<string, string> = {
+    "CHARTERED ACCOUNTANT STATUTORY TURNOVER CERTIFICATE": "सनदी लेखाकार (CA) वैधानिक कारोबार प्रमाणपत्र",
+    "Client: Apex Engineering & Logistics Enterprises (PAN: AAACD9988P)": "ग्राहक: एपेक्स इंजीनियरिंग एंड लॉजिस्टिक्स एंटरप्राइजेज (पैन: AAACD9988P)",
+    "Certified Annual Turnover FY 2024-25: INR 18,50,00,000": "प्रमाणित वार्षिक कारोबार वित्त वर्ष 2024-25: ₹ 18,50,00,000",
+    "GSTIN: 07AAACD9988P1Z3 (Suo-moto Suspended)": "GSTIN: 07AAACD9988P1Z3 (स्वतः संज्ञान निलंबित)",
+    "UDIN: 26099999INVALID9": "UDIN: 26099999INVALID9",
+    "UDYAM REGISTRATION CERTIFICATE": "उद्यम पंजीकरण प्रमाणपत्र",
+    "UDYAM-TN-02-0041289 (Small Enterprise)": "UDYAM-TN-02-0041289 (लघु उद्यम)",
+    "Manufacturing of Pumps & Valves (NIC 28131)": "पंप और वाल्व निर्माण (NIC 28131)",
+    "Aura Flow Systems Private Limited (PAN: AAACA1234F)": "ऑरा फ्लो सिस्टम्स प्राइवेट लिमिटेड (पैन: AAACA1234F)",
+  };
+  return map[text] || text;
+}
+
+export function getForensicsGatewayName(name: string, lang: Language): string {
+  if (lang !== "hi") return name;
+  const map: Record<string, string> = {
+    "Goods and Services Tax Network (GSTN)": "वस्तु एवं सेवा कर नेटवर्क (GSTN)",
+    "Central Board of Direct Taxes & CPPP Blacklist": "केंद्रीय प्रत्यक्ष कर बोर्ड एवं CPPP ब्लैकलिस्ट",
+    "ICAI UDIN Registry": "आईसीएआई यूडीआईएन रजिस्ट्री",
+    "Ministry of MSME (Udyam Portal)": "सूक्ष्म, लघु एवं मध्यम उद्यम मंत्रालय (उद्यम पोर्टल)",
+    "Central Board of Direct Taxes (CBDT) / PAN": "केंद्रीय प्रत्यक्ष कर बोर्ड (CBDT) / पैन",
+  };
+  return map[name] || name;
+}
+
+export function getForensicsGatewayDetail(detail: string, lang: Language): string {
+  if (lang !== "hi") return detail;
+  if (detail.includes("Suo-moto Suspension active under Rule 21A")) {
+    return "सर्कुलर ट्रेडिंग जांच के लिए नियम 21A के तहत स्वतः संज्ञान निलंबन सक्रिय। सत्यापित GSTN राजस्व ₹1.5 करोड़ घोषित ₹18.5 करोड़ के विरोधाभासी है।";
+  }
+  if (detail.includes("CPPP Order BLK-8812")) {
+    return "CPPP आदेश BLK-8812: इकाई को सभी सार्वजनिक खरीद निविदाओं से प्रतिबंधित किया गया।";
+  }
+  if (detail.includes("UDIN failed ICAI checksum")) {
+    return "UDIN का ICAI चेकसम सत्यापन विफल रहा; संस्थान भंडार में कोई मिलान पंजीकरण नहीं मिला।";
+  }
+  if (detail.includes("Verified Authentic Udyam Certificate")) {
+    return "सत्यापित प्रामाणिक उद्यम प्रमाणपत्र। लघु उद्यम, विनिर्माण श्रेणी (NIC 28131)। GeM खरीद वरीयता हेतु पात्र।";
+  }
+  if (detail.includes("PAN is valid and operational")) {
+    return "पैन मान्य और सक्रिय है। कोई CPPP प्रतिबंध रिकॉर्ड नहीं मिला।";
+  }
+  return detail;
+}
+
+export function getGatewayInfo(
+  gw: { id: string; name: string; authority: string; statutory_scope: string },
+  lang: Language
+): { name: string; authority: string; statutory_scope: string } {
+  if (lang !== "hi") {
+    return { name: gw.name, authority: gw.authority, statutory_scope: gw.statutory_scope };
+  }
+  const hindiData: Record<string, { name: string; authority: string; statutory_scope: string }> = {
+    udyam: {
+      name: "उद्यम पंजीकरण पोर्टल",
+      authority: "सूक्ष्म, लघु एवं मध्यम उद्यम मंत्रालय",
+      statutory_scope: "19-अंकीय उद्यम संख्या, उद्यम वर्गीकरण (सूक्ष्म/लघु/मध्यम), NIC 5-अंकीय विनिर्माण दायरा और इकाई के भौतिक पते का सत्यापन करता है।",
+    },
+    gstn: {
+      name: "जीएसटीएन एपीआई गेटवे (GSP)",
+      authority: "वस्तु एवं सेवा कर नेटवर्क / CBIC",
+      statutory_scope: "जीएसटीआईएन सक्रिय स्थिति, कानूनी बनाम व्यापार नाम स्थिरता, पिछले 6 महीनों में GSTR-1 और GSTR-3B दाखिल करने की नियमितता और कुल कारोबार की जांच करता है।",
+    },
+    mca21: {
+      name: "एमसीए21 रजिस्ट्री (V3)",
+      authority: "कॉर्पोरेट कार्य मंत्रालय",
+      statutory_scope: "सीआईएन (CIN), निगमन तिथि, प्रदत्त पूंजी, सक्रिय निदेशक (DIN), पंजीकृत कार्यालय का पता और हड़ताल/परिसमापन फाइलिंग का सत्यापन करता है।",
+    },
+    epfo: {
+      name: "ईपीएफओ एकीकृत श्रम सुविधा",
+      authority: "श्रम एवं रोजगार मंत्रालय",
+      statutory_scope: "प्रतिष्ठान कोड, मासिक इलेक्ट्रॉनिक चालान सह रिटर्न (ECR) फाइलिंग और सक्रिय अंशदाता कर्मियों की संख्या का सत्यापन करता है।",
+    },
+    esic: {
+      name: "ईएसआईसी पोर्टल (पंचदीप)",
+      authority: "कर्मचारी राज्य बीमा निगम",
+      statutory_scope: "17-अंकीय नियोक्ता कोड, नियमित मासिक वैधानिक वेतन बीमा भुगतान और चूक कार्यवाही की क्रॉस-जांच करता है।",
+    },
+    dpiit: {
+      name: "डीपीआईआईटी एवं स्टार्टअप इंडिया हब",
+      authority: "वाणिज्य एवं उद्योग मंत्रालय",
+      statutory_scope: "DIPP/DPIIT मान्यता प्राप्त इकाई संख्या, सार्वजनिक खरीद आदेश (मेक इन इंडिया) श्रेणी-I/II घोषणाओं और सीए प्रमाणन रजिस्ट्रीयों की पुष्टि करता है।",
+    },
+    itd: {
+      name: "आयकर विभाग / धारा 206AB",
+      authority: "केंद्रीय प्रत्यक्ष कर बोर्ड (CBDT)",
+      statutory_scope: "पैन स्थिति (सक्रिय/निष्क्रिय), आधार-पैन लिंकिंग और धारा 206AB/206CCA उच्च कर गैर-फाइलर जुर्माना डेटाबेस का सत्यापन करता है।",
+    },
+    cppp: {
+      name: "सीपीपीपी केंद्रीय प्रतिबंध रजिस्ट्री",
+      authority: "खरीद नीति प्रभाग / व्यय विभाग",
+      statutory_scope: "सभी सीपीएसई और मंत्रालयों की काली सूचियों, सतर्कता निलंबन आदेशों और GeM विक्रेता प्रतिबंध सूचियों की क्रॉस-जांच करता है।",
+    },
+  };
+  return hindiData[gw.id] || { name: gw.name, authority: gw.authority, statutory_scope: gw.statutory_scope };
+}

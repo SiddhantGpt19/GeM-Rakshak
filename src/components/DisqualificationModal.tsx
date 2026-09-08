@@ -6,6 +6,7 @@ import { X, Ban, AlertTriangle } from "lucide-react";
 import { Bidder, TenderMetadata } from "@/types";
 import { useTenderData } from "@/context/TenderDataContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { getBidderLegalName } from "@/lib/translations";
 
 interface DisqualificationModalProps {
   isOpen: boolean;
@@ -93,7 +94,7 @@ export function DisqualificationModal({
                   {language === "hi" ? "वैधानिक अयोग्यता और अस्वीकृति" : "Statutory Disqualification & Rejection"}
                 </h3>
                 <p className="text-xs text-muted-gray">
-                  {language === "hi" ? "इकाई: " : "Entity: "} {bidder.legal_name} ({bidder.seller_id}) {tender ? `• ${tender.tender_id}` : ""}
+                  {language === "hi" ? "इकाई: " : "Entity: "} {getBidderLegalName(bidder.legal_name, language)} ({bidder.seller_id}) {tender ? `• ${tender.tender_id}` : ""}
                 </p>
               </div>
             </div>

@@ -18,6 +18,7 @@ import {
 import { useTenderData } from "@/context/TenderDataContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { GatewayHealth } from "@/types";
+import { getGatewayInfo } from "@/lib/translations";
 
 interface VerificationResponse {
   success: boolean;
@@ -112,31 +113,31 @@ export default function GatewaysPage() {
   // Presets for instant testing
   const presets = [
     {
-      label: "Aura Flow (Valid GSTIN)",
+      label: language === "hi" ? "ऑरा फ्लो (वैध GSTIN)" : "Aura Flow (Valid GSTIN)",
       gateway: "gstn",
       identifier: "33AAACA1234F1Z5",
       type: "compliant",
     },
     {
-      label: "Bharat Petro (Service Udyam)",
+      label: language === "hi" ? "भारत पेट्रो (सेवा उद्यम)" : "Bharat Petro (Service Udyam)",
       gateway: "udyam",
       identifier: "UDYAM-MH-02-0044812",
       type: "warning",
     },
     {
-      label: "Apex Eng (Debarred / Suspended GST)",
+      label: language === "hi" ? "एपेक्स इंजी (प्रतिबंधित / निलंबित GST)" : "Apex Eng (Debarred / Suspended GST)",
       gateway: "gstn",
       identifier: "07AAACD9988P1Z3",
       type: "danger",
     },
     {
-      label: "CPPP Blacklist Check (Apex)",
+      label: language === "hi" ? "CPPP ब्लैकलिस्ट जांच (एपेक्स)" : "CPPP Blacklist Check (Apex)",
       gateway: "cppp",
       identifier: "AAACD9988P",
       type: "danger",
     },
     {
-      label: "MCA21 Corporate CIN",
+      label: language === "hi" ? "MCA21 कॉर्पोरेट CIN" : "MCA21 Corporate CIN",
       gateway: "mca21",
       identifier: "U29100TN2018PTC120491",
       type: "compliant",
@@ -157,7 +158,7 @@ export default function GatewaysPage() {
             </span>
           </div>
           <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
-            {t.gwPageTitle} (8 Authorities)
+            {t.gwPageTitle} {language === "hi" ? "(8 वैधानिक प्राधिकरण)" : "(8 Authorities)"}
           </h1>
           <p className="text-xs text-muted-gray">
             {t.gwPageSubtitle}
@@ -257,11 +258,11 @@ export default function GatewaysPage() {
               onChange={(e) => setSelectedGateway(e.target.value)}
               className="w-full text-xs font-semibold px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
             >
-              <option value="gstn">GSTN API Gateway (GSTIN)</option>
-              <option value="mca21">MCA21 V3 Registry (CIN)</option>
-              <option value="pan">Income Tax / CBDT (PAN)</option>
-              <option value="udyam">Udyam MSME Portal (Udyam No)</option>
-              <option value="cppp">CPPP Central Debarment Registry</option>
+              <option value="gstn">{language === "hi" ? "जीएसटीएन एपीआई गेटवे (GSTIN)" : "GSTN API Gateway (GSTIN)"}</option>
+              <option value="mca21">{language === "hi" ? "एमसीए21 V3 रजिस्ट्री (CIN)" : "MCA21 V3 Registry (CIN)"}</option>
+              <option value="pan">{language === "hi" ? "आयकर / सीबीडीटी (PAN)" : "Income Tax / CBDT (PAN)"}</option>
+              <option value="udyam">{language === "hi" ? "उद्यम एमएसएमई पोर्टल (Udyam No)" : "Udyam MSME Portal (Udyam No)"}</option>
+              <option value="cppp">{language === "hi" ? "सीपीपीपी केंद्रीय प्रतिबंध रजिस्ट्री (CPPP)" : "CPPP Central Debarment Registry"}</option>
             </select>
           </div>
 
@@ -357,33 +358,35 @@ export default function GatewaysPage() {
 
       {/* Gateway Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {gateways.map((gw) => (
-          <div
-            key={gw.id}
-            className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3 hover:border-lavender/50 transition-all"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <span className="text-[10px] uppercase font-bold tracking-wider text-muted-gray">
-                  {gw.authority}
+        {gateways.map((gw) => {
+          const info = getGatewayInfo(gw, language);
+          return (
+            <div
+              key={gw.id}
+              className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3 hover:border-lavender/50 transition-all"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-muted-gray">
+                    {info.authority}
+                  </span>
+                  <h3 className="text-base font-bold text-deep-navy dark:text-crisp-white">
+                    {info.name}
+                  </h3>
+                </div>
+                <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
+                  <span className="w-2 h-2 rounded-full bg-mint-green animate-pulse" />
+                  <span>{language === "hi" ? "सक्रिय" : gw.status}</span>
                 </span>
-                <h3 className="text-base font-bold text-deep-navy dark:text-crisp-white">
-                  {gw.name}
-                </h3>
               </div>
-              <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
-                <span className="w-2 h-2 rounded-full bg-mint-green animate-pulse" />
-                <span>{language === "hi" ? "सक्रिय" : gw.status}</span>
-              </span>
-            </div>
 
-            <p className="text-xs text-muted-gray leading-relaxed">
-              {gw.statutory_scope}
-            </p>
+              <p className="text-xs text-muted-gray leading-relaxed">
+                {info.statutory_scope}
+              </p>
 
-            <div className="p-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy font-mono text-[11px] text-muted-gray border border-warm-beige dark:border-warm-beige/20 break-all">
-              {t.gwEndpoint}: <span className="text-deep-navy dark:text-crisp-white">{gw.endpoint}</span>
-            </div>
+              <div className="p-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy font-mono text-[11px] text-muted-gray border border-warm-beige dark:border-warm-beige/20 break-all">
+                {t.gwEndpoint}: <span className="text-deep-navy dark:text-crisp-white">{gw.endpoint}</span>
+              </div>
 
             <div className="pt-3 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-xs font-mono text-muted-gray">
               <div className="flex items-center space-x-3">
@@ -414,7 +417,8 @@ export default function GatewaysPage() {
               </div>
             </div>
           </div>
-        ))}
+        );
+      })}
       </div>
     </div>
   );
