@@ -10,13 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "off-white": "#F4F4EC",
-        "deep-navy": "#0C141C",
-        "dark-navy": "#141424",
-        "soft-beige": "#ECE4DC",
-        "warm-beige": "#E4DCD4",
-        "crisp-white": "#FCFCFC",
-        "muted-gray": "#647080",
+        "off-white": "#F8FAFC",
+        "deep-navy": "#0B111A",
+        "dark-navy": "#111827",
+        "soft-beige": "#FFFFFF",
+        "warm-beige": "#E2E8F0",
+        "crisp-white": "#F8FAFC",
+        "muted-gray": "#64748B",
         lavender: {
           DEFAULT: "#6366F1",
           50: "#eef2ff",

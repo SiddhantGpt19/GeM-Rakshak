@@ -4,21 +4,21 @@
 
 @layer base {
   :root {
-    --bg-canvas: #F4F4EC;      /* Off-White */
-    --text-primary: #0C141C;   /* Deep Navy */
-    --card-surface: #ECE4DC;   /* Soft Beige */
-    --card-inner: #FCFCFC;     /* Crisp White */
-    --border-color: #E4DCD4;   /* Warm Beige */
-    --muted-text: #647080;     /* Muted Gray */
+    --bg-canvas: #F8FAFC;      /* Crisp Slate-50 */
+    --text-primary: #0B111A;   /* Deep Navy */
+    --card-surface: #FFFFFF;   /* Pure White */
+    --card-inner: #F8FAFC;     /* Slate-50 */
+    --border-color: #E2E8F0;   /* Slate-200 */
+    --muted-text: #64748B;     /* Slate-500 */
   }
 
   .dark {
-    --bg-canvas: #141424;      /* Dark Navy */
-    --text-primary: #FCFCFC;   /* Crisp White */
-    --card-surface: #0C141C;   /* Deep Navy */
-    --card-inner: #141424;     /* Dark Navy */
-    --border-color: rgba(228, 220, 212, 0.2); /* Warm Beige / 20 */
-    --muted-text: #647080;     /* Muted Gray */
+    --bg-canvas: #0B0F19;      /* Obsidian Navy */
+    --text-primary: #F8FAFC;   /* Crisp White */
+    --card-surface: #111827;   /* Slate-900 */
+    --card-inner: #1E293B;     /* Slate-800 */
+    --border-color: rgba(255, 255, 255, 0.08); /* Translucent Hairline */
+    --muted-text: #94A3B8;     /* Slate-400 */
   }
 
   body {

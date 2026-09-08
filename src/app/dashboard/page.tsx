@@ -83,110 +83,106 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* KPI 1: Active Tenders */}
         <motion.div
-          whileHover={{ y: -3 }}
-          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-sm flex flex-col justify-between"
+          whileHover={{ y: -2 }}
+          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige/80 dark:border-warm-beige/20 shadow-xs flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-gray">
+            <span className="text-xs font-semibold text-muted-gray">
               {t.kpiActiveTenders}
             </span>
-            <div className="p-2.5 rounded-xl bg-lavender/15 text-lavender">
-              <FileText className="w-5 h-5" />
+            <div className="p-2 rounded-xl bg-lavender/10 text-lavender">
+              <FileText className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3">
-            <div className="text-3xl font-black text-deep-navy dark:text-crisp-white">
+          <div className="mt-3 flex items-baseline justify-between">
+            <div className="text-3xl font-bold tracking-tight text-deep-navy dark:text-crisp-white">
               8
             </div>
-            <p className="text-xs text-muted-gray mt-1">
-              {t.kpiSubtitleTenders}
-            </p>
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-lavender/10 text-lavender">
+              {language === "hi" ? "सक्रिय अधिप्राप्ति" : "Active Pipeline"}
+            </span>
           </div>
-          <div className="mt-3 pt-3 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-[11px] font-semibold text-lavender">
-            <span>{language === "hi" ? "हाइड्रोकार्बन एवं पंप श्रेणी" : "Hydrocarbon & Pumps Category"}</span>
-            <span>{t.lblActive}</span>
-          </div>
+          <p className="text-[11px] text-muted-gray mt-1.5 truncate">
+            {t.kpiSubtitleTenders}
+          </p>
         </motion.div>
 
         {/* KPI 2: Bids Scrutinized Today */}
         <motion.div
-          whileHover={{ y: -3 }}
-          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-sm flex flex-col justify-between"
+          whileHover={{ y: -2 }}
+          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige/80 dark:border-warm-beige/20 shadow-xs flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-gray">
+            <span className="text-xs font-semibold text-muted-gray">
               {t.kpiBidsToday}
             </span>
-            <div className="p-2.5 rounded-xl bg-mint-green/15 text-mint-green">
-              <Zap className="w-5 h-5" />
+            <div className="p-2 rounded-xl bg-mint-green/10 text-mint-green">
+              <Zap className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3">
-            <div className="text-3xl font-black text-deep-navy dark:text-crisp-white">
+          <div className="mt-3 flex items-baseline justify-between">
+            <div className="text-3xl font-bold tracking-tight text-deep-navy dark:text-crisp-white">
               42
             </div>
-            <p className="text-xs text-muted-gray mt-1">
-              {t.kpiSubtitleBids}
-            </p>
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-mint-green/10 text-mint-green">
+              {language === "hi" ? "+14 आज" : "+14 today"}
+            </span>
           </div>
-          <div className="mt-3 pt-3 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-[11px] font-semibold text-mint-green">
-            <span>{language === "hi" ? "100% रीयल-टाइम स्वचालित सत्यापन" : "100% Real-time Automated Verification"}</span>
-            <span>{language === "hi" ? "+14 आज" : "+14 today"}</span>
-          </div>
+          <p className="text-[11px] text-muted-gray mt-1.5 truncate">
+            {t.kpiSubtitleBids}
+          </p>
         </motion.div>
 
-        {/* KPI 3: Tampering & Fraud Blocked (Coral Orange Pill) */}
+        {/* KPI 3: Tampering & Fraud Blocked */}
         <motion.div
-          whileHover={{ y: -3 }}
-          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-coral-orange/40 shadow-sm flex flex-col justify-between relative overflow-hidden"
+          whileHover={{ y: -2 }}
+          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-coral-orange/30 shadow-xs flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-coral-orange">
+            <span className="text-xs font-semibold text-coral-orange">
               {t.kpiFraudBlocked}
             </span>
-            <div className="p-2.5 rounded-xl bg-coral-orange/15 text-coral-orange animate-pulse">
-              <ShieldAlert className="w-5 h-5" />
+            <div className="p-2 rounded-xl bg-coral-orange/10 text-coral-orange">
+              <ShieldAlert className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3">
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-black bg-coral-orange text-white shadow-md shadow-coral-orange/30">
+          <div className="mt-3 flex items-baseline justify-between">
+            <div className="text-3xl font-bold tracking-tight text-coral-orange">
+              3
+            </div>
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-coral-orange/10 text-coral-orange">
               {t.kpiFraudBlockedBadge}
-            </div>
-            <p className="text-xs text-muted-gray mt-2">
-              {language === "hi" ? "फ़ोटोशॉप संपादन, फ़र्ज़ी UDIN और डिबार बोलीदाता" : "Photoshop tampering, fake UDINs & debarred bidders"}
-            </p>
+            </span>
           </div>
-          <div className="mt-3 pt-3 border-t border-coral-orange/20 flex items-center justify-between text-[11px] font-bold text-coral-orange">
-            <span>{language === "hi" ? "शून्य असत्य नकारात्मक" : "Zero False Negatives"}</span>
-            <span>{language === "hi" ? "अतिसंवेदनशील चेतावनी" : "Critical Alert"}</span>
-          </div>
+          <p className="text-[11px] text-muted-gray mt-1.5 truncate">
+            {language === "hi" ? "फ़ोटोशॉप संपादन, फ़र्ज़ी UDIN एवं सिंडिकेट" : "Photoshop edits, fake UDINs & cartels"}
+          </p>
         </motion.div>
 
-        {/* KPI 4: Evaluation Time Saved (Mint Green Badge) */}
+        {/* KPI 4: Evaluation Time Saved */}
         <motion.div
-          whileHover={{ y: -3 }}
-          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-mint-green/40 shadow-sm flex flex-col justify-between"
+          whileHover={{ y: -2 }}
+          className="p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-mint-green/30 shadow-xs flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-mint-green">
+            <span className="text-xs font-semibold text-mint-green">
               {t.kpiTimeSaved}
             </span>
-            <div className="p-2.5 rounded-xl bg-mint-green/15 text-mint-green">
-              <Clock className="w-5 h-5" />
+            <div className="p-2 rounded-xl bg-mint-green/10 text-mint-green">
+              <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3">
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-black bg-mint-green text-white shadow-md shadow-mint-green/30">
+          <div className="mt-3 flex items-baseline justify-between">
+            <div className="text-3xl font-bold tracking-tight text-mint-green">
+              &lt; 30s
+            </div>
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-mint-green/10 text-mint-green">
               {t.kpiTimeSavedBadge}
-            </div>
-            <p className="text-xs text-muted-gray mt-2">
-              {language === "hi" ? "4.5 दिनों की मानवीय संवीक्षा घटकर तत्काल हुई" : "Down from 4.5 days manual cross-checking"}
-            </p>
+            </span>
           </div>
-          <div className="mt-3 pt-3 border-t border-mint-green/20 flex items-center justify-between text-[11px] font-bold text-mint-green">
-            <span>{language === "hi" ? "CVC ऑडिट अनुपालित" : "CVC Audit Compliant"}</span>
-            <span>{language === "hi" ? "99.9% तीव्रतम" : "99.9% Faster"}</span>
-          </div>
+          <p className="text-[11px] text-muted-gray mt-1.5 truncate">
+            {language === "hi" ? "4.5 दिनों की मानवीय संवीक्षा घटकर तत्काल हुई" : "Down from 4.5 days manual cross-checking"}
+          </p>
         </motion.div>
       </div>
 
@@ -201,14 +197,14 @@ export default function DashboardPage() {
               {t.tendersSubheader}
             </p>
           </div>
-          <span className="px-3 py-1 rounded-full text-xs font-bold bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
+          <span className="px-3 py-1 rounded-full text-xs font-medium bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
             {tenders.length} {language === "hi" ? "सक्रिय CPCL अधिप्राप्तियां" : "Active CPCL Procurements"}
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-warm-beige/50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider">
+            <thead className="bg-slate-50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="py-3 px-4">{t.colTenderId}</th>
                 <th className="py-3 px-4">{t.colTitle}</th>
@@ -219,13 +215,13 @@ export default function DashboardPage() {
                 <th className="py-3 px-4 text-right">{t.colAction}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-warm-beige dark:divide-warm-beige/20">
+            <tbody className="divide-y divide-warm-beige/60 dark:divide-warm-beige/15">
               {tenders.map((tender) => {
                 const isPrimary = tender.tender_id === "GEM/2026/B/9823410";
                 return (
                   <tr
                     key={tender.tender_id}
-                    className="hover:bg-warm-beige/30 dark:hover:bg-dark-navy/40 transition-colors"
+                    className="hover:bg-slate-50/70 dark:hover:bg-dark-navy/40 transition-colors"
                   >
                     <td className="py-3.5 px-4 font-mono font-bold text-deep-navy dark:text-crisp-white">
                       <div className="flex items-center space-x-1.5">

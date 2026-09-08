@@ -77,46 +77,46 @@ export default function BidderComparisonPage() {
           </div>
         </div>
 
-        {/* Mandatory Tender Criteria Pills */}
-        <div className="space-y-1.5">
-          <span className="text-xs font-bold text-deep-navy dark:text-crisp-white">
+        {/* Mandatory Tender Criteria Parameter Strip */}
+        <div className="flex items-center flex-wrap gap-2 text-xs pt-1">
+          <span className="text-[11px] font-semibold text-muted-gray uppercase tracking-wider">
             {t.tenderParamsTitle}:
           </span>
-          <div className="flex flex-wrap gap-2 text-xs">
-            <span className="px-3 py-1 rounded-xl bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white font-semibold border border-warm-beige dark:border-warm-beige/20">
+          <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+            <span className="px-2.5 py-1 rounded-lg bg-slate-100/80 dark:bg-slate-800/60 text-deep-navy dark:text-crisp-white font-medium border border-slate-200/60 dark:border-slate-700/60">
               💰 {t.paramMinTurnover}
             </span>
-            <span className="px-3 py-1 rounded-xl bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white font-semibold border border-warm-beige dark:border-warm-beige/20">
+            <span className="px-2.5 py-1 rounded-lg bg-slate-100/80 dark:bg-slate-800/60 text-deep-navy dark:text-crisp-white font-medium border border-slate-200/60 dark:border-slate-700/60">
               🇮🇳 {t.paramMIIClass}
             </span>
-            <span className="px-3 py-1 rounded-xl bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white font-semibold border border-warm-beige dark:border-warm-beige/20">
+            <span className="px-2.5 py-1 rounded-lg bg-slate-100/80 dark:bg-slate-800/60 text-deep-navy dark:text-crisp-white font-medium border border-slate-200/60 dark:border-slate-700/60">
               🏭 {t.paramNICCode}
             </span>
-            <span className="px-3 py-1 rounded-xl bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white font-semibold border border-warm-beige dark:border-warm-beige/20">
+            <span className="px-2.5 py-1 rounded-lg bg-slate-100/80 dark:bg-slate-800/60 text-deep-navy dark:text-crisp-white font-medium border border-slate-200/60 dark:border-slate-700/60">
               📜 {t.paramOEMAuth}
             </span>
-            <span className="px-3 py-1 rounded-xl bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white font-semibold border border-warm-beige dark:border-warm-beige/20">
+            <span className="px-2.5 py-1 rounded-lg bg-slate-100/80 dark:bg-slate-800/60 text-deep-navy dark:text-crisp-white font-medium border border-slate-200/60 dark:border-slate-700/60">
               👥 {t.paramEPFO}
             </span>
           </div>
         </div>
       </div>
 
-      {/* 2. Cartel Collusion Warning Banner (Coral Orange with Pulsing Radar Icon) */}
+      {/* 2. Cartel Collusion Warning Banner (Modern Ambient Alert) */}
       <AnimatePresence>
         {showCartelBanner && (
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, height: 0 }}
-            className="p-4 rounded-2xl bg-coral-orange/15 border-2 border-coral-orange text-coral-orange shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-pulse-coral"
+            className="p-3.5 rounded-2xl bg-coral-orange/10 border border-coral-orange/30 text-coral-orange shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3"
           >
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-xl bg-coral-orange text-white shadow-md shadow-coral-orange/40">
+              <div className="p-2 rounded-xl bg-coral-orange/20 text-coral-orange shrink-0">
                 <Radar className="w-5 h-5 animate-spin" style={{ animationDuration: "5s" }} />
               </div>
               <div className="text-xs">
-                <h3 className="font-black uppercase tracking-wider text-coral-orange text-sm">
+                <h3 className="font-bold uppercase tracking-wider text-coral-orange text-xs">
                   {t.cartelBannerWarning}
                 </h3>
                 <p className="text-deep-navy dark:text-crisp-white mt-0.5">
@@ -130,7 +130,7 @@ export default function BidderComparisonPage() {
             <div className="flex items-center space-x-2 shrink-0">
               <Link
                 href={`/tenders/${rawId}/cartel-network`}
-                className="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-coral-orange text-white hover:bg-coral-orange-600 shadow-md shadow-coral-orange/30 transition-all"
+                className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-coral-orange text-white hover:bg-coral-orange-600 transition-all shadow-xs"
               >
                 <span>{t.cartelBannerBtn}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -210,7 +210,7 @@ export default function BidderComparisonPage() {
       <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-warm-beige/50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider">
+            <thead className="bg-slate-50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="py-3 px-4">{t.colBidderName}</th>
                 <th className="py-3 px-4">{t.colSellerId}</th>
@@ -220,7 +220,7 @@ export default function BidderComparisonPage() {
                 <th className="py-3 px-4 text-right">{t.colDeepDive}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-warm-beige dark:divide-warm-beige/20">
+            <tbody className="divide-y divide-warm-beige/60 dark:divide-warm-beige/15">
               {filteredBidders.map((bidder) => {
                 const score = bidder.ai_evaluation.compliance_score;
                 const status = bidder.ai_evaluation.status;
@@ -231,7 +231,7 @@ export default function BidderComparisonPage() {
                 return (
                   <tr
                     key={bidder.bidder_id}
-                    className="hover:bg-warm-beige/30 dark:hover:bg-dark-navy/40 transition-colors"
+                    className="hover:bg-slate-50/70 dark:hover:bg-dark-navy/40 transition-colors"
                   >
                     {/* Bidder Name & Flags */}
                     <td className="py-4 px-4">
