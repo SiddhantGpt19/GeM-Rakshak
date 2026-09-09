@@ -10,9 +10,6 @@ import {
   Flame,
   ArrowRight,
   Landmark,
-  ShieldCheck,
-  HelpCircle,
-  AlertTriangle,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { DocumentForensics } from "@/types";
@@ -380,8 +377,8 @@ export default function ForensicsLabPage() {
 
   type SampleType = "tampered_turnover" | "genuine_udyam" | "procedural_mismatch" | "debarred_vendor" | "uploaded";
 
-  const [activeDoc, setActiveDoc] = useState<DocumentForensics>(defaultSampleTampered);
-  const [selectedSample, setSelectedSample] = useState<SampleType>("tampered_turnover");
+  const [activeDoc, setActiveDoc] = useState<DocumentForensics>(defaultSampleGenuine);
+  const [selectedSample, setSelectedSample] = useState<SampleType>("genuine_udyam");
 
   // Handle Real File Upload
   const processUploadedFile = async (file: File) => {
@@ -597,117 +594,63 @@ export default function ForensicsLabPage() {
         </div>
       </div>
 
-      {/* AI Document Authenticity & Real vs Fake Forensic Inspection Banner */}
+      {/* Compact 1-Line AI Verdict Banner (Option 2) */}
       {activeDoc.ai_verification && (
-        <div className="p-5 rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 shadow-xs space-y-3.5">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-warm-beige/80 dark:border-white/[0.08] pb-3">
-            <div className="flex items-center space-x-3">
-              <div
-                className={`p-2.5 rounded-xl flex items-center justify-center shrink-0 ${
-                  activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
-                    ? "bg-mint-green/10 text-mint-green border border-mint-green/20"
-                    : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
-                    ? "bg-coral-orange/10 text-coral-orange border border-coral-orange/20"
-                    : "bg-amber-500/10 text-amber-500 border border-amber-500/20"
-                }`}
-              >
-                {activeDoc.ai_verification.verdict === "REAL_AUTHENTIC" ? (
-                  <ShieldCheck className="w-5 h-5" />
-                ) : activeDoc.ai_verification.verdict === "FAKE_TAMPERED" ? (
-                  <AlertTriangle className="w-5 h-5" />
-                ) : (
-                  <HelpCircle className="w-5 h-5" />
-                )}
-              </div>
-              <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span
-                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
-                      activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
-                        ? "bg-mint-green/15 text-mint-green border-mint-green/30"
-                        : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
-                        ? "bg-coral-orange/15 text-coral-orange border-coral-orange/30"
-                        : "bg-amber-500/15 text-amber-500 border-amber-500/30"
-                    }`}
-                  >
-                    {activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
-                      ? language === "hi"
-                        ? "🟢 AI निर्णय: वास्तविक / प्रामाणिक दस्तावेज़"
-                        : "🟢 AI PREDICTION: REAL / AUTHENTIC"
-                      : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
-                      ? language === "hi"
-                        ? "🔴 AI निर्णय: फर्जी / छेड़छाड़ किया गया"
-                        : "🔴 AI PREDICTION: FAKE / FORGED"
-                      : language === "hi"
-                      ? "🟡 AI निर्णय: प्रक्रियात्मक प्रश्न आवश्यक"
-                      : "🟡 AI PREDICTION: PROCEDURAL QUERY"}
-                  </span>
-                  <span className="text-xs font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
-                      ? `${activeDoc.ai_verification.real_percentage}% ${
-                          language === "hi" ? "वास्तविक प्रामाणिकता" : "Authentic (Real)"
-                        }`
-                      : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
-                      ? `${activeDoc.ai_verification.risk_percentage}% ${
-                          language === "hi" ? "फर्जी / जालसाजी जोखिम" : "Fraud / Fake Risk"
-                        }`
-                      : `${activeDoc.ai_verification.risk_percentage}% ${
-                          language === "hi" ? "विसंगति संभावना" : "Anomaly Score"
-                        }`}
-                  </span>
-                </div>
-                <h2 className="text-sm font-bold text-deep-navy dark:text-crisp-white mt-1">
-                  {activeDoc.ai_verification.headline}
-                </h2>
-              </div>
-            </div>
-
-            <div className="text-left md:text-right shrink-0">
-              <span className="text-[10px] font-medium text-muted-gray block">
-                {language === "hi" ? "दस्तावेज़ वर्गीकरण" : "Document Classification"}
-              </span>
-              <span className="text-xs font-semibold text-lavender block">
-                {activeDoc.ai_verification.doc_classification}
-              </span>
-            </div>
+        <div
+          className={`px-4 py-2.5 rounded-xl border flex items-center justify-between gap-3 text-xs shadow-xs transition-all ${
+            activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
+              ? "bg-mint-green/10 border-mint-green/30 text-deep-navy dark:text-crisp-white"
+              : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
+              ? "bg-coral-orange/10 border-coral-orange/30 text-deep-navy dark:text-crisp-white"
+              : "bg-amber-500/10 border-amber-500/30 text-deep-navy dark:text-crisp-white"
+          }`}
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span
+              className={`w-2.5 h-2.5 rounded-full shrink-0 animate-pulse ${
+                activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
+                  ? "bg-mint-green"
+                  : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
+                  ? "bg-coral-orange"
+                  : "bg-amber-500"
+              }`}
+            />
+            <span className="font-bold tracking-wide uppercase text-[11px] shrink-0">
+              {activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
+                ? language === "hi"
+                  ? "🟢 AI निर्णय: वास्तविक / प्रामाणिक"
+                  : "🟢 AI Verdict: REAL / AUTHENTIC"
+                : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
+                ? language === "hi"
+                  ? "🔴 AI निर्णय: फ़र्ज़ी / छेड़छाड़ किया गया"
+                  : "🔴 AI Verdict: FAKE / TAMPERED"
+                : language === "hi"
+                ? "🟡 AI निर्णय: प्रक्रियात्मक प्रश्न"
+                : "🟡 AI Verdict: PROCEDURAL QUERY"}
+            </span>
+            <span className="text-muted-gray hidden sm:inline">•</span>
+            <span className="truncate text-deep-navy/90 dark:text-crisp-white/90 font-medium text-xs">
+              {activeDoc.ai_verification.headline}
+            </span>
           </div>
 
-          <p className="text-xs text-deep-navy/85 dark:text-crisp-white/85 leading-relaxed bg-slate-50/70 dark:bg-white/[0.02] p-3 rounded-xl border border-slate-200/60 dark:border-white/5">
-            {activeDoc.ai_verification.summary}
-          </p>
-
-          {/* 4 AI Forensic Verification Checkpoints */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1">
-            {activeDoc.ai_verification.findings.map((finding, idx) => (
-              <div
-                key={idx}
-                className={`p-2.5 rounded-xl border text-xs space-y-1 ${
-                  finding.status === "PASS"
-                    ? "bg-mint-green/10 border-mint-green/30 text-deep-navy dark:text-crisp-white"
-                    : finding.status === "FAIL"
-                    ? "bg-coral-orange/10 border-coral-orange/30 text-deep-navy dark:text-crisp-white"
-                    : "bg-amber-500/10 border-amber-500/30 text-deep-navy dark:text-crisp-white"
-                }`}
-              >
-                <div className="flex items-center justify-between font-bold">
-                  <span className="truncate pr-1 text-[11px]">{finding.check}</span>
-                  <span
-                    className={`text-[9px] font-black px-1.5 py-0.5 rounded uppercase shrink-0 ${
-                      finding.status === "PASS"
-                        ? "bg-mint-green text-white"
-                        : finding.status === "FAIL"
-                        ? "bg-coral-orange text-white"
-                        : "bg-amber-500 text-white"
-                    }`}
-                  >
-                    {finding.status}
-                  </span>
-                </div>
-                <p className="text-[10px] text-muted-gray leading-tight line-clamp-2">
-                  {finding.detail}
-                </p>
-              </div>
-            ))}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <span
+              className={`font-mono font-bold text-xs px-2.5 py-0.5 rounded-md border ${
+                activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
+                  ? "bg-mint-green/15 text-mint-green border-mint-green/30"
+                  : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
+                  ? "bg-coral-orange/15 text-coral-orange border-coral-orange/30"
+                  : "bg-amber-500/15 text-amber-500 border-amber-500/30"
+              }`}
+            >
+              {activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
+                ? `${activeDoc.ai_verification.real_percentage}% Authentic`
+                : `${activeDoc.ai_verification.risk_percentage}% Risk`}
+            </span>
+            <span className="text-[11px] text-muted-gray hidden md:inline font-mono">
+              {activeDoc.file_name}
+            </span>
           </div>
         </div>
       )}
