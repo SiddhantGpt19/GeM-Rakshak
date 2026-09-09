@@ -315,7 +315,7 @@ export const translations: Record<Language, TranslationDict> = {
     kpiFraudBlocked: "Tampering & Fraud Blocked",
     kpiFraudBlockedBadge: "7 Forgeries Flagged",
     kpiTimeSaved: "Evaluation Time Saved",
-    kpiTimeSavedBadge: "82% Drop (4.5 Days ➔ 14 Mins)",
+    kpiTimeSavedBadge: "82% Faster (4.5d ➔ 14m)",
     kpiSubtitleTenders: "High-value CPCL Hydrocarbon Procurements",
     kpiSubtitleBids: "Across 8 Government Integrated Gateways",
 
@@ -583,7 +583,7 @@ export const translations: Record<Language, TranslationDict> = {
     kpiFraudBlocked: "रोकी गई जालसाजी एवं छेड़छाड़",
     kpiFraudBlockedBadge: "7 फर्जीवाड़े चिन्हित",
     kpiTimeSaved: "सत्यापन समय में बचत",
-    kpiTimeSavedBadge: "82% कमी (4.5 दिन ➔ 14 मिनट)",
+    kpiTimeSavedBadge: "82% तीव्र (4.5 दिन ➔ 14 मि.)",
     kpiSubtitleTenders: "उच्च मूल्य की CPCL हाइड्रोकार्बन खरीद",
     kpiSubtitleBids: "8 सरकारी एकीकृत पोर्टलों के माध्यम से",
 

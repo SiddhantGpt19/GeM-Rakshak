@@ -45,7 +45,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Welcome Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-white dark:bg-deep-navy/70 border border-warm-beige/80 dark:border-white/[0.08] shadow-xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-xs">
         <div>
           <div className="flex items-center space-x-2">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-lavender/10 text-lavender border border-lavender/20">
@@ -80,102 +80,102 @@ export default function DashboardPage() {
       </div>
 
       {/* 1. Four Sleek KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* KPI 1: Active Tenders */}
-        <div className="p-4.5 rounded-2xl bg-white dark:bg-deep-navy/70 border border-warm-beige/80 dark:border-white/[0.08] shadow-xs flex flex-col justify-between">
+        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-lavender/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-muted-gray">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
               {t.kpiActiveTenders}
             </span>
-            <div className="p-1.5 rounded-lg bg-lavender/10 text-lavender">
-              <FileText className="w-3.5 h-3.5" />
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-lavender/10 text-lavender border border-lavender/20 group-hover:scale-105 transition-transform">
+              <FileText className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
-            <div className="text-2xl font-bold tracking-tight text-deep-navy dark:text-crisp-white">
+          <div className="my-3 flex items-baseline justify-between gap-2">
+            <div className="text-3xl font-bold tracking-tight text-deep-navy dark:text-crisp-white font-mono">
               8
             </div>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-lavender/10 text-lavender border border-lavender/20">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-lavender/15 text-lavender dark:text-lavender-300 border border-lavender/30">
               {language === "hi" ? "सक्रिय अधिप्राप्ति" : "Active Pipeline"}
             </span>
           </div>
-          <p className="text-[10px] text-muted-gray mt-1 truncate">
+          <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
             {t.kpiSubtitleTenders}
-          </p>
+          </div>
         </div>
 
         {/* KPI 2: Bids Scrutinized Today */}
-        <div className="p-4.5 rounded-2xl bg-white dark:bg-deep-navy/70 border border-warm-beige/80 dark:border-white/[0.08] shadow-xs flex flex-col justify-between">
+        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-mint-green/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-muted-gray">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
               {t.kpiBidsToday}
             </span>
-            <div className="p-1.5 rounded-lg bg-mint-green/10 text-mint-green">
-              <Zap className="w-3.5 h-3.5" />
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-mint-green/10 text-mint-green border border-mint-green/20 group-hover:scale-105 transition-transform">
+              <Zap className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
-            <div className="text-2xl font-bold tracking-tight text-deep-navy dark:text-crisp-white">
+          <div className="my-3 flex items-baseline justify-between gap-2">
+            <div className="text-3xl font-bold tracking-tight text-deep-navy dark:text-crisp-white font-mono">
               42
             </div>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-mint-green/10 text-mint-green border border-mint-green/20">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-mint-green/15 text-mint-green border border-mint-green/30">
               {language === "hi" ? "+14 आज" : "+14 today"}
             </span>
           </div>
-          <p className="text-[10px] text-muted-gray mt-1 truncate">
+          <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
             {t.kpiSubtitleBids}
-          </p>
+          </div>
         </div>
 
         {/* KPI 3: Tampering & Fraud Blocked */}
-        <div className="p-4.5 rounded-2xl bg-white dark:bg-deep-navy/70 border border-coral-orange/20 shadow-xs flex flex-col justify-between">
+        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-coral-orange/25 hover:border-coral-orange/45 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-coral-orange">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
               {t.kpiFraudBlocked}
             </span>
-            <div className="p-1.5 rounded-lg bg-coral-orange/10 text-coral-orange">
-              <ShieldAlert className="w-3.5 h-3.5" />
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-coral-orange/10 text-coral-orange border border-coral-orange/25 group-hover:scale-105 transition-transform">
+              <ShieldAlert className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
-            <div className="text-2xl font-bold tracking-tight text-coral-orange">
+          <div className="my-3 flex items-baseline justify-between gap-2">
+            <div className="text-3xl font-bold tracking-tight text-coral-orange font-mono">
               3
             </div>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-coral-orange/10 text-coral-orange border border-coral-orange/20">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-coral-orange/15 text-coral-orange border border-coral-orange/30">
               {t.kpiFraudBlockedBadge}
             </span>
           </div>
-          <p className="text-[10px] text-muted-gray mt-1 truncate">
+          <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
             {language === "hi" ? "फ़ोटोशॉप संपादन, फ़र्ज़ी UDIN एवं सिंडिकेट" : "Photoshop edits, fake UDINs & cartels"}
-          </p>
+          </div>
         </div>
 
         {/* KPI 4: Evaluation Time Saved */}
-        <div className="p-4.5 rounded-2xl bg-white dark:bg-deep-navy/70 border border-mint-green/20 shadow-xs flex flex-col justify-between">
+        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-mint-green/25 hover:border-mint-green/45 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-mint-green">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
               {t.kpiTimeSaved}
             </span>
-            <div className="p-1.5 rounded-lg bg-mint-green/10 text-mint-green">
-              <Clock className="w-3.5 h-3.5" />
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-mint-green/10 text-mint-green border border-mint-green/25 group-hover:scale-105 transition-transform">
+              <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
-            <div className="text-2xl font-bold tracking-tight text-mint-green">
+          <div className="my-3 flex items-baseline justify-between gap-2">
+            <div className="text-3xl font-bold tracking-tight text-mint-green font-mono">
               &lt; 30s
             </div>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-mint-green/10 text-mint-green border border-mint-green/20">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-mint-green/15 text-mint-green border border-mint-green/30 shrink-0">
               {t.kpiTimeSavedBadge}
             </span>
           </div>
-          <p className="text-[10px] text-muted-gray mt-1 truncate">
+          <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
             {language === "hi" ? "4.5 दिनों की मानवीय संवीक्षा घटकर तत्काल हुई" : "Down from 4.5 days manual cross-checking"}
-          </p>
+          </div>
         </div>
       </div>
 
       {/* 2. Tender Pipeline Table */}
-      <div className="rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 shadow-xs overflow-hidden">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs overflow-hidden">
         <div className="p-4 sm:p-5 border-b border-warm-beige/80 dark:border-white/[0.08] flex items-center justify-between flex-wrap gap-3">
           <div>
             <h2 className="text-sm sm:text-base font-bold text-deep-navy dark:text-crisp-white">
@@ -285,7 +285,7 @@ export default function DashboardPage() {
       {/* 3. Visual Charts & Recent Telemetry */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Compliance Risk Breakdown Donut */}
-        <div className="p-5 rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 shadow-xs space-y-3">
+        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-3">
           <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
             {t.dashRiskDistribution}
           </h3>
@@ -336,7 +336,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Evaluation Velocity Comparison */}
-        <div className="p-5 rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 shadow-xs space-y-3">
+        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-3">
           <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
             {t.dashTimeSavedChart}
           </h3>
@@ -390,7 +390,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Real-time Forensic Anomaly Feed */}
-        <div className="p-5 rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 shadow-xs space-y-3">
+        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
               {language === "hi" ? "हालिया फोरेंसिक विसंगतियां" : "Recent Forensic Detections"}

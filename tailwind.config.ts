@@ -15,12 +15,12 @@ const config: Config = {
       },
       colors: {
         "off-white": "#F8FAFC",
-        "deep-navy": "#0F172A", // Elevated Card Surface
+        "deep-navy": "#111728", // Elevated Card Surface (Higher contrast against dark-navy #090D16)
         "dark-navy": "#090D16", // Deep Obsidian Canvas
         "soft-beige": "#FFFFFF",
         "warm-beige": "#E2E8F0",
         "crisp-white": "#F8FAFC",
-        "muted-gray": "#64748B",
+        "muted-gray": "#94A3B8", // Slate-400 for high-contrast crisp readability
         lavender: {
           DEFAULT: "#6366F1",
           50: "#eef2ff",
