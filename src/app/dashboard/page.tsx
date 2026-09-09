@@ -31,32 +31,33 @@ export default function DashboardPage() {
   const { tenders } = useTenderData();
 
   // Chart data matching exact tokens
+  // Chart data matching authoritative enterprise tokens
   const riskDistribution = [
-    { name: t.dashCompliantLabel, value: 18, color: "#10B981" },
-    { name: t.dashClarificationLabel, value: 17, color: "#F59E0B" },
-    { name: t.dashHighRiskLabel, value: 7, color: "#F4643C" },
+    { name: t.dashCompliantLabel, value: 18, color: "#059669" },
+    { name: t.dashClarificationLabel, value: 17, color: "#D97706" },
+    { name: t.dashHighRiskLabel, value: 7, color: "#DC2626" },
   ];
 
   const savingsData = [
-    { name: t.dashManualScrutinyLabel, hours: 108, fill: "#647080" },
-    { name: t.dashAiScrutinyLabel, hours: 0.23, fill: "#6366F1" },
+    { name: t.dashManualScrutinyLabel, hours: 108, fill: "#64748B" },
+    { name: t.dashAiScrutinyLabel, hours: 0.23, fill: "#2563EB" },
   ];
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Welcome Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 sm:p-6 rounded-xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-enterprise-sm">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-lavender/10 text-lavender border border-lavender/20">
+            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/60">
               {t.dashWelcomeOrg}
             </span>
-            <span className="text-xs text-muted-gray">• {t.dashLiveConsole}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">• {t.dashLiveConsole}</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-deep-navy dark:text-crisp-white mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mt-1.5">
             {t.appTitle} – {t.appSubtitle}
           </h1>
-          <p className="text-xs text-muted-gray mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
             {t.dashHeroDesc}
           </p>
         </div>
@@ -64,39 +65,39 @@ export default function DashboardPage() {
         <div className="flex items-center space-x-2.5 shrink-0">
           <Link
             href="/forensics-lab"
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-lavender/10 hover:bg-lavender/20 text-lavender border border-lavender/25 transition-all"
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-enterprise-sm transition-all"
           >
             <span>{t.navForensicsLab}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/tenders/GEM-2026-B-9823410/cartel-network"
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-coral-orange/10 hover:bg-coral-orange/20 text-coral-orange border border-coral-orange/25 transition-all"
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-white border border-slate-200/80 dark:border-white/10 transition-all"
           >
-            <Radar className="w-3.5 h-3.5" />
+            <Radar className="w-3.5 h-3.5 text-rose-500" />
             <span>{t.dashCartelAlertBtn}</span>
           </Link>
         </div>
       </div>
 
-      {/* 1. Four Sleek KPI Cards */}
+      {/* 1. Four Clean KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* KPI 1: Active Tenders */}
-        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-lavender/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
+        <div className="rounded-xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-enterprise-sm flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {t.kpiActiveTenders}
             </span>
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-lavender/10 text-lavender border border-lavender/20 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-800/60">
               <FileText className="w-4 h-4" />
             </div>
           </div>
           <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl font-bold tracking-tight text-deep-navy dark:text-crisp-white font-mono">
+            <div className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white font-mono">
               8
             </div>
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-lavender/15 text-lavender dark:text-lavender-300 border border-lavender/30">
-              {language === "hi" ? "सक्रिय अधिप्राप्ति" : "Active Pipeline"}
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300">
+              {language === "hi" ? "सक्रिय पाइपलाइन" : "Active Pipeline"}
             </span>
           </div>
           <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
@@ -105,20 +106,20 @@ export default function DashboardPage() {
         </div>
 
         {/* KPI 2: Bids Scrutinized Today */}
-        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-mint-green/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
+        <div className="rounded-xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-enterprise-sm flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {t.kpiBidsToday}
             </span>
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-mint-green/10 text-mint-green border border-mint-green/20 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800/60">
               <Zap className="w-4 h-4" />
             </div>
           </div>
           <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl font-bold tracking-tight text-deep-navy dark:text-crisp-white font-mono">
+            <div className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white font-mono">
               42
             </div>
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-mint-green/15 text-mint-green border border-mint-green/30">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
               {language === "hi" ? "+14 आज" : "+14 today"}
             </span>
           </div>
@@ -128,55 +129,55 @@ export default function DashboardPage() {
         </div>
 
         {/* KPI 3: Tampering & Fraud Blocked */}
-        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-coral-orange/25 hover:border-coral-orange/45 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
+        <div className="rounded-xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-rose-900/40 shadow-enterprise-sm flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {t.kpiFraudBlocked}
             </span>
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-coral-orange/10 text-coral-orange border border-coral-orange/25 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200/80 dark:border-rose-800/60">
               <ShieldAlert className="w-4 h-4" />
             </div>
           </div>
           <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl font-bold tracking-tight text-coral-orange font-mono">
+            <div className="text-3xl font-bold tracking-tight text-rose-600 dark:text-rose-400 font-mono">
               3
             </div>
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-coral-orange/15 text-coral-orange border border-coral-orange/30">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300">
               {t.kpiFraudBlockedBadge}
             </span>
           </div>
           <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
-            {language === "hi" ? "फ़ोटोशॉप संपादन, फ़र्ज़ी UDIN एवं सिंडिकेट" : "Photoshop edits, fake UDINs & cartels"}
+            {language === "hi" ? "फ़ोटोशॉप संपादन, फ़र्ज़ी UDIN एवं कार्टेल" : "Photoshop edits, fake UDINs & cartels"}
           </div>
         </div>
 
         {/* KPI 4: Evaluation Time Saved */}
-        <div className="relative overflow-hidden rounded-2xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-mint-green/25 hover:border-mint-green/45 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
+        <div className="rounded-xl p-5 bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-emerald-900/40 shadow-enterprise-sm flex flex-col justify-between group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {t.kpiTimeSaved}
             </span>
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-mint-green/10 text-mint-green border border-mint-green/25 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800/60">
               <Clock className="w-4 h-4" />
             </div>
           </div>
           <div className="my-3 flex items-baseline justify-between gap-2">
-            <div className="text-3xl font-bold tracking-tight text-mint-green font-mono">
+            <div className="text-3xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 font-mono">
               &lt; 30s
             </div>
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-mint-green/15 text-mint-green border border-mint-green/30 shrink-0">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 shrink-0">
               {t.kpiTimeSavedBadge}
             </span>
           </div>
           <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
-            {language === "hi" ? "4.5 दिनों की मानवीय संवीक्षा घटकर तत्काल हुई" : "Down from 4.5 days manual cross-checking"}
+            {language === "hi" ? "पारंपरिक 4.5 दिन से घटकर 30 सेकंड" : "Down from 4.5 days manual checks"}
           </div>
         </div>
       </div>
 
       {/* 2. Tender Pipeline Table */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs overflow-hidden">
-        <div className="p-4 sm:p-5 border-b border-warm-beige/80 dark:border-white/[0.08] flex items-center justify-between flex-wrap gap-3">
+      <div className="rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-enterprise-sm overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between flex-wrap gap-3">
           <div>
             <h2 className="text-sm sm:text-base font-bold text-deep-navy dark:text-crisp-white">
               {t.tendersHeader}
@@ -192,7 +193,7 @@ export default function DashboardPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs min-w-[760px]">
-            <thead className="bg-slate-50/80 dark:bg-white/[0.02] border-b border-warm-beige/80 dark:border-white/[0.08] text-muted-gray font-semibold uppercase tracking-wider text-[10px]">
+            <thead className="bg-slate-50/80 dark:bg-white/[0.02] border-b border-slate-200/80 dark:border-white/[0.08] text-muted-gray font-semibold uppercase tracking-wider text-[10px]">
               <tr>
                 <th className="py-2.5 px-4 whitespace-nowrap">{t.colTenderId}</th>
                 <th className="py-2.5 px-4 min-w-[220px]">{t.colTitle}</th>
@@ -203,7 +204,7 @@ export default function DashboardPage() {
                 <th className="py-2.5 px-4 text-right whitespace-nowrap">{t.colAction}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-warm-beige/60 dark:divide-white/[0.05]">
+            <tbody className="divide-y divide-slate-200/60 dark:divide-white/[0.05]">
               {tenders.map((tender) => {
                 const isPrimary = tender.tender_id === "GEM/2026/B/9823410";
                 return (
@@ -215,7 +216,7 @@ export default function DashboardPage() {
                       <div className="flex items-center space-x-1.5">
                         <span>{tender.tender_id}</span>
                         {isPrimary && (
-                          <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-lavender/15 text-lavender border border-lavender/25">
+                          <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-gov-blue-50 dark:bg-gov-blue-950/40 text-gov-blue-700 dark:text-gov-blue-300 border border-gov-blue-200 dark:border-gov-blue-800">
                             {t.lblActive}
                           </span>
                         )}
@@ -249,7 +250,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-lavender to-mint-green transition-all duration-500"
+                            className="h-full rounded-full bg-gradient-to-r from-blue-600 to-emerald-500 transition-all duration-500"
                             style={{ width: `${tender.scrutiny_progress}%` }}
                           />
                         </div>
@@ -260,7 +261,7 @@ export default function DashboardPage() {
                         {isPrimary && (
                           <Link
                             href="/tenders/GEM-2026-B-9823410/cartel-network"
-                            className="p-1.5 rounded-lg border border-coral-orange/30 text-coral-orange hover:bg-coral-orange/10 transition-all"
+                            className="p-1.5 rounded-lg border border-rose-200 dark:border-rose-800/60 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-all"
                             title={language === "hi" ? "कार्टेल रडार देखें" : "View Cartel Radar"}
                           >
                             <Radar className="w-3.5 h-3.5" />
@@ -268,7 +269,7 @@ export default function DashboardPage() {
                         )}
                         <Link
                           href={`/tenders/${tender.tender_id.replace(/\//g, "-")}/bidders`}
-                          className="px-2.5 py-1.5 rounded-lg font-semibold text-xs bg-lavender/10 hover:bg-lavender hover:text-white text-lavender border border-lavender/25 transition-all shadow-2xs"
+                          className="px-2.5 py-1.5 rounded-lg font-semibold text-xs bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 dark:bg-blue-950/60 dark:hover:bg-blue-600 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/60 transition-all shadow-2xs"
                         >
                           {t.btnScrutinize}
                         </Link>
@@ -282,15 +283,15 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* 3. Visual Charts & Recent Telemetry */}
+      {/* 3. Visual Charts & Recent Compliance Alerts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Compliance Risk Breakdown Donut */}
-        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-3">
-          <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
+        <div className="p-5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-enterprise-sm space-y-3">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             {t.dashRiskDistribution}
           </h3>
-          <p className="text-xs text-muted-gray">
-            {language === "hi" ? "CPCL निविदाओं में कुल 42 बोलियों की संवीक्षा" : "42 Total Bids Scrutinized Across CPCL Tenders"}
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {language === "hi" ? "CPCL निविदाओं में 42 बोलियों की संवीक्षा स्थिति" : "42 Total Bids Evaluated Across Active Tenders"}
           </p>
 
           <div className="h-52 flex items-center justify-center">
@@ -311,10 +312,10 @@ export default function DashboardPage() {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#0C141C",
-                    borderRadius: "12px",
-                    border: "1px solid #E4DCD4",
-                    color: "#FCFCFC",
+                    backgroundColor: "#111827",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    color: "#F8FAFC",
                     fontSize: "11px",
                   }}
                 />
@@ -322,43 +323,43 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </div>
 
-          <div className="space-y-1.5 pt-2 border-t border-warm-beige dark:border-warm-beige/20 text-xs">
+          <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/[0.06] text-xs">
             {riskDistribution.map((item) => (
               <div key={item.name} className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-                  <span className="text-deep-navy dark:text-crisp-white font-medium">{item.name}</span>
+                  <span className="text-slate-700 dark:text-slate-200 font-medium">{item.name}</span>
                 </div>
-                <span className="font-mono font-bold">{item.value}</span>
+                <span className="font-mono font-bold text-slate-900 dark:text-white">{item.value}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Evaluation Velocity Comparison */}
-        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-3">
-          <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
+        <div className="p-5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-enterprise-sm space-y-3">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             {t.dashTimeSavedChart}
           </h3>
-          <p className="text-xs text-muted-gray">
-            {language === "hi" ? "पारंपरिक मानवीय सत्यापन बनाम GeM-रक्षक एआई इंजन" : "Manual Human Verification vs GeM-Rakshak AI Pipeline"}
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {language === "hi" ? "पारंपरिक मानवीय संवीक्षा बनाम GeM-रक्षक" : "Manual Human Verification vs GeM-Rakshak"}
           </p>
 
           <div className="h-52 flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={savingsData} layout="vertical">
-                <XAxis type="number" tick={{ fontSize: 10, fill: "#647080" }} />
-                <YAxis dataKey="name" type="category" width={95} tick={{ fontSize: 11, fill: "#647080" }} />
+                <XAxis type="number" tick={{ fontSize: 10, fill: "#94A3B8" }} />
+                <YAxis dataKey="name" type="category" width={95} tick={{ fontSize: 11, fill: "#94A3B8" }} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#090D16",
-                    borderRadius: "12px",
+                    backgroundColor: "#111827",
+                    borderRadius: "8px",
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                     color: "#F8FAFC",
                     fontSize: "11px",
                   }}
                 />
-                <Bar dataKey="hours" radius={[0, 6, 6, 0]} minPointSize={28}>
+                <Bar dataKey="hours" radius={[0, 4, 4, 0]} minPointSize={28}>
                   {savingsData.map((entry, index) => (
                     <Cell key={`bar-${index}`} fill={entry.fill} />
                   ))}
@@ -367,14 +368,14 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </div>
 
-          <div className="space-y-1.5 pt-2 border-t border-warm-beige/80 dark:border-white/[0.08] text-xs">
+          <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/[0.06] text-xs">
             {savingsData.map((item) => (
               <div key={item.name} className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.fill }} />
-                  <span className="text-deep-navy dark:text-crisp-white font-medium">{item.name}</span>
+                  <span className="text-slate-700 dark:text-slate-200 font-medium">{item.name}</span>
                 </div>
-                <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
+                <span className="font-mono font-bold text-slate-900 dark:text-white">
                   {item.hours >= 1
                     ? `${item.hours}h (${language === "hi" ? "4.5 दिन" : "4.5 days"})`
                     : `< 30s (${language === "hi" ? "तत्काल" : "Instant"})`}
@@ -383,52 +384,52 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <div className="p-2.5 rounded-xl bg-mint-green/10 border border-mint-green/20 text-xs text-mint-green font-medium flex items-center space-x-2">
+          <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 text-xs text-emerald-700 dark:text-emerald-300 font-medium flex items-center space-x-2">
             <TrendingUp className="w-4 h-4 shrink-0" />
-            <span>{language === "hi" ? "प्रति CPSE निविदा चक्र में 82% समय की बचत" : "82% turnaround improvement per CPSE tender cycle"}</span>
+            <span>{language === "hi" ? "प्रति निविदा 82% समय की बचत" : "82% turnaround improvement per tender cycle"}</span>
           </div>
         </div>
 
         {/* Real-time Forensic Anomaly Feed */}
-        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-3">
+        <div className="p-5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-enterprise-sm space-y-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
-              {language === "hi" ? "हालिया फोरेंसिक विसंगतियां" : "Recent Forensic Detections"}
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              {language === "hi" ? "हालिया ऑडिट चेतावनियां" : "Recent Compliance Alerts"}
             </h3>
-            <span className="w-2 h-2 rounded-full bg-coral-orange" />
+            <span className="w-2 h-2 rounded-full bg-rose-500" />
           </div>
-          <p className="text-xs text-muted-gray">
-            {language === "hi" ? "CPCL हाइड्रोकार्बन निविदाओं में स्वचालित अलर्ट" : "Automated alerts flagged in CPCL Hydrocarbon tenders"}
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {language === "hi" ? "निविदाओं में स्वचालित रूप से चिन्हित विसंगतियां" : "Automated discrepancy flags from active evaluations"}
           </p>
 
           <div className="space-y-2 overflow-y-auto max-h-56">
-            <div className="p-2.5 rounded-xl bg-coral-orange/10 border border-coral-orange/20 space-y-1 text-xs">
-              <div className="flex items-center justify-between font-bold text-coral-orange">
-                <span>{language === "hi" ? "IOCL डिबारमेंट सक्रिय" : "IOCL Debarment Active"}</span>
-                <span className="font-mono text-[10px] text-muted-gray">{language === "hi" ? "अभी-अभी" : "Just now"}</span>
+            <div className="p-3 rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/50 space-y-1 text-xs">
+              <div className="flex items-center justify-between font-bold text-rose-700 dark:text-rose-400">
+                <span>{language === "hi" ? "प्रतिबंधित बोलीदाता" : "Debarred Vendor"}</span>
+                <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400">{language === "hi" ? "अभी" : "Just now"}</span>
               </div>
-              <p className="text-deep-navy dark:text-crisp-white text-[11px] leading-relaxed">
-                {language === "hi" ? "GFR नियम 151 के अंतर्गत अक्टूबर 2027 तक CPSEs में एपेक्स इंजीनियरिंग प्रतिबंधित।" : "Apex Engineering debarred across CPSEs until Oct 2027 under GFR Rule 151."}
+              <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
+                {language === "hi" ? "एपेक्स इंजीनियरिंग GFR नियम 151 के तहत प्रतिबंधित।" : "Apex Engineering debarred across CPSEs under GFR Rule 151."}
               </p>
             </div>
 
-            <div className="p-2.5 rounded-xl bg-coral-orange/10 border border-coral-orange/20 space-y-1 text-xs">
-              <div className="flex items-center justify-between font-bold text-coral-orange">
-                <span>{language === "hi" ? "फ़ोटोशॉप CC 2024 संपादन" : "Photoshop CC 2024 Alteration"}</span>
-                <span className="font-mono text-[10px] text-muted-gray">{language === "hi" ? "10 मिनट पूर्व" : "10m ago"}</span>
+            <div className="p-3 rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/50 space-y-1 text-xs">
+              <div className="flex items-center justify-between font-bold text-rose-700 dark:text-rose-400">
+                <span>{language === "hi" ? "फ़ोटोशॉप संपादन चिन्हित" : "Photoshop Alteration"}</span>
+                <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400">{language === "hi" ? "10 मि. पूर्व" : "10m ago"}</span>
               </div>
-              <p className="text-deep-navy dark:text-crisp-white text-[11px] leading-relaxed">
-                {language === "hi" ? "CA नेटवर्थ प्रमाणपत्र में टर्नओवर अंक ₹1.5 करोड़ से बदलकर ₹18.5 करोड़ किए गए।" : "Turnover digits edited from ₹1.5 Cr to ₹18.5 Cr in CA Net Worth certificate."}
+              <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
+                {language === "hi" ? "CA प्रमाणपत्र में टर्नओवर ₹1.5 Cr से बदलकर ₹18.5 Cr किया गया।" : "Turnover edited from ₹1.5 Cr to ₹18.5 Cr in CA certificate."}
               </p>
             </div>
 
-            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-1 text-xs">
-              <div className="flex items-center justify-between font-bold text-amber-500">
-                <span>{language === "hi" ? "MSME NIC श्रेणी बेमेल" : "MSME NIC Category Mismatch"}</span>
-                <span className="font-mono text-[10px] text-muted-gray">{language === "hi" ? "25 मिनट पूर्व" : "25m ago"}</span>
+            <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 space-y-1 text-xs">
+              <div className="flex items-center justify-between font-bold text-amber-700 dark:text-amber-400">
+                <span>{language === "hi" ? "श्रेणी बेमेल (NIC)" : "Category Mismatch"}</span>
+                <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400">{language === "hi" ? "25 मि. पूर्व" : "25m ago"}</span>
               </div>
-              <p className="text-deep-navy dark:text-crisp-white text-[11px] leading-relaxed">
-                {language === "hi" ? "भारत पेट्रो सेवाओं (74909) के लिए पंजीकृत, जबकि निविदा विनिर्माण की मांग करती है।" : "Bharat Petro registered for Services (74909), tender mandates Manufacturing."}
+              <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
+                {language === "hi" ? "भारत पेट्रो सेवाओं हेतु पंजीकृत, जबकि निविदा विनिर्माण मांगती है।" : "Bharat Petro registered for Services; tender mandates Manufacturing."}
               </p>
             </div>
           </div>

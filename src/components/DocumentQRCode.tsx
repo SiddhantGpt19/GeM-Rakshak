@@ -54,7 +54,7 @@ export function DocumentQRCode({
   if (hasError || !qrDataUrl) {
     return (
       <div
-        className={`flex items-center justify-center bg-warm-beige/30 dark:bg-deep-navy/40 rounded-lg ${className}`}
+        className={`flex items-center justify-center bg-slate-100 dark:bg-dark-navy rounded-lg ${className}`}
         style={{ width: size, height: size }}
       >
         <QrIcon className="w-1/2 h-1/2 text-muted-gray animate-pulse" />

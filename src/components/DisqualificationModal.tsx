@@ -27,36 +27,36 @@ export function DisqualificationModal({
     `Disqualified due to statutory non-compliance: Material discrepancies identified in submitted certificates against portal records. Bidder failed to fulfill mandatory criteria under GeM GTC & CPCL Tender Terms.`
   );
   const [selectedReasons, setSelectedReasons] = useState<string[]>([
-    "False or misleading documentation / Forensic alteration",
-    "Active CPSE / Ministry Debarment status",
+    "Tampered or forged documents",
+    "Blacklisted / debarred vendor",
   ]);
 
   if (!isOpen) return null;
 
   const reasonOptions = [
     {
-      id: "False or misleading documentation / Forensic alteration",
-      label: language === "hi" ? "गलत या भ्रामक दस्तावेज़ / फोरेंसिक हेरफेर" : "False or misleading documentation / Forensic alteration",
+      id: "Tampered or forged documents",
+      label: language === "hi" ? "गलत या छेड़छाड़ किए गए दस्तावेज़" : "Tampered or forged documents",
     },
     {
-      id: "Active CPSE / Ministry Debarment status",
-      label: language === "hi" ? "सक्रिय CPSE / मंत्रालय प्रतिबंध स्थिति" : "Active CPSE / Ministry Debarment status",
+      id: "Blacklisted / debarred vendor",
+      label: language === "hi" ? "प्रतिबंधित / ब्लैकलिस्टेड विक्रेता" : "Blacklisted / debarred vendor",
     },
     {
-      id: "Failure to meet minimum financial turnover (₹15.00 Cr threshold)",
-      label: language === "hi" ? "न्यूनतम वित्तीय कारोबार में विफलता (₹15.00 करोड़ सीमा)" : "Failure to meet minimum financial turnover (₹15.00 Cr threshold)",
+      id: "Turnover below minimum (₹15 Cr)",
+      label: language === "hi" ? "न्यूनतम कारोबार में कमी (₹15 करोड़ से कम)" : "Turnover below minimum (₹15 Cr)",
     },
     {
-      id: "Non-compliance with Make in India Class-I local content (≥50%)",
-      label: language === "hi" ? "मेक इन इंडिया कक्षा-I स्थानीय सामग्री का गैर-अनुपालन (≥50%)" : "Non-compliance with Make in India Class-I local content (≥50%)",
+      id: "Make in India below 50%",
+      label: language === "hi" ? "मेक इन इंडिया 50% से कम" : "Make in India below 50%",
     },
     {
-      id: "Udyam registration category mismatch (Services instead of Manufacturing)",
-      label: language === "hi" ? "उद्यम पंजीकरण श्रेणी बेमेल (विनिर्माण के बजाय सेवाएं)" : "Udyam registration category mismatch (Services instead of Manufacturing)",
+      id: "Udyam category mismatch (Services instead of Mfg)",
+      label: language === "hi" ? "उद्यम श्रेणी बेमेल (विनिर्माण के बजाय सेवाएं)" : "Udyam category mismatch (Services instead of Mfg)",
     },
     {
-      id: "Cartelization / Proxy bidding ring detected",
-      label: language === "hi" ? "कार्टेल मिलीभगत / छद्म बोली सिंडिकेट की पहचान" : "Cartelization / Proxy bidding ring detected",
+      id: "Cartel / proxy bidding ring detected",
+      label: language === "hi" ? "कार्टेल मिलीभगत / छद्म बोली सिंडिकेट" : "Cartel / proxy bidding ring detected",
     },
   ];
 
@@ -69,7 +69,7 @@ export function DisqualificationModal({
   };
 
   const handleDisqualify = () => {
-    const fullNotes = `Statutory Grounds:\n${selectedReasons.map((r) => `• ${r}`).join("\n")}\n\nOfficer Remarks:\n${justificationNotes}`;
+    const fullNotes = `Grounds:\n${selectedReasons.map((r) => `• ${r}`).join("\n")}\n\nOfficer Remarks:\n${justificationNotes}`;
     disqualifyBidder(bidder.bidder_id, fullNotes);
     onClose();
   };
@@ -81,17 +81,17 @@ export function DisqualificationModal({
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="w-full max-w-2xl bg-soft-beige dark:bg-deep-navy border-2 border-coral-orange/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col text-deep-navy dark:text-crisp-white"
+          className="w-full max-w-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] rounded-2xl shadow-2xl overflow-hidden flex flex-col text-deep-navy dark:text-crisp-white"
         >
           {/* Header */}
-          <div className="p-5 border-b border-coral-orange/20 bg-coral-orange/15 flex items-center justify-between">
+          <div className="p-5 border-b border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-xl bg-coral-orange/20 text-coral-orange">
+              <div className="p-2 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600">
                 <Ban className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-coral-orange">
-                  {language === "hi" ? "वैधानिक अयोग्यता और अस्वीकृति" : "Statutory Disqualification & Rejection"}
+                <h3 className="text-base font-bold text-rose-700 dark:text-rose-300">
+                  {language === "hi" ? "बोलीदाता को अयोग्य घोषित करें" : "Disqualify Bidder"}
                 </h3>
                 <p className="text-xs text-muted-gray">
                   {language === "hi" ? "इकाई: " : "Entity: "} {getBidderLegalName(bidder.legal_name, language)} ({bidder.seller_id}) {tender ? `• ${tender.tender_id}` : ""}
@@ -105,22 +105,22 @@ export function DisqualificationModal({
 
           {/* Body */}
           <div className="p-6 space-y-4 overflow-y-auto max-h-[70vh] text-xs">
-            <div className="p-3.5 rounded-xl bg-coral-orange/10 border border-coral-orange/30 text-deep-navy dark:text-crisp-white space-y-1">
-              <div className="flex items-center space-x-1.5 text-coral-orange font-bold">
+            <div className="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/40 text-deep-navy dark:text-crisp-white space-y-1">
+              <div className="flex items-center space-x-1.5 text-rose-600 dark:text-rose-400 font-bold">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
-                <span>{language === "hi" ? "CVC वैधानिक अनुपालन सूचना" : "CVC Statutory Compliance Notice"}</span>
+                <span>{language === "hi" ? "ऑडिट अनुपालन सूचना" : "Audit Compliance Notice"}</span>
               </div>
               <p className="text-muted-gray text-[11px] leading-relaxed">
                 {language === "hi"
-                  ? "GeM सामान्य शर्तों की धारा 34 के तहत अयोग्यता कानूनी रूप से बाध्यकारी है। CVC सतर्कता और संभावित मध्यस्थता ऑडिट के लिए प्रत्येक अस्वीकृति का दर्ज वैधानिक औचित्य आवश्यक है।"
-                  : "Disqualification is legally binding under Section 34 of GeM GTC. Every rejection requires recorded statutory justification for CVC vigilance and potential arbitration audit."}
+                  ? "GeM सामान्य शर्तों के तहत अयोग्यता एक औपचारिक निर्णय है। प्रत्येक अस्वीकृति के लिए वैध आधार का दर्ज होना आवश्यक है।"
+                  : "Disqualifying a bidder is a formal procurement action. The selected grounds and remarks will be recorded in the official audit trail."}
               </p>
             </div>
 
             {/* Checklist of Reasons */}
             <div className="space-y-2">
               <label className="font-bold text-deep-navy dark:text-crisp-white block">
-                {language === "hi" ? "अयोग्यता के वैधानिक आधार चुनें:" : "Select Statutory Grounds for Disqualification:"}
+                {language === "hi" ? "अयोग्यता के आधार चुनें:" : "Select Grounds for Disqualification:"}
               </label>
               <div className="space-y-1.5">
                 {reasonOptions.map((opt) => {
@@ -131,15 +131,15 @@ export function DisqualificationModal({
                       onClick={() => toggleReason(opt.id)}
                       className={`flex items-center space-x-2.5 p-2.5 rounded-xl border cursor-pointer transition-all ${
                         isChecked
-                          ? "border-coral-orange bg-coral-orange/15 font-semibold text-deep-navy dark:text-crisp-white"
-                          : "border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy hover:bg-warm-beige/20 text-muted-gray"
+                          ? "border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 font-semibold text-deep-navy dark:text-crisp-white"
+                          : "border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-dark-navy hover:bg-slate-100 text-muted-gray"
                       }`}
                     >
                       <input
                         type="checkbox"
                         checked={isChecked}
                         readOnly
-                        className="rounded text-coral-orange focus:ring-coral-orange"
+                        className="rounded text-rose-600 focus:ring-rose-500"
                       />
                       <span>{opt.label}</span>
                     </label>
@@ -151,19 +151,19 @@ export function DisqualificationModal({
             {/* Justification Notes */}
             <div className="space-y-1.5">
               <label className="font-bold text-deep-navy dark:text-crisp-white block">
-                {language === "hi" ? "खरीद अधिकारी की अंतिम टिप्पणी और औचित्य:" : "Procurement Officer Final Remarks & Justification:"}
+                {language === "hi" ? "खरीद अधिकारी की टिप्पणी:" : "Officer Remarks:"}
               </label>
               <textarea
                 value={justificationNotes}
                 onChange={(e) => setJustificationNotes(e.target.value)}
-                rows={4}
-                className="w-full p-3 rounded-xl font-sans text-xs leading-relaxed bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-coral-orange"
+                rows={3}
+                className="w-full p-3 rounded-xl font-sans text-xs leading-relaxed bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-warm-beige dark:border-warm-beige/20 bg-warm-beige/30 dark:bg-dark-navy/40 flex items-center justify-between">
+          <div className="p-4 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50 dark:bg-dark-navy/40 flex items-center justify-between">
             <button
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-semibold text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
@@ -172,10 +172,10 @@ export function DisqualificationModal({
             </button>
             <button
               onClick={handleDisqualify}
-              className="flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-coral-orange hover:bg-coral-orange-600 text-white shadow-md shadow-coral-orange/30 transition-all"
+              className="flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-xs transition-all"
             >
               <Ban className="w-3.5 h-3.5" />
-              <span>{language === "hi" ? "वैधानिक अयोग्यता की पुष्टि करें" : "Confirm Statutory Disqualification"}</span>
+              <span>{language === "hi" ? "अयोग्यता की पुष्टि करें" : "Confirm Disqualification"}</span>
             </button>
           </div>
         </motion.div>

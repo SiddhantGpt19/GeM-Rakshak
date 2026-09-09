@@ -150,18 +150,18 @@ export default function GatewaysPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-xs">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-gov-blue-600 dark:text-gov-blue-400">
               {t.gwInfraTitle}
             </span>
-            <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
+            <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
               {t.gwAvgLatency}: {averageLatency}ms
             </span>
           </div>
           <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
-            {t.gwPageTitle} {language === "hi" ? "(8 वैधानिक प्राधिकरण)" : "(8 Authorities)"}
+            {t.gwPageTitle} {language === "hi" ? "(8 सरकारी पोर्टल)" : "(8 Gateways)"}
           </h1>
           <p className="text-xs text-muted-gray">
             {t.gwPageSubtitle}
@@ -171,17 +171,17 @@ export default function GatewaysPage() {
         <div className="flex items-center space-x-2.5">
           <button
             onClick={toggleApiMode}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20 hover:border-lavender transition-all"
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-slate-200 dark:border-white/10 hover:border-gov-blue-400 transition-all"
             title="Toggle between local sandbox simulation and live gateway routing"
           >
-            <Cpu className="w-3.5 h-3.5 text-lavender" />
+            <Cpu className="w-3.5 h-3.5 text-gov-blue-600 dark:text-gov-blue-400" />
             <span>{t.gwMode}: {isLiveApiMode ? t.liveGateway : t.mockSandbox}</span>
           </button>
 
           <button
             onClick={handlePingAll}
             disabled={isPinging}
-            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all disabled:opacity-50"
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gov-blue-600 hover:bg-gov-blue-700 text-white shadow-xs transition-all disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isPinging ? "animate-spin" : ""}`} />
             <span>{isPinging ? t.gwPinging : t.gwPingAll}</span>
@@ -190,23 +190,23 @@ export default function GatewaysPage() {
       </div>
 
       {/* Production Architecture Banner */}
-      <div className="p-4 rounded-xl border border-lavender/30 bg-lavender/5 flex items-start space-x-3 text-xs">
-        <Zap className="w-5 h-5 text-lavender shrink-0 mt-0.5" />
-        <div className="space-y-1">
+      <div className="p-4 rounded-xl border border-gov-blue-200 dark:border-gov-blue-900/50 bg-gov-blue-50/50 dark:bg-gov-blue-950/20 flex items-start space-x-3 text-xs">
+        <Zap className="w-5 h-5 text-gov-blue-600 dark:text-gov-blue-400 shrink-0 mt-0.5" />
+        <div className="space-y-0.5">
           <h4 className="font-bold text-deep-navy dark:text-crisp-white">
             {t.gwArchTitle}
           </h4>
-          <p className="text-muted-gray leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
             {t.gwArchDesc}
           </p>
         </div>
       </div>
 
       {/* Interactive Statutory API Sandbox & Query Console */}
-      <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-warm-beige dark:border-warm-beige/20 pb-3">
+      <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-white/[0.08] pb-3">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg bg-lavender/20 flex items-center justify-center text-lavender">
+            <div className="w-8 h-8 rounded-lg bg-gov-blue-50 dark:bg-gov-blue-950/40 flex items-center justify-center text-gov-blue-600 dark:text-gov-blue-400">
               <Terminal className="w-4 h-4" />
             </div>
             <div>
@@ -218,7 +218,7 @@ export default function GatewaysPage() {
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-1 rounded bg-crisp-white dark:bg-dark-navy text-muted-gray border border-warm-beige dark:border-warm-beige/20">
+          <span className="text-[10px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-dark-navy text-muted-gray border border-slate-200 dark:border-white/10">
             POST /api/verify
           </span>
         </div>
@@ -238,10 +238,10 @@ export default function GatewaysPage() {
                 }}
                 className={`text-[11px] font-medium px-2.5 py-1 rounded-lg border transition-all ${
                   preset.type === "compliant"
-                    ? "bg-mint-green/10 text-mint-green border-mint-green/30 hover:bg-mint-green/20"
+                    ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/30 hover:bg-emerald-500/20"
                     : preset.type === "warning"
-                    ? "bg-amber-500/10 text-amber-500 border-amber-500/30 hover:bg-amber-500/20"
-                    : "bg-coral-orange/10 text-coral-orange border-coral-orange/30 hover:bg-coral-orange/20"
+                    ? "bg-amber-500/10 text-amber-600 border-amber-500/30 hover:bg-amber-500/20"
+                    : "bg-rose-500/10 text-rose-600 border-rose-500/30 hover:bg-rose-500/20"
                 }`}
               >
                 {preset.label}
@@ -259,7 +259,7 @@ export default function GatewaysPage() {
             <select
               value={selectedGateway}
               onChange={(e) => setSelectedGateway(e.target.value)}
-              className="w-full text-xs font-semibold px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
+              className="w-full text-xs font-semibold px-3 py-2 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-gov-blue-500"
             >
               <option value="gstn">{language === "hi" ? "जीएसटीएन एपीआई गेटवे (GSTIN)" : "GSTN API Gateway (GSTIN)"}</option>
               <option value="mca21">{language === "hi" ? "एमसीए21 V3 रजिस्ट्री (CIN)" : "MCA21 V3 Registry (CIN)"}</option>
@@ -278,7 +278,7 @@ export default function GatewaysPage() {
               value={queryInput}
               onChange={(e) => setQueryInput(e.target.value)}
               placeholder={language === "hi" ? "जीएसटी, सीआईएन, पैन या उद्यम संख्या दर्ज करें..." : "Enter GSTIN, CIN, PAN, or Udyam number..."}
-              className="w-full text-xs font-mono px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender uppercase"
+              className="w-full text-xs font-mono px-3 py-2 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-gov-blue-500 uppercase"
             />
           </div>
 
@@ -286,7 +286,7 @@ export default function GatewaysPage() {
             <button
               onClick={handleExecuteVerification}
               disabled={isQuerying}
-              className="w-full flex items-center justify-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all disabled:opacity-50"
+              className="w-full flex items-center justify-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gov-blue-600 hover:bg-gov-blue-700 text-white shadow-xs transition-all disabled:opacity-50"
             >
               <Send className={`w-3.5 h-3.5 ${isQuerying ? "animate-pulse" : ""}`} />
               <span>{isQuerying ? t.gwVerifying : t.gwBtnVerify}</span>
@@ -296,10 +296,10 @@ export default function GatewaysPage() {
 
         {/* Live Response Inspector */}
         {apiResponse && (
-          <div className="pt-3 border-t border-warm-beige dark:border-warm-beige/20 space-y-2">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
+          <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10">
               <div className="flex items-center space-x-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-mint-green/20 text-mint-green">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600">
                   HTTP {apiResponse.http_status} OK
                 </span>
                 <span className="text-xs font-semibold text-deep-navy dark:text-crisp-white">
@@ -313,20 +313,20 @@ export default function GatewaysPage() {
               {/* Status Verdict Pill & Actions */}
               <div className="flex items-center space-x-2">
                 {apiResponse.verification_verdict.status === "VERIFIED_COMPLIANT" && (
-                  <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
+                  <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
                     <CheckCircle2 className="w-3 h-3" />
                     <span>{t.statusCompliant}</span>
                   </span>
                 )}
                 {apiResponse.verification_verdict.status === "CLARIFICATION_NEEDED" && (
-                  <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30">
+                  <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20">
                     <AlertTriangle className="w-3 h-3" />
                     <span>{t.statusClarification}</span>
                   </span>
                 )}
                 {(apiResponse.verification_verdict.status === "CRITICAL_FRAUD_FLAG" ||
                   apiResponse.verification_verdict.status === "DEBARRED_VENDOR_BAN") && (
-                  <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange/15 text-coral-orange border border-coral-orange/30 animate-pulse">
+                  <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-600 border border-rose-500/20">
                     <XCircle className="w-3 h-3" />
                     <span>{t.statusDebarred}</span>
                   </span>
@@ -334,7 +334,7 @@ export default function GatewaysPage() {
 
                 <button
                   onClick={() => setShowRawJson(!showRawJson)}
-                  className="flex items-center space-x-1 text-[11px] font-semibold text-lavender hover:bg-lavender/10 px-2 py-1 rounded-lg transition-all"
+                  className="flex items-center space-x-1 text-[11px] font-semibold text-gov-blue-600 dark:text-gov-blue-400 hover:bg-gov-blue-50 dark:hover:bg-gov-blue-950/40 px-2 py-1 rounded-lg transition-all"
                   title="Toggle raw JSON response"
                 >
                   <span>{showRawJson ? (language === "hi" ? "JSON छिपाएं" : "Hide JSON") : (language === "hi" ? "रॉ JSON देखें" : "View JSON")}</span>
@@ -343,17 +343,17 @@ export default function GatewaysPage() {
 
                 <button
                   onClick={handleCopyJson}
-                  className="p-1.5 rounded-lg text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
+                  className="p-1.5 rounded-lg text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-slate-200/50 dark:hover:bg-white/5 transition-all"
                   title={t.gwBtnCopy}
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-mint-green" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
               </div>
             </div>
 
             {/* Expandable JSON Code Block */}
             {showRawJson && (
-              <pre className="p-3.5 rounded-xl bg-deep-navy text-crisp-white font-mono text-[11px] overflow-x-auto max-h-72 leading-relaxed border border-warm-beige/20 shadow-inner">
+              <pre className="p-3.5 rounded-xl bg-slate-900 text-slate-100 font-mono text-[11px] overflow-x-auto max-h-72 leading-relaxed border border-slate-700 shadow-inner">
                 {JSON.stringify(apiResponse, null, 2)}
               </pre>
             )}
@@ -361,7 +361,7 @@ export default function GatewaysPage() {
             {/* SHA-256 Audit Trail */}
             <div className="flex items-center justify-between text-[10px] font-mono text-muted-gray pt-1">
               <span className="flex items-center space-x-1 truncate max-w-md">
-                <ShieldCheck className="w-3 h-3 text-lavender shrink-0" />
+                <ShieldCheck className="w-3 h-3 text-gov-blue-600 dark:text-gov-blue-400 shrink-0" />
                 <span className="truncate">{t.gwDigestTitle}: {apiResponse.audit_trail.sha256_digest}</span>
               </span>
               <span>Node: {apiResponse.audit_trail.node_node_ref}</span>
@@ -377,7 +377,7 @@ export default function GatewaysPage() {
           return (
             <div
               key={gw.id}
-              className="p-5 rounded-2xl border border-warm-beige/70 dark:border-white/10 bg-soft-beige/40 dark:bg-deep-navy shadow-xs space-y-3 hover:border-lavender/50 hover:shadow-md transition-all"
+              className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs space-y-3 hover:border-gov-blue-300 dark:hover:border-gov-blue-800 transition-all"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -388,8 +388,8 @@ export default function GatewaysPage() {
                     {info.name}
                   </h3>
                 </div>
-                <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
-                  <span className="w-2 h-2 rounded-full bg-mint-green animate-pulse" />
+                <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
                   <span>{language === "hi" ? "सक्रिय" : gw.status}</span>
                 </span>
               </div>
@@ -398,41 +398,41 @@ export default function GatewaysPage() {
                 {info.statutory_scope}
               </p>
 
-              <div className="p-2.5 rounded-xl bg-crisp-white dark:bg-dark-navy font-mono text-[11px] text-muted-gray border border-warm-beige dark:border-warm-beige/20 break-all">
+              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-dark-navy font-mono text-[11px] text-muted-gray border border-slate-200 dark:border-white/10 break-all">
                 {t.gwEndpoint}: <span className="text-deep-navy dark:text-crisp-white">{gw.endpoint}</span>
               </div>
 
-            <div className="pt-3 border-t border-warm-beige dark:border-warm-beige/20 flex items-center justify-between text-xs font-mono text-muted-gray">
-              <div className="flex items-center space-x-3">
-                <span className="flex items-center space-x-1 text-deep-navy dark:text-crisp-white">
-                  <Activity className="w-3.5 h-3.5 text-lavender" />
-                  <strong>{gw.latency_ms}ms</strong>
-                </span>
-                <span>{t.gwUptime}: <strong className="text-mint-green">{gw.success_rate}</strong></span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => {
-                    const presetMatch = presets.find((p) => p.gateway === gw.id);
-                    if (presetMatch) {
-                      setSelectedGateway(presetMatch.gateway);
-                      setQueryInput(presetMatch.identifier);
-                    } else {
-                      setSelectedGateway(gw.id);
-                      setQueryInput("TEST-QUERY-001");
-                    }
-                    window.scrollTo({ top: 120, behavior: "smooth" });
-                  }}
-                  className="text-[10px] font-bold text-lavender hover:underline"
-                >
-                  {language === "hi" ? "कंसोल में जांचें ↑" : "Test in Console ↑"}
-                </button>
-                <span>• {language === "hi" ? "अभी" : lastPingTime}</span>
+              <div className="pt-3 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-xs font-mono text-muted-gray">
+                <div className="flex items-center space-x-3">
+                  <span className="flex items-center space-x-1 text-deep-navy dark:text-crisp-white">
+                    <Activity className="w-3.5 h-3.5 text-gov-blue-600 dark:text-gov-blue-400" />
+                    <strong>{gw.latency_ms}ms</strong>
+                  </span>
+                  <span>{t.gwUptime}: <strong className="text-emerald-600">{gw.success_rate}</strong></span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => {
+                      const presetMatch = presets.find((p) => p.gateway === gw.id);
+                      if (presetMatch) {
+                        setSelectedGateway(presetMatch.gateway);
+                        setQueryInput(presetMatch.identifier);
+                      } else {
+                        setSelectedGateway(gw.id);
+                        setQueryInput("TEST-QUERY-001");
+                      }
+                      window.scrollTo({ top: 120, behavior: "smooth" });
+                    }}
+                    className="text-[10px] font-bold text-gov-blue-600 dark:text-gov-blue-400 hover:underline"
+                  >
+                    {language === "hi" ? "कंसोल में जांचें ↑" : "Test in Console ↑"}
+                  </button>
+                  <span>• {language === "hi" ? "अभी" : lastPingTime}</span>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Scan } from "lucide-react";
+import { FileSearch } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface LaserScanOverlayProps {
@@ -17,48 +17,44 @@ export function LaserScanOverlay({
   label,
 }: LaserScanOverlayProps) {
   const { language } = useLanguage();
-  const displayLabel = label || (language === "hi" ? "एआई फोरेंसिक न्यूरल ओसीआर स्कैनिंग..." : "AI Forensic Neural OCR Scanning...");
+  const displayLabel = label || (language === "hi" ? "दस्तावेज़ संरचना एवं मेटाडेटा विश्लेषण जारी..." : "Analyzing document structure & metadata...");
 
   if (!isScanning) return null;
 
   return (
     <AnimatePresence>
       <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden rounded-xl">
-        {/* Semi-transparent grid overlay simulating computer vision scanner */}
-        <div className="absolute inset-0 bg-lavender/5 dark:bg-lavender/10 backdrop-brightness-95" />
+        {/* Subtle translucent inspection tint */}
+        <div className="absolute inset-0 bg-blue-900/[0.04] dark:bg-blue-950/[0.15] backdrop-brightness-95" />
 
-        {/* Animated Laser Line sweeping down and up */}
+        {/* Authentic Document Inspection Scanline */}
         <motion.div
           initial={{ top: "0%" }}
           animate={{
             top: ["0%", "96%", "0%"],
           }}
           transition={{
-            duration: 2.8,
+            duration: 2.4,
             ease: "easeInOut",
             repeat: Infinity,
           }}
-          className="absolute left-0 right-0 h-[3px] bg-lavender z-30 shadow-[0_0_15px_#6366F1,0_0_25px_#6366F1]"
+          className="absolute left-0 right-0 h-[2px] bg-blue-600 z-30 shadow-[0_2px_10px_rgba(37,99,235,0.4)]"
         >
-          {/* Laser beam light head indicator */}
-          <div className="absolute right-4 -top-1.5 w-3 h-3 rounded-full bg-white shadow-[0_0_12px_#6366F1] animate-ping" />
-          <div className="absolute left-4 -top-1.5 w-3 h-3 rounded-full bg-white shadow-[0_0_12px_#6366F1]" />
-          
-          {/* Subtle gradient beam below the laser line */}
-          <div className="w-full h-12 bg-gradient-to-b from-lavender/20 to-transparent" />
+          {/* Subtle gradient wash below scanning hairline */}
+          <div className="w-full h-8 bg-gradient-to-b from-blue-600/15 to-transparent" />
         </motion.div>
 
-        {/* Floating AI Scanning Badge */}
-        <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between bg-deep-navy/85 dark:bg-deep-navy/95 border border-lavender/40 px-3.5 py-2 rounded-lg backdrop-blur-md shadow-lg text-white">
+        {/* Professional Inspection Status Pill */}
+        <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between bg-slate-900/90 dark:bg-slate-900/95 border border-slate-700/60 px-4 py-2.5 rounded-lg backdrop-blur-md shadow-enterprise-md text-white">
           <div className="flex items-center space-x-2.5">
-            <Scan className="w-4 h-4 text-lavender animate-pulse" />
-            <span className="text-xs font-medium tracking-wide">
+            <FileSearch className="w-4 h-4 text-blue-400" />
+            <span className="text-xs font-medium tracking-normal text-slate-100">
               {displayLabel}
             </span>
           </div>
-          <div className="flex items-center space-x-1.5 text-[11px] text-lavender font-mono">
-            <span className="inline-block w-2 h-2 rounded-full bg-mint-green animate-ping" />
-            <span>{language === "hi" ? "ओसीआर + ELA सक्रिय" : "OCR + ELA active"}</span>
+          <div className="flex items-center space-x-2 text-[11px] text-slate-300 font-mono">
+            <span className="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+            <span>{language === "hi" ? "सत्यापन जारी" : "Analyzing"}</span>
           </div>
         </div>
       </div>

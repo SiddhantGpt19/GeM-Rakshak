@@ -28,9 +28,9 @@ export function AnimatedRadialGauge({
 
   // Determine color based on score
   const getColor = (val: number) => {
-    if (val >= 80) return "#10B981"; // Mint Green
-    if (val >= 50) return "#F59E0B"; // Amber
-    return "#F4643C"; // Coral Orange
+    if (val >= 80) return "#059669"; // Emerald 600
+    if (val >= 50) return "#D97706"; // Amber 600
+    return "#DC2626"; // Crimson Rose 600
   };
 
   const isDecimal = score % 1 !== 0;
@@ -83,7 +83,7 @@ export function AnimatedRadialGauge({
             r={radius}
             stroke="currentColor"
             strokeWidth={strokeWidth}
-            className="text-warm-beige/30 dark:text-warm-beige/10 fill-none"
+            className="text-slate-200 dark:text-white/10 fill-none"
           />
           {/* Animated progress circle */}
           <motion.circle

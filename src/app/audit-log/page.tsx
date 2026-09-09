@@ -91,32 +91,32 @@ export default function AuditLogPage() {
     switch (status) {
       case "COMPLIANT":
       case "QUALIFIED":
-        return "bg-mint-green/15 text-mint-green border-mint-green/30";
+        return "bg-emerald-500/10 text-emerald-600 border-emerald-500/20";
       case "CRITICAL_ALERT":
       case "DISQUALIFIED":
-        return "bg-coral-orange/15 text-coral-orange border-coral-orange/30";
+        return "bg-rose-500/10 text-rose-600 border-rose-500/20";
       case "CLARIFICATION":
-        return "bg-amber-500/15 text-amber-500 border-amber-500/30";
+        return "bg-amber-500/10 text-amber-600 border-amber-500/20";
       case "GATEWAY_SYNC":
-        return "bg-sky-500/15 text-sky-500 border-sky-500/30";
+        return "bg-sky-500/10 text-sky-600 border-sky-500/20";
       case "INTEGRITY_SEAL":
       case "SYSTEM":
       default:
-        return "bg-lavender/15 text-lavender border-lavender/30";
+        return "bg-gov-blue-500/10 text-gov-blue-600 border-gov-blue-500/20";
     }
   };
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-16">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-xs">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-xs">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-lavender flex items-center space-x-1">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-gov-blue-600 dark:text-gov-blue-400 flex items-center space-x-1">
               <Lock className="w-3 h-3" />
               <span>{t.auditCvcBadge}</span>
             </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-warm-beige dark:bg-dark-navy text-muted-gray font-mono font-medium">
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-dark-navy text-slate-600 dark:text-slate-300 font-mono font-medium">
               {activeEntity.orgName}
             </span>
           </div>
@@ -131,7 +131,7 @@ export default function AuditLogPage() {
         {/* Global Actions */}
         <div className="flex items-center space-x-2">
           {/* Sealed badge */}
-          <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-mint-green/15 text-mint-green border border-mint-green/30">
+          <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>{t.auditSha256Badge}</span>
           </div>
@@ -140,10 +140,10 @@ export default function AuditLogPage() {
 
       {/* Metrics Summary Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08]">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
             <span>{t.auditTotalSealed}</span>
-            <Hash className="w-3.5 h-3.5 text-lavender" />
+            <Hash className="w-3.5 h-3.5 text-gov-blue-600 dark:text-gov-blue-400" />
           </div>
           <div className="text-xl font-bold text-deep-navy dark:text-crisp-white">
             {stats.total}
@@ -151,29 +151,29 @@ export default function AuditLogPage() {
           <p className="text-[10px] text-muted-gray mt-0.5">{t.auditCryptoTrail}</p>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08]">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
             <span>{t.auditCriticalAlerts}</span>
-            <AlertTriangle className="w-3.5 h-3.5 text-coral-orange" />
+            <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
           </div>
-          <div className="text-xl font-bold text-coral-orange">
+          <div className="text-xl font-bold text-rose-600">
             {stats.critical}
           </div>
-          <p className="text-[10px] text-coral-orange/80 mt-0.5">{t.auditDebarmentSub}</p>
+          <p className="text-[10px] text-rose-600/80 mt-0.5">{t.auditDebarmentSub}</p>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08]">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
             <span>{t.auditCompliantPassed}</span>
-            <CheckCircle2 className="w-3.5 h-3.5 text-mint-green" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
           </div>
-          <div className="text-xl font-bold text-mint-green">
+          <div className="text-xl font-bold text-emerald-600">
             {stats.compliant}
           </div>
           <p className="text-[10px] text-muted-gray mt-0.5">{t.auditTechMetSub}</p>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08]">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
             <span>{t.auditGatewayPolls}</span>
             <Server className="w-3.5 h-3.5 text-sky-500" />
@@ -184,7 +184,7 @@ export default function AuditLogPage() {
           <p className="text-[10px] text-muted-gray mt-0.5">{t.auditGatewaySub}</p>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 col-span-2 sm:col-span-1">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] col-span-2 sm:col-span-1">
           <div className="flex items-center justify-between text-muted-gray text-xs mb-1">
             <span>{t.auditClarifications}</span>
             <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
@@ -197,7 +197,7 @@ export default function AuditLogPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08]">
         {/* Search input */}
         <div className="relative flex-1">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-gray" />
@@ -206,7 +206,7 @@ export default function AuditLogPage() {
             placeholder={t.auditSearchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-xs text-deep-navy dark:text-crisp-white placeholder:text-muted-gray focus:outline-hidden focus:border-lavender transition-all"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 text-xs text-deep-navy dark:text-crisp-white placeholder:text-muted-gray focus:outline-hidden focus:border-gov-blue-500 transition-all"
           />
           {searchQuery && (
             <button
@@ -224,8 +224,8 @@ export default function AuditLogPage() {
             onClick={() => setSelectedFilter("ALL")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               selectedFilter === "ALL"
-                ? "bg-lavender text-crisp-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-gov-blue-600 text-white shadow-xs"
+                : "bg-slate-50 dark:bg-dark-navy text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white border border-slate-200 dark:border-white/10"
             }`}
           >
             {t.auditFilterAll} ({auditLogs.length})
@@ -234,8 +234,8 @@ export default function AuditLogPage() {
             onClick={() => setSelectedFilter("CRITICAL")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               selectedFilter === "CRITICAL"
-                ? "bg-coral-orange text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-coral-orange border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-rose-600 text-white shadow-xs"
+                : "bg-slate-50 dark:bg-dark-navy text-muted-gray hover:text-rose-600 border border-slate-200 dark:border-white/10"
             }`}
           >
             {t.auditFilterCritical} ({stats.critical})
@@ -244,8 +244,8 @@ export default function AuditLogPage() {
             onClick={() => setSelectedFilter("COMPLIANT")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               selectedFilter === "COMPLIANT"
-                ? "bg-mint-green text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-mint-green border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-emerald-600 text-white shadow-xs"
+                : "bg-slate-50 dark:bg-dark-navy text-muted-gray hover:text-emerald-600 border border-slate-200 dark:border-white/10"
             }`}
           >
             {t.auditFilterCompliant} ({stats.compliant})
@@ -254,8 +254,8 @@ export default function AuditLogPage() {
             onClick={() => setSelectedFilter("GATEWAY")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               selectedFilter === "GATEWAY"
-                ? "bg-sky-500 text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-sky-500 border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-sky-600 text-white shadow-xs"
+                : "bg-slate-50 dark:bg-dark-navy text-muted-gray hover:text-sky-600 border border-slate-200 dark:border-white/10"
             }`}
           >
             {t.auditFilterGateway} ({stats.gateway})
@@ -264,8 +264,8 @@ export default function AuditLogPage() {
             onClick={() => setSelectedFilter("CLARIFICATION")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               selectedFilter === "CLARIFICATION"
-                ? "bg-amber-500 text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-muted-gray hover:text-amber-500 border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-amber-600 text-white shadow-xs"
+                : "bg-slate-50 dark:bg-dark-navy text-muted-gray hover:text-amber-600 border border-slate-200 dark:border-white/10"
             }`}
           >
             {t.auditFilterClarification} ({stats.clarifications})
@@ -274,10 +274,10 @@ export default function AuditLogPage() {
       </div>
 
       {/* Main Audit Table */}
-      <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm overflow-hidden">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-warm-beige/50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider">
+            <thead className="bg-slate-50/80 dark:bg-dark-navy/60 border-b border-slate-200 dark:border-white/10 text-muted-gray font-semibold uppercase tracking-wider">
               <tr>
                 <th className="py-3 px-4">{t.auditColLogIdTime}</th>
                 <th className="py-3 px-4">{t.auditColTenderRef}</th>
@@ -289,7 +289,7 @@ export default function AuditLogPage() {
                 <th className="py-3 px-4 text-right">{t.auditColDetails}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-warm-beige dark:divide-warm-beige/20">
+            <tbody className="divide-y divide-slate-200/80 dark:divide-white/[0.08]">
               {filteredLogs.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="py-12 text-center text-muted-gray">
@@ -300,7 +300,7 @@ export default function AuditLogPage() {
                         setSearchQuery("");
                         setSelectedFilter("ALL");
                       }}
-                      className="mt-2 text-lavender hover:underline text-xs"
+                      className="mt-2 text-gov-blue-600 dark:text-gov-blue-400 hover:underline text-xs"
                     >
                       {t.auditResetFilters}
                     </button>
@@ -311,11 +311,11 @@ export default function AuditLogPage() {
                   <tr
                     key={log.id}
                     onClick={() => setSelectedLog(log)}
-                    className="hover:bg-warm-beige/40 dark:hover:bg-dark-navy/50 transition-colors cursor-pointer group"
+                    className="hover:bg-slate-50 dark:hover:bg-dark-navy/50 transition-colors cursor-pointer group"
                   >
                     {/* Log ID & Timestamp */}
                     <td className="py-3.5 px-4 font-mono">
-                      <span className="font-bold text-deep-navy dark:text-crisp-white group-hover:text-lavender transition-colors block">
+                      <span className="font-bold text-deep-navy dark:text-crisp-white group-hover:text-gov-blue-600 transition-colors block">
                         {log.id}
                       </span>
                       <span className="text-[10px] text-muted-gray">
@@ -352,7 +352,7 @@ export default function AuditLogPage() {
                         {log.action}
                       </span>
                       {log.statutoryClause && (
-                        <span className="text-[10px] text-lavender font-medium block truncate" title={log.statutoryClause}>
+                        <span className="text-[10px] text-gov-blue-600 dark:text-gov-blue-400 font-medium block truncate" title={log.statutoryClause}>
                           § {log.statutoryClause}
                         </span>
                       )}
@@ -364,8 +364,8 @@ export default function AuditLogPage() {
                     </td>
 
                     {/* Auditor / Officer */}
-                    <td className="py-3.5 px-4 font-mono font-bold text-lavender">
-                      <span className="px-2 py-0.5 rounded bg-lavender/10 text-[11px]">
+                    <td className="py-3.5 px-4 font-mono font-bold text-gov-blue-600 dark:text-gov-blue-400">
+                      <span className="px-2 py-0.5 rounded bg-gov-blue-50 dark:bg-gov-blue-950/40 text-[11px]">
                         {log.officerId}
                       </span>
                     </td>
@@ -380,7 +380,7 @@ export default function AuditLogPage() {
                     {/* Cryptographic Hash */}
                     <td className="py-3.5 px-4 font-mono text-[10px]">
                       <div className="flex items-center space-x-1.5">
-                        <span className="p-1 rounded bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 block max-w-[90px] truncate text-muted-gray" title={log.hash}>
+                        <span className="p-1 rounded bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 block max-w-[90px] truncate text-muted-gray" title={log.hash}>
                           {log.hash.slice(0, 8)}...{log.hash.slice(-4)}
                         </span>
                         <button
@@ -388,11 +388,11 @@ export default function AuditLogPage() {
                             e.stopPropagation();
                             copyToClipboard(log.hash);
                           }}
-                          className="p-1 rounded text-muted-gray hover:text-lavender transition-colors"
+                          className="p-1 rounded text-muted-gray hover:text-gov-blue-600 transition-colors"
                           title="Copy full SHA-256 hash"
                         >
                           {copiedHash === log.hash ? (
-                            <Check className="w-3 h-3 text-mint-green" />
+                            <Check className="w-3 h-3 text-emerald-600" />
                           ) : (
                             <Copy className="w-3 h-3" />
                           )}
@@ -402,7 +402,7 @@ export default function AuditLogPage() {
 
                     {/* Inspect Link */}
                     <td className="py-3.5 px-4 text-right">
-                      <span className="text-xs font-semibold text-lavender group-hover:underline inline-flex items-center space-x-1">
+                      <span className="text-xs font-semibold text-gov-blue-600 dark:text-gov-blue-400 group-hover:underline inline-flex items-center space-x-1">
                         <span>{t.auditBtnInspect}</span>
                         <ExternalLink className="w-3 h-3" />
                       </span>
@@ -418,12 +418,12 @@ export default function AuditLogPage() {
       {/* Interactive Detail Modal */}
       {selectedLog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-warm-beige dark:border-warm-beige/20 pb-4">
+            <div className="flex items-start justify-between border-b border-slate-200/80 dark:border-white/[0.08] pb-4">
               <div>
                 <div className="flex items-center space-x-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gov-blue-600 dark:text-gov-blue-400">
                     {t.auditModalTitle}
                   </span>
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getStatusBadge(selectedLog.status)}`}>
@@ -436,7 +436,7 @@ export default function AuditLogPage() {
               </div>
               <button
                 onClick={() => setSelectedLog(null)}
-                className="p-1.5 rounded-xl text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/50 dark:hover:bg-dark-navy transition-colors"
+                className="p-1.5 rounded-xl text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-slate-100 dark:hover:bg-dark-navy transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -444,7 +444,7 @@ export default function AuditLogPage() {
 
             {/* Grid Attributes */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10">
                 <span className="text-muted-gray block font-medium">{t.auditModalTimestamp}</span>
                 <span className="font-bold text-deep-navy dark:text-crisp-white">
                   {new Date(selectedLog.timestamp).toLocaleString("en-IN", {
@@ -454,14 +454,14 @@ export default function AuditLogPage() {
                 </span>
               </div>
 
-              <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10">
                 <span className="text-muted-gray block font-medium">{t.auditModalTenderId}</span>
                 <span className="font-bold font-mono text-deep-navy dark:text-crisp-white">
                   {selectedLog.tenderId}
                 </span>
               </div>
 
-              <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10">
                 <span className="text-muted-gray block font-medium">{t.auditModalEntity}</span>
                 <span className="font-bold text-deep-navy dark:text-crisp-white">
                   {selectedLog.bidderName}
@@ -471,9 +471,9 @@ export default function AuditLogPage() {
                 </span>
               </div>
 
-              <div className="p-3 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10">
                 <span className="text-muted-gray block font-medium">{t.auditModalAuditor}</span>
-                <span className="font-bold font-mono text-lavender">
+                <span className="font-bold font-mono text-gov-blue-600 dark:text-gov-blue-400">
                   {selectedLog.officerId}
                 </span>
                 {selectedLog.ipAddress && (
@@ -486,8 +486,8 @@ export default function AuditLogPage() {
 
             {/* Statutory Authority & Legal Citations */}
             {selectedLog.statutoryClause && (
-              <div className="p-3.5 rounded-xl bg-lavender/10 border border-lavender/25 text-xs">
-                <span className="font-bold text-lavender block text-[11px] uppercase tracking-wider mb-0.5">
+              <div className="p-3.5 rounded-xl bg-gov-blue-50/50 dark:bg-gov-blue-950/20 border border-gov-blue-200 dark:border-gov-blue-900/40 text-xs">
+                <span className="font-bold text-gov-blue-600 dark:text-gov-blue-400 block text-[11px] uppercase tracking-wider mb-0.5">
                   {t.auditModalAuthority}
                 </span>
                 <p className="text-deep-navy dark:text-crisp-white font-medium">
@@ -498,7 +498,7 @@ export default function AuditLogPage() {
 
             {/* Investigation & Audit Notes */}
             {selectedLog.notes && (
-              <div className="p-3.5 rounded-xl bg-warm-beige/40 dark:bg-dark-navy/60 border border-warm-beige dark:border-warm-beige/20 text-xs">
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-dark-navy/60 border border-slate-200 dark:border-white/10 text-xs">
                 <span className="font-bold text-deep-navy dark:text-crisp-white block mb-1">
                   {t.auditModalFindings}
                 </span>
@@ -509,24 +509,24 @@ export default function AuditLogPage() {
             )}
 
             {/* Cryptographic SHA-256 Ledger Box */}
-            <div className="p-3.5 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 space-y-2">
+            <div className="p-3.5 rounded-xl bg-white dark:bg-dark-navy border border-slate-200 dark:border-white/10 space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-deep-navy dark:text-crisp-white flex items-center space-x-1.5">
-                  <ShieldCheck className="w-4 h-4 text-mint-green" />
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <span>{t.auditModalDigestTitle}</span>
                 </span>
-                <span className="text-[10px] font-mono text-mint-green font-bold">
+                <span className="text-[10px] font-mono text-emerald-600 font-bold">
                   {t.auditModalVerified}
                 </span>
               </div>
-              <div className="flex items-center justify-between p-2 rounded-lg bg-soft-beige dark:bg-deep-navy font-mono text-[11px] text-muted-gray break-all">
+              <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-deep-navy font-mono text-[11px] text-muted-gray break-all">
                 <span>{selectedLog.hash}</span>
                 <button
                   onClick={() => copyToClipboard(selectedLog.hash)}
-                  className="ml-2 p-1 text-lavender hover:underline flex items-center space-x-1 shrink-0"
+                  className="ml-2 p-1 text-gov-blue-600 hover:underline flex items-center space-x-1 shrink-0"
                 >
                   {copiedHash === selectedLog.hash ? (
-                    <span className="text-mint-green flex items-center space-x-1">
+                    <span className="text-emerald-600 flex items-center space-x-1">
                       <Check className="w-3 h-3" />
                       <span className="text-[10px]">{t.auditModalCopied}</span>
                     </span>
@@ -541,7 +541,7 @@ export default function AuditLogPage() {
             </div>
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end space-x-2 pt-2 border-t border-warm-beige dark:border-warm-beige/20">
+            <div className="flex items-center justify-end space-x-2 pt-2 border-t border-slate-200/80 dark:border-white/[0.08]">
               <button
                 onClick={() => {
                   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(selectedLog, null, 2));
@@ -550,13 +550,13 @@ export default function AuditLogPage() {
                   a.download = `CVC_Record_${selectedLog.id}.json`;
                   a.click();
                 }}
-                className="px-4 py-2 rounded-xl text-xs font-semibold bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white hover:border-lavender transition-all"
+                className="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 text-deep-navy dark:text-crisp-white hover:border-gov-blue-400 transition-all"
               >
                 {t.auditModalExportJson}
               </button>
               <button
                 onClick={() => setSelectedLog(null)}
-                className="px-4 py-2 rounded-xl text-xs font-semibold bg-lavender text-crisp-white hover:bg-lavender/90 transition-all"
+                className="px-4 py-2 rounded-xl text-xs font-semibold bg-gov-blue-600 text-white hover:bg-gov-blue-700 transition-all"
               >
                 {t.auditModalClose}
               </button>

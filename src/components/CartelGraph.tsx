@@ -38,48 +38,48 @@ function getNodeBreakdown(nodeId: string, language: Language): NodeBreakdownData
   switch (nodeId) {
     case "BID-001":
       return {
-        title: isHi ? "विक्रेता स्वतंत्रता मूल्यांकन:" : "Vendor Independence Assessment:",
-        badge: isHi ? "सत्यापित स्वतंत्र" : "Verified Clean",
-        badgeColor: "bg-mint-green/20 text-mint-green border-mint-green/40",
+        title: isHi ? "कंपनी स्थिति: पूर्णतः स्वतंत्र" : "Bidder Status: Independent",
+        badge: isHi ? "सत्यापित स्वच्छ" : "Verified Clean",
+        badgeColor: "bg-emerald-500/10 text-emerald-600 border-emerald-500/30",
         findings: [
           {
             type: "success",
             text: isHi
-              ? "स्वतंत्र निदेशक बोर्ड: किसी अन्य प्रतिस्पर्धी बोलीदाता के साथ साझा DIN नहीं (निदेशक: एस. रामनाथन, DIN 07812940)।"
-              : "Independent Board: No overlapping directorships with competing bidders (Director: S. Ramanathan, DIN 07812940).",
+              ? "अलग निदेशक: निदेशक एस. रामनाथन का किसी अन्य बोलीदाता से कोई संबंध नहीं है।"
+              : "Independent Owner: Director has no links to any other competing bidder.",
           },
           {
             type: "success",
             text: isHi
-              ? "पृथक नेटवर्क अवसंरचना: चेन्नई स्थित स्वतंत्र कॉर्पोरेट फाइबर लाइन (आईपी 122.178.91.44) से सुरक्षित बोली अपलोड।"
-              : "Segregated IP Infrastructure: Uploaded via dedicated corporate broadband in Chennai (IP 122.178.91.44).",
+              ? "अलग नेटवर्क: चेन्नई कार्यालय के निजी इंटरनेट कनेक्शन से बोली भेजी गई।"
+              : "Separate Location: Bid sent from company office in Chennai.",
           },
           {
             type: "success",
             text: isHi
-              ? "शून्य सिंडिकेट मिलीभगत: एपेक्स समूह की प्रॉक्सी बोलियों और ओखला सर्वर क्लस्टर से पूर्णतः असंबद्ध।"
-              : "Zero Cartel Ties: Fully decoupled from the Apex proxy bidding syndicate and Okhla IP cluster.",
+              ? "शून्य मिलीभगत: एपेक्स समूह की सिंडिकेट गतिविधियों से पूरी तरह मुक्त।"
+              : "Zero Collusion: No connections found with other bidders in this tender.",
           },
         ],
       };
 
     case "BID-002":
       return {
-        title: isHi ? "विक्रेता अनुपालन एवं स्वतंत्रता मूल्यांकन:" : "Vendor Compliance & Independence:",
-        badge: isHi ? "गैर-कार्टेल / प्रक्रियात्मक" : "Non-Cartel / Procedural",
-        badgeColor: "bg-amber-500/20 text-amber-500 border-amber-500/40",
+        title: isHi ? "कंपनी स्थिति: अनुपालन समीक्षा" : "Bidder Status: Minor Notice",
+        badge: isHi ? "गैर-कार्टेल" : "Non-Cartel",
+        badgeColor: "bg-amber-500/10 text-amber-600 border-amber-500/30",
         findings: [
           {
             type: "info",
             text: isHi
-              ? "स्वतंत्र स्वामित्व: किसी भी अन्य बोलीदाता के साथ कोई साझा निदेशक, बैंक शाखा या अपलोड सबनेट नहीं।"
-              : "Independent Ownership: Zero shared directorships, common bank branches, or upload subnets with other bidders.",
+              ? "अलग मालिक: किसी अन्य कंपनी के साथ कोई साझा निदेशक, बैंक या इंटरनेट नहीं।"
+              : "Independent Ownership: No shared owners, bank accounts, or IP addresses.",
           },
           {
             type: "warning",
             text: isHi
-              ? "प्रक्रियात्मक विसंगति: अनिवार्य विनिर्माण NIC 28132 के बजाय सेवा NIC 74909 के तहत पंजीकृत (दस्तावेजी स्पष्टीकरण आवश्यक)।"
-              : "Procedural Mismatch: Registered under Services NIC 74909 instead of mandatory Manufacturing NIC 28132 (clarification pending).",
+              ? "श्रेणी सूचना: विनिर्माण के बजाय सेवा श्रेणी में पंजीकृत (स्पष्टीकरण मांगा गया)।"
+              : "Category Note: Registered under services instead of manufacturing category.",
           },
         ],
       };
@@ -87,154 +87,154 @@ function getNodeBreakdown(nodeId: string, language: Language): NodeBreakdownData
     case "BID-003":
     case "BID-004":
       return {
-        title: isHi ? "सिंडिकेट मिलीभगत विश्लेषण (4 साक्ष्य):" : "Syndicate Nexus Breakdown (4 Collusive Links):",
-        badge: isHi ? "उच्च जोखिम सिंडिकेट" : "High-Risk Syndicate",
-        badgeColor: "bg-coral-orange/20 text-coral-orange border-coral-orange/40",
+        title: isHi ? "मिलीभगत के 4 प्रत्यक्ष प्रमाण:" : "4 Direct Evidence Points of Collusion:",
+        badge: isHi ? "उच्च जोखिम कार्टेल" : "High-Risk Syndicate",
+        badgeColor: "bg-rose-500/10 text-rose-600 border-rose-500/30",
         findings: [
           {
             type: "critical",
             text: isHi
-              ? "साझा निदेशक DIN 08492019 (विक्रम सिंघल) दोनों कंपनियों के प्रबंधन और स्वामित्व को नियंत्रित करता है।"
-              : "Common Director DIN 08492019 (Vikram Singhal) controls designated management in both competing entities.",
+              ? "साझा निदेशक: विक्रम सिंघल दोनों कंपनियों के मालिक और निदेशक हैं।"
+              : "Same Director: Vikram Singhal is a registered director in both companies.",
           },
           {
             type: "critical",
             text: isHi
-              ? "समान बोली अपलोड सबनेट: 192.168.44.0/24 (ओखला, नई दिल्ली में 4 मिनट 12 सेकंड के अंतराल में अपलोड)।"
-              : "Identical Bid Upload IP Subnet: 192.168.44.0/24 (Uploaded within 4 mins 12 secs from same physical facility).",
+              ? "समान इंटरनेट पता: दोनों बोलियां 4 मिनट के भीतर एक ही कार्यालय से भेजी गईं।"
+              : "Same Location: Both bids submitted 4 minutes apart from the same office IP.",
           },
           {
             type: "critical",
             text: isHi
-              ? "समान बैंक शाखा एवं IFSC: HDFC0001294 (ओखला औद्योगिक क्षेत्र शाखा) में ईएमडी खाते खोले गए।"
-              : "Matching Bank Branch & IFSC: HDFC0001294 (Okhla Industrial Area) used for EMD security deposits.",
+              ? "समान बैंक शाखा: दोनों कंपनियों ने HDFC ओखला से बैंक गारंटी ली।"
+              : "Same Bank Branch: Both opened guarantee accounts at the exact same bank.",
           },
           {
             type: "critical",
             text: isHi
-              ? "समान डिजिटल टूल हैश: दोनों कंपनियों के सीए प्रमाणपत्र Adobe Photoshop CC 2024 (Macintosh) पर तैयार किए गए।"
-              : "Identical PDF Creator Tool Hash: CA certificates for both bidders were altered on the same Adobe Photoshop CC 2024 workstation.",
+              ? "फोटोशॉप से छेड़छाड़: दोनों सीए प्रमाणपत्र एक ही कंप्यूटर पर एडिट किए गए।"
+              : "Edited in Photoshop: Both CA certificates altered on the exact same computer.",
           },
         ],
       };
 
     case "DIN-08492019":
       return {
-        title: isHi ? "निदेशक पद मिलीभगत साक्ष्य:" : "Directorship Collusion Evidence:",
-        badge: isHi ? "साझा निदेशक DIN" : "Shared Director DIN",
-        badgeColor: "bg-coral-orange/20 text-coral-orange border-coral-orange/40",
+        title: isHi ? "निदेशक मिलीभगत प्रमाण:" : "Director Evidence:",
+        badge: isHi ? "साझा निदेशक" : "Common Director",
+        badgeColor: "bg-rose-500/10 text-rose-600 border-rose-500/30",
         findings: [
           {
             type: "critical",
             text: isHi
-              ? "एमसीए21 पोर्टल पुष्टि करता है कि विक्रम सिंघल (DIN 08492019) एपेक्स इंजीनियरिंग और एपेक्स फ्लो डायनेमिक्स दोनों में सक्रिय निदेशक हैं।"
-              : "MCA21 corporate registry confirms Vikram Singhal (DIN 08492019) holds active directorship across both Apex entities.",
+              ? "विक्रम सिंघल दोनों प्रतिस्पर्धी कंपनियों में सक्रिय निदेशक हैं।"
+              : "Vikram Singhal holds directorship in both competing companies.",
           },
           {
             type: "critical",
             text: isHi
-              ? "यह GeM GTC खंड 14 और प्रतिस्पर्धा अधिनियम 2002 का सीधा उल्लंघन है, जो संबंधित संस्थाओं को एक साथ बोली लगाने से रोकता है।"
-              : "Direct violation of GeM GTC Clause 14 & Competition Act 2002 prohibiting dual bid submission by related parties.",
+              ? "नियमों का सीधा उल्लंघन: एक ही व्यक्ति दो विरोधी बोलियां नहीं लगा सकता।"
+              : "Direct Rule Violation: GeM strictly forbids one owner submitting competing bids.",
           },
         ],
       };
 
     case "IP-SUBNET":
       return {
-        title: isHi ? "नेटवर्क अपलोड मिलीभगत साक्ष्य:" : "Network Infrastructure Nexus:",
-        badge: isHi ? "समान आईपी सबनेट" : "Identical IP Subnet",
-        badgeColor: "bg-coral-orange/20 text-coral-orange border-coral-orange/40",
+        title: isHi ? "स्थान व नेटवर्क प्रमाण:" : "Location & Network Evidence:",
+        badge: isHi ? "समान इंटरनेट पता" : "Identical IP Address",
+        badgeColor: "bg-rose-500/10 text-rose-600 border-rose-500/30",
         findings: [
           {
             type: "critical",
             text: isHi
-              ? "दोनों प्रतिस्पर्धी बोलियां 252 सेकंड के भीतर स्थिर सबनेट 192.168.44.0/24 (ओखला, दिल्ली) से GeM सर्वर पर सबमिट की गईं।"
-              : "Both bids submitted to GeM gateway from static subnet 192.168.44.0/24 (Okhla, New Delhi) within 252 seconds.",
+              ? "दोनों बोलियां ओखला, नई दिल्ली में एक ही इंटरनेट कनेक्शन से भेजी गईं।"
+              : "Both bids uploaded from the exact same Internet subnet (Okhla, New Delhi).",
           },
           {
             type: "critical",
             text: isHi
-              ? "समान डिजिटल गेटवे मूल साबित करता है कि दोनों बोलियां एक ही कार्यालय से समन्वित रूप से भेजी गईं।"
-              : "Confirms proxy bid coordination from the exact same physical office facility.",
+              ? "प्रॉक्सी बोली की पुष्टि: दोनों कंपनियां एक ही कमरे से संचालित हो रही थीं।"
+              : "Proxy Bidding: Proves both companies coordinated bids from the same room.",
           },
         ],
       };
 
     case "BANK-HDFC":
       return {
-        title: isHi ? "बैंकिंग एवं ईएमडी मिलीभगत साक्ष्य:" : "Banking & EMD Nexus Evidence:",
+        title: isHi ? "बैंक गारंटी प्रमाण:" : "Bank Guarantee Evidence:",
         badge: isHi ? "समान बैंक शाखा" : "Common Bank Branch",
-        badgeColor: "bg-amber-500/20 text-amber-500 border-amber-500/40",
+        badgeColor: "bg-amber-500/10 text-amber-600 border-amber-500/30",
         findings: [
           {
             type: "warning",
             text: isHi
-              ? "दोनों बोलीदाताओं ने HDFC बैंक, ओखला औद्योगिक क्षेत्र शाखा (IFSC: HDFC0001294) से ईएमडी बैंक गारंटी प्राप्त की।"
-              : "Both bidders secured EMD bank guarantees and accounts from HDFC Bank, Okhla Industrial Area (IFSC: HDFC0001294).",
+              ? "दोनों कंपनियों ने HDFC बैंक, ओखला शाखा से अपनी ईएमडी गारंटी प्राप्त की।"
+              : "Both bidders secured their EMD bank guarantee from HDFC Bank, Okhla.",
           },
           {
             type: "warning",
             text: isHi
-              ? "वित्तीय संस्थागत लिंकेज साबित करता है कि दोनों संस्थाएं एक ही वित्तीय सलाहकार द्वारा प्रबंधित हैं।"
-              : "Institutional financial linkage demonstrates coordinated banking and treasury management.",
+              ? "साझा वित्तीय प्रबंधन: दोनों कंपनियों का खाता एक ही व्यवस्था द्वारा संचालित है।"
+              : "Linked Finances: Indicates coordinated financial and treasury management.",
           },
         ],
       };
 
     case "PDF-METADATA":
       return {
-        title: isHi ? "डिजिटल दस्तावेज़ फोरेंसिक साक्ष्य:" : "Document Forensics Nexus:",
-        badge: isHi ? "समान सॉफ्टवेयर हैश" : "Matching XMP Hash",
-        badgeColor: "bg-coral-orange/20 text-coral-orange border-coral-orange/40",
+        title: isHi ? "दस्तावेज़ फोरेंसिक प्रमाण:" : "Document Forensics Evidence:",
+        badge: isHi ? "समान फोटोशॉप हैश" : "Matching Software Hash",
+        badgeColor: "bg-rose-500/10 text-rose-600 border-rose-500/30",
         findings: [
           {
             type: "critical",
             text: isHi
-              ? "दोनों बोलीदाताओं के सीए टर्नओवर प्रमाणपत्रों में समान एक्सएमपी मेटाडेटा (Adobe Photoshop CC 2024 - Macintosh) पाया गया।"
-              : "XMP metadata build hash in both bidders' CA certificates matches Adobe Photoshop CC 2024 (Macintosh).",
+              ? "दोनों कंपनियों के सीए प्रमाणपत्र Photoshop CC 2024 (Mac) में बनाए गए।"
+              : "Both bidders' CA certificates were altered using Photoshop CC 2024 (Mac).",
           },
           {
             type: "critical",
             text: isHi
-              ? "फोरेंसिक विश्लेषण से प्रमाणित होता है कि दोनों दस्तावेज़ एक ही मैक वर्कस्टेशन पर जाली बनाए गए थे।"
-              : "Forensic pixel/metadata analysis proves both statutory documents were prepared on the exact same workstation.",
+              ? "डिजिटल फिंगरप्रिंट मेल: दोनों जाली फाइलें एक ही कंप्यूटर पर तैयार हुईं।"
+              : "Digital Fingerprint Match: Proves both fake documents came from the same laptop.",
           },
         ],
       };
 
     case "DIN-07812940":
       return {
-        title: isHi ? "निदेशक स्वतंत्रता सत्यापन:" : "Director Independence Verification:",
+        title: isHi ? "निदेशक स्वतंत्रता जांच:" : "Director Independence:",
         badge: isHi ? "सत्यापित स्वतंत्र" : "Verified Independent",
-        badgeColor: "bg-mint-green/20 text-mint-green border-mint-green/40",
+        badgeColor: "bg-emerald-500/10 text-emerald-600 border-emerald-500/30",
         findings: [
           {
             type: "success",
             text: isHi
-              ? "एस. रामनाथन (DIN 07812940) केवल ऑरा फ्लो सिस्टम्स में पंजीकृत हैं; अन्य किसी बोलीदाता में कोई हित नहीं है।"
-              : "S. Ramanathan (DIN 07812940) is registered exclusively with Aura Flow Systems with no cross-holdings.",
+              ? "एस. रामनाथन केवल ऑरा फ्लो सिस्टम्स से जुड़े हैं, अन्यत्र कोई हित नहीं।"
+              : "S. Ramanathan is registered only with Aura Flow Systems with no other ties.",
           },
         ],
       };
 
     case "IP-CHENNAI":
       return {
-        title: isHi ? "नेटवर्क अलगाव सत्यापन:" : "Network Segregation Verification:",
-        badge: isHi ? "पृथक नेटवर्क" : "Isolated Network",
-        badgeColor: "bg-mint-green/20 text-mint-green border-mint-green/40",
+        title: isHi ? "नेटवर्क अलगाव जांच:" : "Network Check:",
+        badge: isHi ? "स्वतंत्र नेटवर्क" : "Isolated Network",
+        badgeColor: "bg-emerald-500/10 text-emerald-600 border-emerald-500/30",
         findings: [
           {
             type: "success",
             text: isHi
-              ? "आईपी 122.178.91.44 चेन्नई में ऑरा फ्लो सिस्टम्स के नाम पर पंजीकृत एकल-मूल कॉर्पोरेट लीज्ड लाइन है।"
-              : "IP 122.178.91.44 is a verified corporate leased line registered solely to Aura Flow Systems in Chennai.",
+              ? "चेन्नई में ऑरा फ्लो सिस्टम्स के नाम पर पंजीकृत स्वतंत्र इंटरनेट लाइन।"
+              : "Verified dedicated line registered only to Aura Flow Systems in Chennai.",
           },
         ],
       };
 
     default:
       return {
-        title: isHi ? "सिंडिकेट मिलीभगत विश्लेषण:" : "Syndicate Nexus Breakdown:",
+        title: isHi ? "मिलीभगत विश्लेषण:" : "Collusion Summary:",
         findings: mockCartelGraph.summary.shared_factors.map((factor) => ({
           type: "critical",
           text: getCartelFactorText(factor, language),
@@ -268,40 +268,40 @@ export function CartelGraph() {
 
   const getNodeColor = (node: CartelNode) => {
     if (node.type === "bidder") {
-      if ((node.risk_score || 0) > 70) return "#F4643C"; // Coral Orange
-      if ((node.risk_score || 0) > 30) return "#F59E0B"; // Amber
-      return "#10B981"; // Mint Green
+      if ((node.risk_score || 0) > 70) return "#DC2626"; // Crimson
+      if ((node.risk_score || 0) > 30) return "#D97706"; // Amber
+      return "#059669"; // Emerald
     }
-    if ((node.risk_score || 0) > 70) return "#F4643C";
-    return "#6366F1"; // Lavender
+    if ((node.risk_score || 0) > 70) return "#DC2626";
+    return "#2563EB"; // Gov Blue
   };
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 h-full">
       {/* Visualizer Canvas Card */}
-      <div className="flex-1 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm overflow-hidden flex flex-col">
+      <div className="flex-1 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs overflow-hidden flex flex-col">
         {/* Radar Alert Bar */}
-        <div className="p-4 border-b border-warm-beige dark:border-warm-beige/20 bg-coral-orange/15 flex items-center justify-between flex-wrap gap-2">
+        <div className="p-4 border-b border-rose-200 dark:border-rose-900/50 bg-rose-50/70 dark:bg-rose-950/30 flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center space-x-2.5">
-            <div className="relative p-2 rounded-xl bg-coral-orange/20 text-coral-orange">
+            <div className="relative p-2 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600">
               <Radar className="w-5 h-5 animate-spin" style={{ animationDuration: "6s" }} />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-coral-orange uppercase tracking-wider flex items-center space-x-2">
-                <span>{language === "hi" ? "कार्टेल सिंडिकेट चिन्हित: 94.2% विश्वसनीयता" : "CARTEL SYNDICATE FLAGGED: 94.2% CONFIDENCE"}</span>
-                <span className="w-2 h-2 rounded-full bg-coral-orange animate-ping" />
+              <h3 className="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider flex items-center space-x-2">
+                <span>{language === "hi" ? "कार्टेल मिलीभगत पाई गई: 94% सटीकता" : "CARTEL COLLUSION DETECTED (94% CERTAINTY)"}</span>
+                <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
               </h3>
-              <p className="text-xs text-deep-navy dark:text-crisp-white">
+              <p className="text-xs text-slate-700 dark:text-slate-200">
                 {language === "hi" ? (
-                  <><strong>एपेक्स इंजीनियरिंग</strong> और <strong>एपेक्स फ्लो डायनेमिक्स</strong> के बीच मिलीभगत सिंडिकेट का पता चला।</>
+                  <><strong>एपेक्स इंजीनियरिंग</strong> और <strong>एपेक्स फ्लो</strong> मिलकर बोली लगा रहे हैं।</>
                 ) : (
-                  <>Collusive ring detected between <strong>Apex Engineering</strong> and <strong>Apex Flow Dynamics</strong>.</>
+                  <>Coordinated bidding ring detected between <strong>Apex Engineering</strong> and <strong>Apex Flow Dynamics</strong>.</>
                 )}
               </p>
             </div>
           </div>
-          <span className="px-3 py-1 rounded-full text-xs font-bold bg-coral-orange text-white shadow-xs">
-            {language === "hi" ? "GeM GTC खंड 14 का उल्लंघन" : "GeM GTC Cl. 14 Violation"}
+          <span className="px-3 py-1 rounded-full text-xs font-bold bg-rose-600 text-white shadow-xs">
+            {language === "hi" ? "नियम 14 का उल्लंघन" : "GeM Rule 14 Violation"}
           </span>
         </div>
 
@@ -401,40 +401,40 @@ export function CartelGraph() {
         </div>
 
         {/* Legend bar */}
-        <div className="p-3 border-t border-warm-beige dark:border-warm-beige/20 bg-soft-beige/50 dark:bg-deep-navy flex items-center justify-between text-xs text-muted-gray flex-wrap gap-2">
+        <div className="p-3 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 flex items-center justify-between text-xs text-muted-gray flex-wrap gap-2">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-coral-orange" />
-              <span>{language === "hi" ? "मिलीभगत सिंडिकेट नोड" : "Collusive Ring Node"}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-600" />
+              <span>{language === "hi" ? "मिलीभगत में शामिल बोलीदाता" : "Collusive Bidder"}</span>
             </div>
             <div className="flex items-center space-x-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-lavender" />
-              <span>{language === "hi" ? "साझा अवसंरचना इकाई" : "Infrastructure Entity"}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+              <span>{language === "hi" ? "साझा इकाई (निदेशक/बैंक/IP)" : "Shared Entity (Director/Bank/IP)"}</span>
             </div>
             <div className="flex items-center space-x-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-mint-green" />
-              <span>{language === "hi" ? "स्वतंत्र वास्तविक बोलीदाता" : "Independent Genuine Bidder"}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
+              <span>{language === "hi" ? "स्वतंत्र बोलीदाता" : "Independent Bidder"}</span>
             </div>
           </div>
-          <span className="text-[11px] font-mono">
-            {language === "hi" ? "साक्ष्य देखने के लिए किसी भी नोड पर क्लिक करें" : "Click any node to inspect evidence"}
+          <span className="text-[11px] font-mono text-slate-500">
+            {language === "hi" ? "विवरण देखने के लिए किसी भी नोड पर क्लिक करें" : "Click any node to see details"}
           </span>
         </div>
       </div>
 
       {/* Side Detail Panel: Node Details & Statutory Evidence */}
-      <div className="w-full lg:w-96 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm p-5 flex flex-col justify-between space-y-4">
+      <div className="w-full lg:w-96 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs p-5 flex flex-col justify-between space-y-4">
         {selectedNode ? (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-warm-beige dark:border-warm-beige/20">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/[0.08]">
               <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gray">
-                {language === "hi" ? "नोड अन्वेषक" : "Node Inspector"}
+                {language === "hi" ? "नोड विवरण" : "Node Details"}
               </span>
               <span
                 className={`px-2 py-0.5 rounded-full text-xs font-bold ${
                   (selectedNode.risk_score || 0) > 70
-                    ? "bg-coral-orange/20 text-coral-orange border border-coral-orange/40"
-                    : "bg-mint-green/20 text-mint-green border border-mint-green/40"
+                    ? "bg-rose-500/10 text-rose-600 border border-rose-500/30"
+                    : "bg-emerald-500/10 text-emerald-600 border border-emerald-500/30"
                 }`}
               >
                 {language === "hi" ? "जोखिम:" : "Risk:"} {selectedNode.risk_score || 0}%
@@ -445,16 +445,16 @@ export function CartelGraph() {
               <h3 className="text-base font-bold text-deep-navy dark:text-crisp-white">
                 {getCartelNodeLabel(selectedNode.label, language)}
               </h3>
-              <span className="text-xs font-mono uppercase text-lavender font-bold">
+              <span className="text-xs font-medium uppercase text-gov-blue-600 dark:text-gov-blue-400 font-bold">
                 {language === "hi" ? "श्रेणी:" : "Category:"} {getCartelNodeType(selectedNode.type, language)}
               </span>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-xs space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-dark-navy/80 border border-slate-200/60 dark:border-white/10 text-xs space-y-1">
               <span className="text-[10px] font-bold uppercase text-muted-gray block">
-                {language === "hi" ? "साक्ष्य विवरण" : "Evidence Details"}
+                {language === "hi" ? "साक्ष्य विवरण" : "Summary"}
               </span>
-              <p className="text-deep-navy dark:text-crisp-white leading-relaxed">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-xs">
                 {getCartelNodeDetails(selectedNode.id, selectedNode.details, language)}
               </p>
             </div>
@@ -476,20 +476,20 @@ export function CartelGraph() {
                   </div>
                   <ul className="space-y-2 text-xs">
                     {breakdown.findings.map((item, i) => {
-                      let style = "border-coral-orange/40 bg-coral-orange/10 text-deep-navy dark:text-crisp-white";
+                      let style = "border-rose-200 dark:border-rose-900/40 bg-rose-50/50 dark:bg-rose-950/20 text-deep-navy dark:text-crisp-white";
                       let IconComponent = AlertTriangle;
-                      let iconColor = "text-coral-orange";
+                      let iconColor = "text-rose-600";
 
                       if (item.type === "success") {
-                        style = "border-mint-green/40 bg-mint-green/10 text-deep-navy dark:text-crisp-white";
+                        style = "border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/50 dark:bg-emerald-950/20 text-deep-navy dark:text-crisp-white";
                         IconComponent = CheckCircle2;
-                        iconColor = "text-mint-green";
+                        iconColor = "text-emerald-600";
                       } else if (item.type === "warning") {
-                        style = "border-amber-500/40 bg-amber-500/10 text-deep-navy dark:text-crisp-white";
+                        style = "border-amber-200 dark:border-amber-900/40 bg-amber-50/50 dark:bg-amber-950/20 text-deep-navy dark:text-crisp-white";
                         IconComponent = AlertTriangle;
                         iconColor = "text-amber-500";
                       } else if (item.type === "info") {
-                        style = "border-sky-500/40 bg-sky-500/10 text-deep-navy dark:text-crisp-white";
+                        style = "border-sky-200 dark:border-sky-900/40 bg-sky-50/50 dark:bg-sky-950/20 text-deep-navy dark:text-crisp-white";
                         IconComponent = Info;
                         iconColor = "text-sky-500";
                       }
@@ -510,18 +510,18 @@ export function CartelGraph() {
             })()}
 
             {/* Collapsible Tender-wide Syndicate Dossier */}
-            <div className="pt-2 border-t border-warm-beige dark:border-warm-beige/20">
+            <div className="pt-2 border-t border-slate-200/80 dark:border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setShowGlobalSummary(!showGlobalSummary)}
-                className="flex items-center justify-between w-full p-2 rounded-xl bg-warm-beige/30 dark:bg-dark-navy/60 hover:bg-warm-beige/50 dark:hover:bg-dark-navy transition-colors text-[11px] font-bold text-deep-navy dark:text-crisp-white"
+                className="flex items-center justify-between w-full p-2 rounded-xl bg-slate-100/70 dark:bg-dark-navy hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors text-[11px] font-bold text-deep-navy dark:text-crisp-white"
               >
                 <span className="flex items-center space-x-1.5">
-                  <Radar className="w-3.5 h-3.5 text-coral-orange" />
+                  <Radar className="w-3.5 h-3.5 text-rose-600" />
                   <span>
                     {language === "hi"
-                      ? "संपूर्ण निविदा कार्टेल डॉसियर (4 साक्ष्य)"
-                      : "Full Tender Syndicate Dossier (4 Links)"}
+                      ? "संपूर्ण कार्टेल रिपोर्ट (4 साक्ष्य)"
+                      : "Full Cartel Summary (4 Links)"}
                   </span>
                 </span>
                 {showGlobalSummary ? (
@@ -536,9 +536,9 @@ export function CartelGraph() {
                   {mockCartelGraph.summary.shared_factors.map((factor, i) => (
                     <li
                       key={i}
-                      className="p-2 rounded-xl border border-coral-orange/30 bg-coral-orange/10 text-deep-navy dark:text-crisp-white flex items-start space-x-2 text-[11px]"
+                      className="p-2 rounded-xl border border-rose-200 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/20 text-deep-navy dark:text-crisp-white flex items-start space-x-2 text-[11px]"
                     >
-                      <AlertTriangle className="w-3.5 h-3.5 text-coral-orange shrink-0 mt-0.5" />
+                      <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0 mt-0.5" />
                       <span>{getCartelFactorText(factor, language)}</span>
                     </li>
                   ))}
@@ -549,19 +549,19 @@ export function CartelGraph() {
         ) : (
           <div className="text-center p-8 text-muted-gray">
             {language === "hi"
-              ? "मिलीभगत संकेतकों का निरीक्षण करने के लिए रडार पर किसी भी नेटवर्क नोड पर क्लिक करें।"
-              : "Click any network node on the radar to inspect collusion indicators."}
+              ? "साक्ष्य देखने के लिए किसी भी नोड पर क्लिक करें।"
+              : "Click any node on the graph to inspect evidence."}
           </div>
         )}
 
-        <div className="p-3 rounded-xl bg-lavender/15 border border-lavender/30 text-[11px] text-muted-gray leading-relaxed">
+        <div className="p-3 rounded-xl bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/10 text-[11px] text-slate-500 leading-relaxed">
           {language === "hi" ? (
             <>
-              <strong>भारतीय प्रतिस्पर्धा आयोग (CCI) वैधानिक चेतावनी:</strong> सार्वजनिक खरीद निविदाओं में मिलीभगत / कार्टेल बनाना प्रतिस्पर्धा अधिनियम 2002 की धारा 46 के तहत दंडनीय अपराध है।
+              <strong>वैधानिक नियम:</strong> सार्वजनिक खरीद निविदाओं में मिलीभगत GeM खंड 14 और प्रतिस्पर्धा अधिनियम 2002 की धारा 46 का उल्लंघन है।
             </>
           ) : (
             <>
-              <strong>Competition Commission of India (CCI) Alert:</strong> Cartelization in CPCL hydrocarbon tenders is punishable under Sec 46 of Competition Act 2002.
+              <strong>Rule Notice:</strong> Coordinated bidding and proxy submissions violate GeM Clause 14 and Section 46 of the Competition Act 2002.
             </>
           )}
         </div>

@@ -67,7 +67,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
       const dataUrl = await QRCode.toDataURL(payloadToDownload, {
         width: 600,
         margin: 2,
-        color: { dark: "#0C141C", light: "#FFFFFF" },
+        color: { dark: "#0B0F19", light: "#FFFFFF" },
       });
       const link = window.document.createElement("a");
       link.href = dataUrl;
@@ -108,38 +108,38 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 12 }}
-          className="w-full max-w-3xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 rounded-2xl shadow-2xl overflow-hidden flex flex-col text-deep-navy dark:text-crisp-white max-h-[90vh]"
+          className="w-full max-w-3xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] rounded-2xl shadow-2xl overflow-hidden flex flex-col text-deep-navy dark:text-crisp-white max-h-[90vh]"
         >
           {/* Header */}
           <div
             className={`p-5 border-b flex items-center justify-between ${
               !isMatch && activeTab === "cross_check"
-                ? "bg-coral-orange/15 border-coral-orange/30 text-coral-orange"
-                : "bg-warm-beige/40 dark:bg-dark-navy/60 border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white"
+                ? "bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300"
+                : "bg-slate-50 dark:bg-dark-navy/60 border-slate-200/80 dark:border-white/[0.08] text-deep-navy dark:text-crisp-white"
             }`}
           >
             <div className="flex items-center space-x-3">
               <div
                 className={`p-2.5 rounded-xl ${
                   !isMatch && activeTab === "cross_check"
-                    ? "bg-coral-orange/20 text-coral-orange"
-                    : "bg-lavender/20 text-lavender"
+                    ? "bg-rose-100 dark:bg-rose-900/50 text-rose-600"
+                    : "bg-gov-blue-50 dark:bg-gov-blue-950/40 text-gov-blue-600 dark:text-gov-blue-400"
                 }`}
               >
                 <QrCode className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-base font-black tracking-tight">
+                <h3 className="text-base font-bold tracking-tight">
                   {activeTab === "cross_check"
                     ? isMatch
-                      ? (language === "hi" ? "QR कोड क्रॉस-चेक: सत्यापित व प्रामाणिक" : "QR Code Cross-Check: Verified Match")
-                      : (language === "hi" ? "गंभीर चेतावनी: QR पेलोड बनाम दस्तावेज़ पाठ्य बेमेल" : "CRITICAL ALERT: QR Payload vs Document Text Mismatch")
-                    : (language === "hi" ? "लाइव GeM वैधानिक QR जनरेटर एवं सत्यापनकर्ता" : "Live GeM Statutory QR Generator & Verifier")}
+                      ? (language === "hi" ? "QR कोड सत्यापन: प्रामाणिक मिलान" : "QR Code Check: Verified Authentic")
+                      : (language === "hi" ? "QR कोड विसंगति: पाठ्य मेल नहीं खाता" : "QR Code Alert: Content Mismatch")
+                    : (language === "hi" ? "GeM वैधानिक QR जनरेटर" : "GeM Statutory QR Generator")}
                 </h3>
                 <p className="text-xs text-muted-gray">{doc_name}</p>
               </div>
@@ -153,12 +153,12 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex border-b border-warm-beige dark:border-warm-beige/20 px-6 pt-3 bg-warm-beige/20 dark:bg-dark-navy/30 gap-4 text-xs font-bold">
+          <div className="flex border-b border-slate-200/80 dark:border-white/[0.08] px-6 pt-3 bg-slate-50/50 dark:bg-dark-navy/30 gap-4 text-xs font-semibold">
             <button
               onClick={() => setActiveTab("cross_check")}
               className={`pb-2.5 border-b-2 transition-all flex items-center space-x-1.5 ${
                 activeTab === "cross_check"
-                  ? "border-lavender text-lavender"
+                  ? "border-gov-blue-600 text-gov-blue-600 dark:text-gov-blue-400 font-bold"
                   : "border-transparent text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
               }`}
             >
@@ -169,12 +169,12 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
               onClick={() => setActiveTab("qr_generator")}
               className={`pb-2.5 border-b-2 transition-all flex items-center space-x-1.5 ${
                 activeTab === "qr_generator"
-                  ? "border-lavender text-lavender"
+                  ? "border-gov-blue-600 text-gov-blue-600 dark:text-gov-blue-400 font-bold"
                   : "border-transparent text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
               }`}
             >
               <Sparkles className="w-4 h-4" />
-              <span>{language === "hi" ? "लाइव सत्यापन योग्य QR जनरेटर" : "Live Verifiable QR Generator"}</span>
+              <span>{language === "hi" ? "QR जनरेटर" : "QR Generator"}</span>
             </button>
           </div>
 
@@ -185,25 +185,25 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
               <div
                 className={`p-4 rounded-xl border flex items-start space-x-3 ${
                   isMatch
-                    ? "bg-mint-green/15 border-mint-green/30 text-mint-green"
-                    : "bg-coral-orange/15 border-coral-orange/40 text-coral-orange"
+                    ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300"
+                    : "bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50 text-rose-800 dark:text-rose-300"
                 }`}
               >
                 {isMatch ? (
-                  <ShieldCheck className="w-5 h-5 shrink-0 mt-0.5" />
+                  <ShieldCheck className="w-5 h-5 shrink-0 mt-0.5 text-emerald-600" />
                 ) : (
-                  <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5 animate-pulse" />
+                  <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5 text-rose-600" />
                 )}
                 <div className="text-xs space-y-1">
                   <p className="font-bold text-sm">
                     {isMatch
-                      ? (language === "hi" ? "क्रिप्टोग्राफ़िक QR मिलान की पुष्टि हुई" : "Cryptographic QR Match Confirmed")
-                      : (language === "hi" ? "गंभीर छेड़छाड़ संकेतक: QR कोड पुनः प्रयुक्त / फर्जी" : "Severe Tampering Indicator: QR Code Re-used / Spoofed")}
+                      ? (language === "hi" ? "QR कोड डेटा 100% मेल खाता है" : "QR Code Data Matches Document")
+                      : (language === "hi" ? "⚠️ QR कोड विसंगति: कॉपी-पेस्ट QR कोड" : "⚠️ QR Code Mismatch: Unrelated / Re-used QR")}
                   </p>
-                  <p className="text-deep-navy dark:text-crisp-white leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                     {isMatch
-                      ? (language === "hi" ? "इस QR बारकोड में एन्कोड किया गया क्रिप्टोग्राफ़िक पेलोड प्रमाणपत्र के मुखपृष्ठ पर दृश्यमान पाठ्य घोषणाओं से 100% मेल खाता है।" : "The cryptographic payload encoded in this QR barcode aligns 100% with the human-readable text declarations extracted on the certificate face.")
-                      : (language === "hi" ? "बारकोड में प्रमाणपत्र के टर्नओवर मूल्य के विपरीत ऐतिहासिक लेनदेन डेटा शामिल है, जिससे संकेत मिलता है कि किसी असंबंधित दस्तावेज़ से प्रामाणिक QR कोड कॉपी किया गया था।" : (qr_code_cross_check.mismatch_details || "The barcode contains historical transaction data conflicting with the face turnover value of the certificate, indicating that an authentic QR code was copied from an unrelated document."))}
+                      ? (language === "hi" ? "QR बारकोड में एन्कोड किया गया डेटा प्रमाणपत्र पर छपे विवरण से पूरी तरह मेल खाता है।" : "The data encoded in this QR barcode aligns 100% with the text printed on the certificate.")
+                      : (language === "hi" ? "बारकोड में किसी अन्य पुराने दस्तावेज़ का डेटा शामिल है, जिससे पता चलता है कि QR कोड कॉपी किया गया था।" : (qr_code_cross_check.mismatch_details || "The barcode contains transaction data conflicting with the certificate face value, indicating the QR code was copied from an unrelated document."))}
                   </p>
                 </div>
               </div>
@@ -211,45 +211,45 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
               {/* Main Interactive Inspection Grid */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
                 {/* Left: Scannable Real QR Matrix */}
-                <div className="md:col-span-5 p-4 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-center space-y-3 shadow-sm">
+                <div className="md:col-span-5 p-4 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 text-center space-y-3 shadow-xs">
                   <div className="flex items-center justify-between text-xs text-muted-gray">
                     <span className="font-bold uppercase tracking-wider text-[10px]">
-                      {language === "hi" ? "वास्तविक स्कैन करने योग्य QR" : "Real Scannable QR"}
+                      {language === "hi" ? "स्कैन करने योग्य QR" : "Scannable QR"}
                     </span>
-                    <span className="flex items-center space-x-1 text-mint-green font-mono text-[10px]">
+                    <span className="flex items-center space-x-1 text-emerald-600 dark:text-emerald-400 font-mono text-[10px] font-semibold">
                       <Smartphone className="w-3 h-3" />
                       <span>{language === "hi" ? "स्कैन हेतु तैयार" : "Ready to Scan"}</span>
                     </span>
                   </div>
 
                   {/* QR Image */}
-                  <div className="relative p-3 bg-white rounded-xl border border-warm-beige/50 inline-block shadow-inner group">
+                  <div className="relative p-3 bg-white rounded-xl border border-slate-200 inline-block shadow-xs">
                     <DocumentQRCode
                       payload={qr_code_cross_check.scanned_payload}
                       size={180}
                       className="mx-auto"
                     />
-                    <div className="absolute inset-x-0 bottom-1 text-[9px] font-mono text-center text-gray-500 bg-white/90 py-0.5 rounded">
-                      {language === "hi" ? "किसी भी फ़ोन कैमरे से स्कैन करें" : "Scan with any Phone Camera"}
+                    <div className="text-[9px] font-mono text-center text-slate-500 mt-1">
+                      {language === "hi" ? "फ़ोन कैमरे से स्कैन करें" : "Scan with phone camera"}
                     </div>
                   </div>
 
                   <div className="flex items-center justify-center space-x-2">
                     <button
                       onClick={handleCopyPayload}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-soft-beige/80 dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/30 hover:border-lavender transition-all flex items-center space-x-1.5 shadow-xs"
-                      title="Copy encoded payload to clipboard"
+                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-deep-navy border border-slate-200 dark:border-white/10 hover:border-gov-blue-400 transition-all flex items-center space-x-1.5 shadow-xs"
+                      title="Copy encoded payload"
                     >
-                      {copied ? <Check className="w-3.5 h-3.5 text-mint-green" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copied ? (language === "hi" ? "कॉपी हो गया" : "Copied") : (language === "hi" ? "डेटा कॉपी करें" : "Copy Data")}</span>
                     </button>
                     <button
                       onClick={() => handleDownloadQR(qr_code_cross_check.scanned_payload, "document_scanned_qr")}
                       disabled={downloading}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-soft-beige/80 dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/30 hover:border-lavender transition-all flex items-center space-x-1.5 shadow-xs"
-                      title="Download PNG for official audit report"
+                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-deep-navy border border-slate-200 dark:border-white/10 hover:border-gov-blue-400 transition-all flex items-center space-x-1.5 shadow-xs"
+                      title="Download PNG"
                     >
-                      <Download className="w-3.5 h-3.5 text-lavender" />
+                      <Download className="w-3.5 h-3.5 text-gov-blue-600 dark:text-gov-blue-400" />
                       <span>{language === "hi" ? "डाउनलोड" : "Download"}</span>
                     </button>
                   </div>
@@ -258,14 +258,14 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                 {/* Right: Data Discrepancy Breakdown */}
                 <div className="md:col-span-7 space-y-3.5">
                   {/* Decoded QR Structured Tokens */}
-                  <div className="p-4 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy space-y-2">
+                  <div className="p-4 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center space-x-1.5 text-lavender font-bold">
+                      <div className="flex items-center space-x-1.5 text-gov-blue-600 dark:text-gov-blue-400 font-bold">
                         <QrCode className="w-4 h-4" />
-                        <span>{language === "hi" ? "QR कोड में डिकोड किए गए डेटा घटक" : "Decoded Data Elements in QR"}</span>
+                        <span>{language === "hi" ? "QR कोड से डिकोड किया गया डेटा" : "Decoded QR Content"}</span>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-lavender/15 text-lavender">
-                        {language === "hi" ? "रीड-सोलोमन डिकोडेड" : "Reed-Solomon Decoded"}
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-dark-navy text-muted-gray">
+                        Format: Payload
                       </span>
                     </div>
 
@@ -273,7 +273,7 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                       {parsedFields.map((field, i) => (
                         <div
                           key={i}
-                          className="p-2 rounded-lg bg-soft-beige/40 dark:bg-deep-navy border border-warm-beige/50 dark:border-warm-beige/10 space-y-0.5"
+                          className="p-2 rounded-lg bg-slate-50 dark:bg-dark-navy border border-slate-200/80 dark:border-white/10 space-y-0.5"
                         >
                           <span className="text-[9px] uppercase font-bold text-muted-gray block truncate">
                             {field.key}
@@ -285,11 +285,11 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                       ))}
                     </div>
 
-                    <div className="pt-2 border-t border-dashed border-warm-beige/50 dark:border-warm-beige/10">
+                    <div className="pt-2 border-t border-slate-200 dark:border-white/10">
                       <span className="text-[10px] text-muted-gray uppercase font-bold block mb-1">
-                        {language === "hi" ? "कच्चा डेटा प्रवाह:" : "Raw Stream:"}
+                        {language === "hi" ? "कच्चा डेटा:" : "Raw Payload:"}
                       </span>
-                      <p className="font-mono text-[10px] p-2 rounded bg-soft-beige/30 dark:bg-deep-navy break-all text-deep-navy/80 dark:text-crisp-white/80">
+                      <p className="font-mono text-[10px] p-2 rounded bg-slate-50 dark:bg-dark-navy break-all text-slate-700 dark:text-slate-300">
                         {qr_code_cross_check.scanned_payload}
                       </p>
                     </div>
@@ -299,31 +299,31 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                   <div
                     className={`p-4 rounded-xl border space-y-2 ${
                       isMatch
-                        ? "border-mint-green/30 bg-mint-green/5"
-                        : "border-coral-orange/40 bg-coral-orange/10"
+                        ? "border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/50 dark:bg-emerald-950/20"
+                        : "border-rose-200 dark:border-rose-900/40 bg-rose-50/50 dark:bg-rose-950/20"
                     }`}
                   >
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold flex items-center space-x-1.5">
                         <ArrowRight className="w-3.5 h-3.5" />
-                        <span>{language === "hi" ? "दस्तावेज़ का अंकित प्रत्यक्ष पाठ (OCR)" : "Document Face Value Text"}</span>
+                        <span>{language === "hi" ? "दस्तावेज़ पर छपा पाठ (OCR)" : "Printed Document Text"}</span>
                       </span>
                       <span
                         className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full ${
-                          isMatch ? "bg-mint-green text-white" : "bg-coral-orange text-white animate-pulse"
+                          isMatch ? "bg-emerald-600 text-white" : "bg-rose-600 text-white"
                         }`}
                       >
                         {isMatch
-                          ? (language === "hi" ? "सत्यापित संगत" : "VERIFIED CONSISTENT")
-                          : (language === "hi" ? "विसंगति / हेरफेर पाई गई" : "CONTRADICTION DETECTED")}
+                          ? (language === "hi" ? "सत्यापित" : "VERIFIED")
+                          : (language === "hi" ? "बेमेल" : "MISMATCH")}
                       </span>
                     </div>
 
                     <p
                       className={`p-2.5 rounded-lg font-mono text-xs font-bold ${
                         isMatch
-                          ? "bg-crisp-white dark:bg-dark-navy text-mint-green border border-mint-green/20"
-                          : "bg-crisp-white dark:bg-dark-navy text-coral-orange border border-coral-orange/30"
+                          ? "bg-white dark:bg-dark-navy text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50"
+                          : "bg-white dark:bg-dark-navy text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50"
                       }`}
                     >
                       {qr_code_cross_check.ocr_visible_text}
@@ -334,19 +334,19 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
             </div>
           )}
 
-          {/* Tab 2: Live Verifiable GeM QR Generator */}
+          {/* Tab 2: GeM QR Generator */}
           {activeTab === "qr_generator" && (
             <div className="p-6 space-y-5 overflow-y-auto">
-              <div className="p-4 rounded-xl bg-lavender/10 border border-lavender/30 text-xs flex items-start space-x-3">
-                <Sparkles className="w-5 h-5 text-lavender shrink-0 mt-0.5" />
+              <div className="p-4 rounded-xl bg-gov-blue-50/60 dark:bg-gov-blue-950/20 border border-gov-blue-200 dark:border-gov-blue-900/40 text-xs flex items-start space-x-3">
+                <Sparkles className="w-5 h-5 text-gov-blue-600 dark:text-gov-blue-400 shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <p className="font-bold text-deep-navy dark:text-crisp-white">
-                    {language === "hi" ? "छेड़छाड़-रोधी GeM सत्यापन QR मैट्रिक्स जनरेटर" : "Tamper-Proof GeM Verification QR Matrix Generator"}
+                    {language === "hi" ? "GeM सत्यापन QR मैट्रिक्स जनरेटर" : "GeM Verification QR Code Generator"}
                   </p>
-                  <p className="text-muted-gray leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                     {language === "hi"
-                      ? "दस्तावेज़ के क्रिप्टोग्राफिक SHA-256 हैश, निविदा विवरण और GSTIN के साथ एक आधिकारिक वैधानिक QR कोड जनरेट करें जिसे CVC डोजियर और GeM निविदा प्रमाणपत्रों पर लगाया जा सके।"
-                      : "Generate an official statutory QR code embedded with the document's cryptographic SHA-256 hash, tender credentials, and GSTIN to affix onto CVC Dossiers and GeM Tender Certificates."}
+                      ? "निविदा विवरण और SHA-256 हैश के साथ आधिकारिक QR कोड जनरेट करें।"
+                      : "Generate official QR codes encoded with tender reference, GSTIN, and cryptographic SHA-256 integrity hashes for audit stamping."}
                   </p>
                 </div>
               </div>
@@ -356,68 +356,68 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                 <div className="md:col-span-7 space-y-3 text-xs">
                   <div>
                     <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                      {language === "hi" ? "खरीदार संगठन / विभाग" : "Procuring Organization / Cell"}
+                      {language === "hi" ? "खरीदार संगठन" : "Procuring Organization"}
                     </label>
                     <input
                       type="text"
                       value={customEntity}
                       onChange={(e) => setCustomEntity(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/30 font-medium text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 font-medium text-deep-navy dark:text-crisp-white focus:outline-none focus:border-gov-blue-500"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                        {language === "hi" ? "निविदा संदर्भ आईडी" : "Tender Reference ID"}
+                        {language === "hi" ? "निविदा संदर्भ आईडी" : "Tender Ref ID"}
                       </label>
                       <input
                         type="text"
                         value={customId}
                         onChange={(e) => setCustomId(e.target.value)}
-                        className="w-full px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/30 font-mono text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 font-mono text-deep-navy dark:text-crisp-white focus:outline-none focus:border-gov-blue-500"
                       />
                     </div>
                     <div>
                       <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                        {language === "hi" ? "वैधानिक GSTIN" : "Statutory GSTIN"}
+                        GSTIN
                       </label>
                       <input
                         type="text"
                         value={customGstin}
                         onChange={(e) => setCustomGstin(e.target.value)}
-                        className="w-full px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/30 font-mono text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 font-mono text-deep-navy dark:text-crisp-white focus:outline-none focus:border-gov-blue-500"
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="font-bold text-[11px] text-muted-gray block mb-1">
-                      {language === "hi" ? "सत्यापित निविदा / कारोबार मूल्य (₹)" : "Verified Tender / Turnover Value (INR)"}
+                      {language === "hi" ? "मूल्य (₹)" : "Verified Turnover Value (INR)"}
                     </label>
                     <input
                       type="text"
                       value={customValue}
                       onChange={(e) => setCustomValue(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/30 font-mono text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-dark-navy border border-slate-200 dark:border-white/10 font-mono text-deep-navy dark:text-crisp-white focus:outline-none focus:border-gov-blue-500"
                     />
                   </div>
 
                   <button
                     onClick={handleGenerateCustomQR}
-                    className="w-full py-2 rounded-xl bg-lavender hover:bg-lavender/90 text-crisp-white font-bold transition-all shadow-md shadow-lavender/25 flex items-center justify-center space-x-1.5"
+                    className="w-full py-2 rounded-xl bg-gov-blue-600 hover:bg-gov-blue-700 text-white font-bold transition-all shadow-xs flex items-center justify-center space-x-1.5"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
-                    <span>{language === "hi" ? "वैधानिक QR कोड जनरेट करें" : "Encode Live Statutory QR"}</span>
+                    <span>{language === "hi" ? "QR कोड जनरेट करें" : "Generate QR Code"}</span>
                   </button>
                 </div>
 
                 {/* Generated QR Code View */}
-                <div className="md:col-span-5 p-4 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-center space-y-3 shadow-sm">
-                  <span className="font-bold uppercase tracking-wider text-[10px] text-lavender block">
-                    {language === "hi" ? "जनरेटेड GeM QR मैट्रिक्स" : "Generated GeM QR Matrix"}
+                <div className="md:col-span-5 p-4 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 text-center space-y-3 shadow-xs">
+                  <span className="font-bold uppercase tracking-wider text-[10px] text-gov-blue-600 dark:text-gov-blue-400 block">
+                    {language === "hi" ? "जनरेटेड QR कोड" : "Generated QR Code"}
                   </span>
-                  <div className="p-3 bg-white rounded-xl border border-warm-beige/50 inline-block shadow-inner">
+                  <div className="p-3 bg-white rounded-xl border border-slate-200 inline-block shadow-xs">
                     <DocumentQRCode
                       payload={customPayload || qr_code_cross_check.scanned_payload}
                       size={180}
@@ -431,10 +431,10 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
                         `GeM_Statutory_QR_${customId.replace(/\//g, "_")}`
                       )
                     }
-                    className="w-full py-2 rounded-xl text-xs font-bold bg-mint-green hover:bg-mint-green/90 text-white transition-all shadow-sm flex items-center justify-center space-x-1.5"
+                    className="w-full py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-all shadow-xs flex items-center justify-center space-x-1.5"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>{language === "hi" ? "स्टैम्पिंग QR डाउनलोड करें (.PNG)" : "Download Stamping QR (.PNG)"}</span>
+                    <span>{language === "hi" ? "QR डाउनलोड करें (.PNG)" : "Download QR Code (.PNG)"}</span>
                   </button>
                 </div>
               </div>
@@ -442,15 +442,15 @@ export function QRCodeDiffModal({ isOpen, onClose, document }: QRCodeDiffModalPr
           )}
 
           {/* Footer */}
-          <div className="p-4 border-t border-warm-beige dark:border-warm-beige/20 bg-warm-beige/30 dark:bg-dark-navy/40 flex items-center justify-between text-xs">
+          <div className="p-4 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50 dark:bg-dark-navy/40 flex items-center justify-between text-xs">
             <span className="text-muted-gray font-mono text-[11px] truncate max-w-sm">
               SHA-256: {file_hash_sha256.slice(0, 24)}...
             </span>
             <button
               onClick={onClose}
-              className="px-5 py-2 rounded-xl text-xs font-bold bg-deep-navy text-crisp-white dark:bg-crisp-white dark:text-deep-navy hover:opacity-90 transition-all shadow-xs"
+              className="px-5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 transition-all shadow-xs"
             >
-              {language === "hi" ? "निरीक्षक बंद करें" : "Close Inspector"}
+              {language === "hi" ? "बंद करें" : "Close"}
             </button>
           </div>
         </motion.div>

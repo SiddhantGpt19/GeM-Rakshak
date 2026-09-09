@@ -71,12 +71,12 @@ export default function BidderAuditPage() {
   const handleQualify = () => {
     qualifyBidder(bidder.bidder_id, "Verified by CPCL Procurement Officer under GeM guidelines.");
 
-    // Trigger celebratory confetti in Mint Green and Lavender
+    // Trigger celebratory confetti in Emerald and Gov Blue
     confetti({
       particleCount: 120,
       spread: 80,
       origin: { y: 0.65 },
-      colors: ["#10B981", "#6366F1", "#34D399", "#818cf8"],
+      colors: ["#059669", "#2563EB", "#10B981", "#3B82F6"],
     });
   };
 
@@ -92,12 +92,12 @@ export default function BidderAuditPage() {
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto pb-24">
       {/* Top Header & Breadcrumb */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-xs">
         <div className="space-y-1">
           <div className="flex items-center space-x-2 text-xs text-muted-gray">
             <Link
               href="/tenders/GEM-2026-B-9823410/bidders"
-              className="flex items-center space-x-1 hover:text-lavender transition-colors"
+              className="flex items-center space-x-1 hover:text-gov-blue-600 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>{language === "hi" ? "बोलीदाताओं की सूची पर वापस" : "Back to Bidders"}</span>
@@ -110,7 +110,7 @@ export default function BidderAuditPage() {
             <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
               {getBidderLegalName(bidder.legal_name, language)}
             </h1>
-            <span className="px-2.5 py-0.5 rounded-xl text-xs font-bold font-mono bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
+            <span className="px-2.5 py-0.5 rounded-xl text-xs font-bold font-mono bg-slate-100 dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-slate-200 dark:border-white/10">
               {bidder.seller_id}
             </span>
           </div>
@@ -125,10 +125,10 @@ export default function BidderAuditPage() {
           <span
             className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 ${
               bidder.ai_evaluation.status === "COMPLIANT"
-                ? "bg-mint-green/15 text-mint-green border border-mint-green/30"
+                ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
                 : bidder.ai_evaluation.status === "DISQUALIFIED"
-                ? "bg-coral-orange/15 text-coral-orange border border-coral-orange/40 animate-pulse"
-                : "bg-amber-500/15 text-amber-500 border border-amber-500/30"
+                ? "bg-rose-500/10 text-rose-600 border border-rose-500/20"
+                : "bg-amber-500/10 text-amber-600 border border-amber-500/20"
             }`}
           >
             {bidder.ai_evaluation.status === "COMPLIANT" ? (
@@ -150,8 +150,8 @@ export default function BidderAuditPage() {
       {/* 50/50 Split-Screen Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {/* LEFT PANEL: Document Forensics & Smart OCR Viewer */}
-        <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy p-5 shadow-sm space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-warm-beige dark:border-warm-beige/20">
+        <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy p-5 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/[0.08]">
             <div>
               <h2 className="text-base font-bold text-deep-navy dark:text-crisp-white">
                 {t.docForensicsHeader}
@@ -160,8 +160,8 @@ export default function BidderAuditPage() {
                 {t.docForensicsSub}
               </p>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-lavender/15 text-lavender border border-lavender/30">
-              {language === "hi" ? "फोरेंसिक इंजन संस्करण 4.8" : "Forensics Engine v4.8"}
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-gov-blue-50 dark:bg-gov-blue-950/40 text-gov-blue-700 dark:text-gov-blue-300 border border-gov-blue-200 dark:border-gov-blue-800">
+              {language === "hi" ? "दस्तावेज़ निरीक्षण" : "Forensic Audit Engine"}
             </span>
           </div>
 
@@ -172,7 +172,7 @@ export default function BidderAuditPage() {
         {/* RIGHT PANEL: Verification & Cross-Portal Reconciliation Engine */}
         <div className="space-y-4">
           {/* Top Score Dial & AI Summary Card */}
-          <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm flex flex-col sm:flex-row items-center gap-6">
+          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs flex flex-col sm:flex-row items-center gap-6">
             {/* Animated Radial Gauge */}
             <div className="shrink-0 flex flex-col items-center">
               <AnimatedRadialGauge
@@ -187,14 +187,14 @@ export default function BidderAuditPage() {
             <div className="flex-1 space-y-2 text-xs">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-xs uppercase tracking-wider text-muted-gray flex items-center space-x-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-lavender" />
-                  <span>{language === "hi" ? "एआई समग्र निष्कर्ष" : "AI Comprehensive Finding"}</span>
+                  <Sparkles className="w-3.5 h-3.5 text-gov-blue-600 dark:text-gov-blue-400" />
+                  <span>{language === "hi" ? "ऑडिट सारांश" : "Audit Summary"}</span>
                 </span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20">
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-slate-200 dark:border-white/10">
                   {language === "hi" ? "सिफारिश: " : "Recommendation: "}{bidder.ai_evaluation.ai_recommendation}
                 </span>
               </div>
-              <p className="text-deep-navy dark:text-crisp-white leading-relaxed bg-crisp-white dark:bg-dark-navy p-3.5 rounded-xl border border-warm-beige dark:border-warm-beige/20">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-dark-navy p-3.5 rounded-xl border border-slate-200 dark:border-white/10">
                 {bidder.ai_evaluation.procurement_officer_summary}
               </p>
             </div>
@@ -203,24 +203,24 @@ export default function BidderAuditPage() {
           {/* 5 Interactive Accordions */}
           <div className="space-y-3">
             {/* Accordion 1: MCA21 & Legal Entity Identity */}
-            <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy overflow-hidden shadow-xs">
+            <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy overflow-hidden shadow-xs">
               <button
                 onClick={() => toggleAccordion("mca21")}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-warm-beige/30 dark:hover:bg-dark-navy/40 transition-colors"
+                className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
               >
                 <div className="flex items-center space-x-3">
-                  <Building className="w-4 h-4 text-lavender" />
+                  <Building className="w-4 h-4 text-gov-blue-600 dark:text-gov-blue-400" />
                   <span className="text-xs font-bold text-deep-navy dark:text-crisp-white">
                     {t.accMCA21}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   {isDebarred ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white animate-pulse">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white animate-pulse">
                       {language === "hi" ? "IOCL द्वारा प्रतिबंधित" : "Debarred by IOCL"}
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                       {language === "hi" ? "MCA21 सक्रिय" : "MCA21 Active"}
                     </span>
                   )}
@@ -234,7 +234,7 @@ export default function BidderAuditPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="p-4 border-t border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs space-y-2"
+                    className="p-4 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 text-xs space-y-2"
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
@@ -251,10 +251,10 @@ export default function BidderAuditPage() {
                       </div>
                       <div>
                         <span className="text-muted-gray block">{language === "hi" ? "CPPP प्रतिबंध:" : "CPPP Debarment:"}</span>
-                        <strong className={isDebarred ? "text-coral-orange" : "text-mint-green"}>
+                        <strong className={isDebarred ? "text-rose-600 dark:text-rose-400 font-semibold" : "text-emerald-600 dark:text-emerald-400 font-semibold"}>
                           {isDebarred
-                            ? (language === "hi" ? "गंभीर: अक्टूबर 2027 तक सक्रिय प्रतिबंध" : "CRITICAL: Active Debarment until Oct 2027")
-                            : (language === "hi" ? "स्वच्छ (कोई प्रतिबंध नहीं)" : "CLEAN (Not Debarred)")}
+                            ? (language === "hi" ? "प्रतिबंधित (अक्टूबर 2027 तक)" : "Debarred until Oct 2027 (IOCL)")
+                            : (language === "hi" ? "स्वच्छ (कोई प्रतिबंध नहीं)" : "Clean (Not Debarred)")}
                         </strong>
                       </div>
                     </div>
@@ -264,28 +264,28 @@ export default function BidderAuditPage() {
             </div>
 
             {/* Accordion 2: MSME & Udyam Activity Scope */}
-            <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy overflow-hidden shadow-xs">
+            <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy overflow-hidden shadow-xs">
               <button
                 onClick={() => toggleAccordion("udyam")}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-warm-beige/30 dark:hover:bg-dark-navy/40 transition-colors"
+                className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
               >
                 <div className="flex items-center space-x-3">
-                  <Briefcase className="w-4 h-4 text-lavender" />
+                  <Briefcase className="w-4 h-4 text-gov-blue-600 dark:text-gov-blue-400" />
                   <span className="text-xs font-bold text-deep-navy dark:text-crisp-white">
                     {t.accMSME}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   {hasNICMismatch ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white">
                       {language === "hi" ? "NIC बेमेल (सेवाएं)" : "NIC Mismatch (Services)"}
                     </span>
                   ) : bidder.portal_api_responses.udyam_api.valid ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                       {language === "hi" ? "वैध विनिर्माण दायरा" : "Valid Mfg Scope"}
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white">
                       {language === "hi" ? "अमान्य उद्यम" : "Invalid Udyam"}
                     </span>
                   )}
@@ -299,7 +299,7 @@ export default function BidderAuditPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="p-4 border-t border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs space-y-2"
+                    className="p-4 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 text-xs space-y-2"
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
@@ -312,20 +312,20 @@ export default function BidderAuditPage() {
                       </div>
                       <div>
                         <span className="text-muted-gray block">{language === "hi" ? "प्रमुख गतिविधि:" : "Major Activity:"}</span>
-                        <strong className={hasNICMismatch ? "text-coral-orange font-bold" : "text-deep-navy dark:text-crisp-white"}>
+                        <strong className={hasNICMismatch ? "text-rose-600 dark:text-rose-400 font-bold" : "text-deep-navy dark:text-crisp-white"}>
                           {bidder.portal_api_responses.udyam_api.major_activity}
                         </strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "NIC 5-अंकीय कोड:" : "NIC 5-Digit Code:"}</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "NIC कोड:" : "NIC Code:"}</span>
                         <strong className="font-mono text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.udyam_api.nic_5_digit_code || "None"}</strong>
                       </div>
                     </div>
                     {hasNICMismatch && (
-                      <div className="p-2.5 rounded-xl bg-coral-orange/15 border border-coral-orange/40 text-coral-orange text-[11px]">
+                      <div className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300 text-[11px] leading-relaxed">
                         {language === "hi"
-                          ? "⚠️ विसंगति: बोलीदाता अनिवार्य NIC 28132 (वाल्व विनिर्माण) के बजाय NIC 74909 (व्यावसायिक सेवाएं) के तहत पंजीकृत है। MSME मूल्य प्राथमिकता छूट के लिए अपात्र!"
-                          : "⚠️ Discrepancy: Bidder registered under NIC 74909 (Services) rather than mandatory NIC 28132 (Valves Manufacturing). Ineligible for MSME price preference exemption!"}
+                          ? "⚠️ विसंगति: पंजीकृत गतिविधि 'सेवाएं' (NIC 74909) है, जबकि निविदा हेतु 'विनिर्माण' (NIC 28132) अनिवार्य है।"
+                          : "⚠️ Mismatch: Registered as Services (NIC 74909) instead of Manufacturing (NIC 28132). Ineligible for MSME price preference."}
                       </div>
                     )}
                   </motion.div>
@@ -334,20 +334,20 @@ export default function BidderAuditPage() {
             </div>
 
             {/* Accordion 3: Tax & Financial Solvency */}
-            <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy overflow-hidden shadow-xs">
+            <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy overflow-hidden shadow-xs">
               <button
                 onClick={() => toggleAccordion("tax")}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-warm-beige/30 dark:hover:bg-dark-navy/40 transition-colors"
+                className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
               >
                 <div className="flex items-center space-x-3">
-                  <DollarSign className="w-4 h-4 text-lavender" />
+                  <DollarSign className="w-4 h-4 text-gov-blue-600 dark:text-gov-blue-400" />
                   <span className="text-xs font-bold text-deep-navy dark:text-crisp-white">
                     {t.accTax}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   {isSuspendedGST ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white">
                       {language === "hi" ? "GST निलंबित" : "GST Suspended"}
                     </span>
                   ) : bidder.portal_api_responses.gstn_api.return_compliance_score.includes("Defaulter") ? (
@@ -355,7 +355,7 @@ export default function BidderAuditPage() {
                       {language === "hi" ? "2 रिटर्न लंबित" : "2 Filings Pending"}
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                       {language === "hi" ? "100% कर अनुपालित" : "100% Tax Compliant"}
                     </span>
                   )}
@@ -369,27 +369,27 @@ export default function BidderAuditPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="p-4 border-t border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs space-y-2"
+                    className="p-4 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 text-xs space-y-2"
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
                         <span className="text-muted-gray block">{language === "hi" ? "GSTIN स्थिति:" : "GSTIN Status:"}</span>
-                        <strong className={isSuspendedGST ? "text-coral-orange" : "text-deep-navy dark:text-crisp-white"}>
+                        <strong className={isSuspendedGST ? "text-rose-600 dark:text-rose-400 font-semibold" : "text-deep-navy dark:text-crisp-white"}>
                           {bidder.portal_api_responses.gstn_api.status}
                         </strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "GSTR-3B नियमितता:" : "GSTR-3B Regularity:"}</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "GSTR-3B स्थिति:" : "GSTR-3B Status:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.gstn_api.return_compliance_score}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "आयकर धारा 206AB गैर-दाखिलकर्ता:" : "Income Tax Sec 206AB Non-Filer:"}</span>
-                        <strong className={bidder.portal_api_responses.pan_income_tax_api.sec_206ab_specified_person === "Yes" ? "text-coral-orange" : "text-mint-green"}>
+                        <span className="text-muted-gray block">{language === "hi" ? "धारा 206AB (TDS):" : "Sec 206AB Defaulter:"}</span>
+                        <strong className={bidder.portal_api_responses.pan_income_tax_api.sec_206ab_specified_person === "Yes" ? "text-rose-600 dark:text-rose-400 font-semibold" : "text-emerald-600 dark:text-emerald-400 font-semibold"}>
                           {bidder.portal_api_responses.pan_income_tax_api.sec_206ab_specified_person}
                         </strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "पोर्टल दर्ज कारोबार:" : "Portal Reported Turnover:"}</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "दर्ज वार्षिक कारोबार:" : "Reported Turnover:"}</span>
                         <strong className="font-mono text-deep-navy dark:text-crisp-white">₹{(bidder.portal_api_responses.gstn_api.turnover_reported_inr / 10000000).toFixed(2)} {language === "hi" ? "करोड़" : "Cr"}</strong>
                       </div>
                     </div>
@@ -399,24 +399,24 @@ export default function BidderAuditPage() {
             </div>
 
             {/* Accordion 4: Make in India (MII) & CA Audit */}
-            <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy overflow-hidden shadow-xs">
+            <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy overflow-hidden shadow-xs">
               <button
                 onClick={() => toggleAccordion("mii")}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-warm-beige/30 dark:hover:bg-dark-navy/40 transition-colors"
+                className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
               >
                 <div className="flex items-center space-x-3">
-                  <FileCheck2 className="w-4 h-4 text-lavender" />
+                  <FileCheck2 className="w-4 h-4 text-gov-blue-600 dark:text-gov-blue-400" />
                   <span className="text-xs font-bold text-deep-navy dark:text-crisp-white">
                     {t.accMII}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   {bidder.submitted_data.claimed_mii_percentage >= 50 ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-mint-green/15 text-mint-green">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                       {language === "hi" ? "कक्षा-I" : "Class-I"} ({bidder.submitted_data.claimed_mii_percentage}%)
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-coral-orange text-white">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white">
                       {language === "hi" ? "कक्षा-I में विफल" : "Fails Class-I"} ({bidder.submitted_data.claimed_mii_percentage}%)
                     </span>
                   )}
@@ -430,16 +430,16 @@ export default function BidderAuditPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="p-4 border-t border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs space-y-2"
+                    className="p-4 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 text-xs space-y-2"
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "स्थानीय सामग्री प्रतिशतता:" : "Local Content Percentage:"}</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "स्थानीय सामग्री:" : "Local Content:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.submitted_data.claimed_mii_percentage}%</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "प्रमाणीकरण प्रकार:" : "Certification Type:"}</span>
-                        <strong className="text-deep-navy dark:text-crisp-white">{bidder.submitted_data.mii_cert_type}</strong>
+                        <span className="text-muted-gray block">{language === "hi" ? "प्रमाणीकरण प्रकार:" : "Certificate Type:"}</span>
+                        <strong className="text-deep-navy dark:text-crisp-white">{bidder.submitted_data.mii_cert_type.replace(/_/g, " ")}</strong>
                       </div>
                     </div>
                   </motion.div>
@@ -448,13 +448,13 @@ export default function BidderAuditPage() {
             </div>
 
             {/* Accordion 5: EPFO / ESIC Manpower */}
-            <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy overflow-hidden shadow-xs">
+            <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy overflow-hidden shadow-xs">
               <button
                 onClick={() => toggleAccordion("epfo")}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-warm-beige/30 dark:hover:bg-dark-navy/40 transition-colors"
+                className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
               >
                 <div className="flex items-center space-x-3">
-                  <Users className="w-4 h-4 text-lavender" />
+                  <Users className="w-4 h-4 text-gov-blue-600 dark:text-gov-blue-400" />
                   <span className="text-xs font-bold text-deep-navy dark:text-crisp-white">
                     {t.accEPFO}
                   </span>
@@ -463,8 +463,8 @@ export default function BidderAuditPage() {
                   <span
                     className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                       bidder.portal_api_responses.epfo_esic_api.epfo_status === "Active"
-                        ? "bg-mint-green/15 text-mint-green"
-                        : "bg-coral-orange text-white"
+                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
+                        : "bg-rose-600 text-white"
                     }`}
                   >
                     {bidder.portal_api_responses.epfo_esic_api.epfo_status === "Active"
@@ -481,16 +481,16 @@ export default function BidderAuditPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="p-4 border-t border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs space-y-2"
+                    className="p-4 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/60 text-xs space-y-2"
                   >
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "अंतिम ECR वेतन माह:" : "Last ECR Wage Month:"}</span>
+                        <span className="text-muted-gray block">{language === "hi" ? "अंतिम ECR माह:" : "Last Wage Month:"}</span>
                         <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.epfo_esic_api.last_ecr_wage_month}</strong>
                       </div>
                       <div>
-                        <span className="text-muted-gray block">{language === "hi" ? "सक्रिय अंशदाता:" : "Active Subscribers:"}</span>
-                        <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.epfo_esic_api.active_subscribers} {language === "hi" ? "कर्मचारी" : "Employees"}</strong>
+                        <span className="text-muted-gray block">{language === "hi" ? "सक्रिय कर्मचारी:" : "Active Employees:"}</span>
+                        <strong className="text-deep-navy dark:text-crisp-white">{bidder.portal_api_responses.epfo_esic_api.active_subscribers}</strong>
                       </div>
                     </div>
                   </motion.div>
@@ -502,12 +502,12 @@ export default function BidderAuditPage() {
       </div>
 
       {/* Sticky Bottom Officer Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-soft-beige/95 dark:bg-deep-navy/95 border-t border-warm-beige dark:border-warm-beige/20 p-3 sm:p-4 backdrop-blur-lg shadow-2xl">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-deep-navy/95 border-t border-slate-200 dark:border-white/10 p-3 sm:p-4 backdrop-blur-lg shadow-xl">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-3">
-          {/* AI Recommendation Disclaimer */}
+          {/* Recommendation Disclaimer */}
           <div className="text-xs text-muted-gray max-w-md lg:max-w-lg text-center lg:text-left leading-relaxed">
             <span className="font-semibold text-deep-navy dark:text-crisp-white">
-              {language === "hi" ? "निर्णय समर्थन वैधानिक सूचना:" : "Decision Support Notice:"}
+              {language === "hi" ? "अधिकारी समीक्षा सूचना:" : "Reviewer Notice:"}
             </span>{" "}
             {t.aiDisclaimer}
           </div>
@@ -517,34 +517,34 @@ export default function BidderAuditPage() {
             {/* Auto-Draft Clarification Notice */}
             <button
               onClick={() => setIsClarificationModalOpen(true)}
-              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-lavender/15 hover:bg-lavender/25 text-lavender border border-lavender/40 transition-all shadow-xs whitespace-nowrap"
+              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-dark-navy hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-white/10 transition-all shadow-xs whitespace-nowrap"
             >
               <Send className="w-3.5 h-3.5" />
               <span>{t.btnDraftClarification}</span>
             </button>
 
-            {/* Disqualify Bidder (Coral Orange) */}
+            {/* Disqualify Bidder (Rose Crimson) */}
             <button
               onClick={() => setIsDisqualifyModalOpen(true)}
-              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-coral-orange hover:bg-coral-orange-600 text-white shadow-md shadow-coral-orange/30 transition-all whitespace-nowrap"
+              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white shadow-xs transition-all whitespace-nowrap"
             >
               <Ban className="w-3.5 h-3.5" />
               <span>{t.btnDisqualify}</span>
             </button>
 
-            {/* Qualify Bidder (Mint Green - Triggers confetti!) */}
+            {/* Qualify Bidder (Emerald) */}
             <button
               onClick={handleQualify}
-              className="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-mint-green hover:bg-mint-green-600 text-white shadow-md shadow-mint-green/30 transition-all whitespace-nowrap"
+              className="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-all whitespace-nowrap"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>{t.btnQualify}</span>
             </button>
 
-            {/* Export CVC Audit Dossier (PDF/HTML with SHA-256) */}
+            {/* Export CVC Audit Dossier */}
             <button
               onClick={handleExportDossier}
-              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20 hover:border-lavender transition-all whitespace-nowrap"
+              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-gov-blue-600 hover:bg-gov-blue-700 text-white shadow-xs transition-all whitespace-nowrap"
               title="Download CVC-compliant audit dossier with SHA-256 integrity hash"
             >
               <Download className="w-3.5 h-3.5" />

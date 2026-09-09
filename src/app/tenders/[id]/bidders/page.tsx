@@ -51,10 +51,10 @@ export default function BidderComparisonPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* 1. Tender Parameters Banner */}
-      <div className="p-6 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-sm space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-warm-beige dark:border-warm-beige/20 pb-3">
+      <div className="p-6 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-white/[0.08] pb-3">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-gov-blue-600 dark:text-gov-blue-400">
               {language === "hi" ? "निविदा संवीक्षा कार्यक्षेत्र • सीपीसीएल मनाली रिफाइनरी" : "Tender Scrutiny Workspace • CPCL Manali Refinery"}
             </span>
             <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
@@ -70,7 +70,7 @@ export default function BidderComparisonPage() {
           <div className="flex items-center space-x-2">
             <Link
               href="/dashboard"
-              className="px-3.5 py-1.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy text-xs font-semibold text-deep-navy dark:text-crisp-white hover:border-lavender transition-all"
+              className="px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-dark-navy text-xs font-semibold text-deep-navy dark:text-crisp-white hover:border-gov-blue-400 transition-all"
             >
               {language === "hi" ? "डैशबोर्ड पर वापस" : "Back to Dashboard"}
             </Link>
@@ -102,27 +102,27 @@ export default function BidderComparisonPage() {
         </div>
       </div>
 
-      {/* 2. Cartel Collusion Warning Banner (Modern Ambient Alert) */}
+      {/* 2. Cartel Collusion Warning Banner (Modern Clean Alert) */}
       <AnimatePresence>
         {showCartelBanner && (
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, height: 0 }}
-            className="p-3.5 rounded-2xl bg-coral-orange/10 border border-coral-orange/30 text-coral-orange shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+            className="p-3.5 rounded-2xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-400 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3"
           >
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-xl bg-coral-orange/20 text-coral-orange shrink-0">
+              <div className="p-2 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 shrink-0">
                 <Radar className="w-5 h-5 animate-spin" style={{ animationDuration: "5s" }} />
               </div>
               <div className="text-xs">
-                <h3 className="font-bold uppercase tracking-wider text-coral-orange text-xs">
+                <h3 className="font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400 text-xs">
                   {t.cartelBannerWarning}
                 </h3>
-                <p className="text-deep-navy dark:text-crisp-white mt-0.5">
+                <p className="text-slate-700 dark:text-slate-200 mt-0.5">
                   {language === "hi"
-                    ? "BID-CPCL-003 और BID-CPCL-004 के बीच साझा निदेशक DIN 08492019 और सबनेट आईपी 192.168.44.0/24 का सिंडिकेट पकड़ा गया।"
-                    : "Nexus discovered between BID-CPCL-003 and BID-CPCL-004 sharing Common Director DIN 08492019 and Subnet IP 192.168.44.0/24."}
+                    ? "BID-003 और BID-004 में समान निदेशक और समान इंटरनेट पता पाया गया (आपसी मिलीभगत)।"
+                    : "Nexus found: BID-003 and BID-004 share the same Director and uploaded from the same office IP address."}
                 </p>
               </div>
             </div>
@@ -130,14 +130,14 @@ export default function BidderComparisonPage() {
             <div className="flex items-center space-x-2 shrink-0">
               <Link
                 href={`/tenders/${rawId}/cartel-network`}
-                className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-coral-orange text-white hover:bg-coral-orange-600 transition-all shadow-xs"
+                className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-rose-600 text-white hover:bg-rose-700 transition-all shadow-xs"
               >
                 <span>{t.cartelBannerBtn}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <button
                 onClick={() => setShowCartelBanner(false)}
-                className="p-1.5 rounded-lg text-coral-orange hover:bg-coral-orange/20 transition-all"
+                className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-all"
                 title="Dismiss banner"
               >
                 <X className="w-4 h-4" />
@@ -150,12 +150,12 @@ export default function BidderComparisonPage() {
       {/* 3. Search & Filter Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         {/* Filter Tabs */}
-        <div className="flex items-center space-x-1 p-1 rounded-xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 text-xs overflow-x-auto">
+        <div className="flex items-center space-x-1 p-1 rounded-xl bg-slate-100/80 dark:bg-dark-navy border border-slate-200 dark:border-white/10 text-xs overflow-x-auto">
           <button
             onClick={() => setActiveFilter("ALL")}
             className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
               activeFilter === "ALL"
-                ? "bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white shadow-xs"
+                ? "bg-white dark:bg-slate-800 text-deep-navy dark:text-crisp-white shadow-2xs"
                 : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
             }`}
           >
@@ -165,8 +165,8 @@ export default function BidderComparisonPage() {
             onClick={() => setActiveFilter("COMPLIANT")}
             className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
               activeFilter === "COMPLIANT"
-                ? "bg-mint-green text-white shadow-xs"
-                : "text-mint-green hover:bg-mint-green/15"
+                ? "bg-emerald-600 text-white shadow-xs"
+                : "text-emerald-600 hover:bg-emerald-500/10"
             }`}
           >
             🟢 {t.filterCompliant}
@@ -176,7 +176,7 @@ export default function BidderComparisonPage() {
             className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
               activeFilter === "CLARIFICATION"
                 ? "bg-amber-500 text-white shadow-xs"
-                : "text-amber-500 hover:bg-amber-500/15"
+                : "text-amber-500 hover:bg-amber-500/10"
             }`}
           >
             🟡 {t.filterClarification}
@@ -185,8 +185,8 @@ export default function BidderComparisonPage() {
             onClick={() => setActiveFilter("HIGH_RISK")}
             className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
               activeFilter === "HIGH_RISK"
-                ? "bg-coral-orange text-white shadow-xs"
-                : "text-coral-orange hover:bg-coral-orange/15"
+                ? "bg-rose-600 text-white shadow-xs"
+                : "text-rose-600 hover:bg-rose-500/10"
             }`}
           >
             🔴 {t.filterHighRisk}
@@ -201,16 +201,16 @@ export default function BidderComparisonPage() {
             placeholder={t.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-lavender"
+            className="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-white dark:bg-dark-navy border border-slate-200 dark:border-white/10 text-deep-navy dark:text-crisp-white focus:outline-none focus:border-gov-blue-500"
           />
         </div>
       </div>
 
       {/* 4. Comparative Bidder Scrutiny Table */}
-      <div className="rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm overflow-hidden">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs min-w-[760px]">
-            <thead className="bg-slate-50 dark:bg-dark-navy/60 border-b border-warm-beige dark:border-warm-beige/20 text-muted-gray font-semibold uppercase tracking-wider text-[11px]">
+            <thead className="bg-slate-50 dark:bg-dark-navy/60 border-b border-slate-200 dark:border-white/10 text-muted-gray font-semibold uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="py-3 px-4 min-w-[200px]">{t.colBidderName}</th>
                 <th className="py-3 px-4 whitespace-nowrap">{t.colSellerId}</th>
@@ -220,7 +220,7 @@ export default function BidderComparisonPage() {
                 <th className="py-3 px-4 text-right whitespace-nowrap">{t.colDeepDive}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-warm-beige/60 dark:divide-warm-beige/15">
+            <tbody className="divide-y divide-slate-200/80 dark:divide-white/[0.08]">
               {filteredBidders.map((bidder) => {
                 const score = bidder.ai_evaluation.compliance_score;
                 const status = bidder.ai_evaluation.status;
@@ -241,13 +241,13 @@ export default function BidderComparisonPage() {
                             {getBidderLegalName(bidder.legal_name, language)}
                           </span>
                           {bidder.bidder_id === "BID-CPCL-001" && (
-                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-mint-green/15 text-mint-green border border-mint-green/30 whitespace-nowrap">
+                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 whitespace-nowrap">
                               {language === "hi" ? "कक्षा-I MII" : "Class-I MII"}
                             </span>
                           )}
                           {bidder.bidder_id === "BID-CPCL-003" && (
-                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-coral-orange text-white animate-pulse whitespace-nowrap">
-                              {language === "hi" ? "प्रतिबंधित / जालसाजी" : "Debarred / Forgery"}
+                            <span className="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-rose-600 text-white whitespace-nowrap">
+                              {language === "hi" ? "प्रतिबंधित" : "Blacklisted"}
                             </span>
                           )}
                         </div>
@@ -284,19 +284,19 @@ export default function BidderComparisonPage() {
                     {/* Risk Status Badge */}
                     <td className="py-4 px-4 whitespace-nowrap">
                       {isCompliant && (
-                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-mint-green/15 text-mint-green border border-mint-green/30 whitespace-nowrap">
+                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 whitespace-nowrap">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>{t.statusCompliant}</span>
                         </span>
                       )}
                       {isClarification && (
-                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30 whitespace-nowrap">
+                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20 whitespace-nowrap">
                           <AlertTriangle className="w-3.5 h-3.5" />
                           <span>{t.statusClarification}</span>
                         </span>
                       )}
                       {isHighRisk && (
-                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-coral-orange/15 text-coral-orange border border-coral-orange/40 animate-pulse whitespace-nowrap">
+                        <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-500/10 text-rose-600 border border-rose-500/30 whitespace-nowrap">
                           <Ban className="w-3.5 h-3.5" />
                           <span>{status === "DISQUALIFIED" ? t.statusDebarred : t.statusHighRisk}</span>
                         </span>
@@ -307,7 +307,7 @@ export default function BidderComparisonPage() {
                     <td className="py-4 px-4 text-right whitespace-nowrap">
                       <Link
                         href={`/bidders/${bidder.bidder_id}/audit`}
-                        className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all group whitespace-nowrap"
+                        className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-gov-blue-600 hover:bg-gov-blue-700 text-white shadow-xs transition-all group whitespace-nowrap"
                       >
                         <span>{t.colDeepDive}</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

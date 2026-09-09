@@ -13,54 +13,55 @@
   }
 
   .dark {
-    --bg-canvas: #090D16;      /* Obsidian Canvas */
+    --bg-canvas: #0B0F19;      /* Executive Midnight Slate */
     --text-primary: #F8FAFC;   /* Crisp Slate-50 */
-    --card-surface: #0F172A;   /* Elevated Slate-900 */
+    --card-surface: #111827;   /* Elevated Slate-900 */
     --card-inner: #1E293B;     /* Slate-800 */
-    --border-color: rgba(255, 255, 255, 0.08); /* Translucent Hairline */
+    --border-color: rgba(255, 255, 255, 0.08); /* Clean Hairline */
     --muted-text: #94A3B8;     /* Slate-400 */
   }
 
   body {
     background-color: var(--bg-canvas);
     color: var(--text-primary);
-    font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
-/* Custom laser glow effect */
-.laser-beam {
-  box-shadow: 0 0 15px #6366F1, 0 0 30px #6366F1, 0 0 45px rgba(99, 102, 241, 0.5);
+/* Authentic Document Inspection Scanline (Professional, Not Sci-Fi) */
+.document-scan-line {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0) 0%, rgba(37, 99, 235, 0.3) 90%, #2563EB 100%);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
 }
 
-/* ELA Heatmap effect */
-.ela-tamper-glow {
-  box-shadow: 0 0 14px rgba(244, 100, 60, 0.8), inset 0 0 8px rgba(244, 100, 60, 0.6);
-  border: 1.5px dashed #F4643C;
+/* Clean Tamper Area Highlight (Definitive, Clear Inspection Boundary) */
+.ela-tamper-box {
+  border: 2px solid #DC2626;
+  background-color: rgba(220, 38, 38, 0.12);
 }
 
 /* Custom sleek scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(100, 112, 128, 0.3);
-  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.6);
+  background: rgba(37, 99, 235, 0.5);
 }
 
 @layer utilities {
-  .card-executive {
-    @apply bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 rounded-2xl transition-all;
+  .card-enterprise {
+    @apply bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] rounded-xl shadow-enterprise-sm transition-all;
   }
-  .card-crisp {
-    @apply bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20 rounded-xl transition-all;
+  .table-header-clean {
+    @apply text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 bg-slate-50/80 dark:bg-white/[0.02];
   }
 }
