@@ -147,6 +147,20 @@ export function Sidebar() {
       {/* Platform Documentation & SIH Dossier Footer */}
       <div className="pt-3 border-t border-slate-200/80 dark:border-white/[0.08] space-y-1">
         <a
+          href="/GeM_Rakshak_Presentation.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-white/[0.04] transition-all group"
+          title="Open / Download Official Pitch Deck Slides (PDF)"
+        >
+          <div className="flex items-center space-x-2">
+            <Presentation className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <span className="font-semibold text-[11px]">{language === "hi" ? "पिच स्लाइड्स (PDF)" : "Pitch Slides (PDF)"}</span>
+          </div>
+          <Download className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+        </a>
+
+        <a
           href="/GeM_Rakshak_Presentation.pptx"
           download="GeM_Rakshak_Presentation.pptx"
           className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-white/[0.04] transition-all group"
@@ -154,7 +168,7 @@ export function Sidebar() {
         >
           <div className="flex items-center space-x-2">
             <Presentation className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-            <span className="font-semibold text-[11px]">{language === "hi" ? "पिच प्रेजेंटेशन (PPT)" : "Pitch Deck (PPTX)"}</span>
+            <span className="font-semibold text-[11px]">{language === "hi" ? "पिच डेक (PPTX)" : "Pitch Deck (PPTX)"}</span>
           </div>
           <Download className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
         </a>
