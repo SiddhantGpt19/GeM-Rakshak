@@ -6,12 +6,10 @@ import {
   QrCode,
   Upload,
   Sparkles,
-  FileCheck,
   Eye,
   Flame,
   ArrowRight,
   Landmark,
-  Layers,
   ShieldCheck,
   HelpCircle,
   AlertTriangle,
@@ -61,6 +59,7 @@ export default function ForensicsLabPage() {
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [detectedEntities, setDetectedEntities] = useState<StatutoryEntities | null>(null);
   const [auditSummary, setAuditSummary] = useState<AuditSummary | null>(null);
+  const [inspectorTab, setInspectorTab] = useState<"findings" | "statutory" | "integrity">("findings");
 
   // Pre-configured samples
   const defaultSampleTampered: DocumentForensics = {
@@ -516,12 +515,12 @@ export default function ForensicsLabPage() {
         className="hidden"
       />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-soft-beige dark:bg-deep-navy border border-warm-beige dark:border-warm-beige/20 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-deep-navy/70 border border-warm-beige/80 dark:border-white/[0.08] shadow-xs">
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-lavender">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-lavender">
             {language === "hi" ? "न्यूरल छवि एवं दस्तावेज़ सत्यापन सैंडबॉक्स" : "Neural Image & Document Verification Sandbox"}
           </span>
-          <h1 className="text-xl sm:text-2xl font-black text-deep-navy dark:text-crisp-white">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-deep-navy dark:text-crisp-white">
             {t.navForensicsLab}
           </h1>
           <p className="text-xs text-muted-gray">
@@ -531,7 +530,7 @@ export default function ForensicsLabPage() {
 
         <div className="flex items-center space-x-2 flex-wrap gap-y-2">
           {uploadedFileName && (
-            <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-xl bg-lavender/15 text-lavender border border-lavender/30 truncate max-w-[180px]">
+            <span className="text-xs font-mono font-medium px-2.5 py-1 rounded-lg bg-lavender/10 text-lavender border border-lavender/20 truncate max-w-[180px]">
               📄 {uploadedFileName}
             </span>
           )}
@@ -542,10 +541,10 @@ export default function ForensicsLabPage() {
               setDetectedEntities({ pan: "AAACA1234A", gstin: "06AAACA1234A1Z5", udyam: "UDYAM-HR-03-0019284" });
               setAuditSummary({ risk_score: 10, recommendation: "COMPLIANT_VERIFIED", flags_count: 0 });
             }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               selectedSample === "genuine_udyam"
-                ? "bg-mint-green text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-mint-green/15 text-mint-green border border-mint-green/30"
+                : "bg-slate-50 dark:bg-white/5 text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white border border-slate-200/60 dark:border-white/10"
             }`}
           >
             🟢 {language === "hi" ? "उद्यम (10%)" : "Genuine Udyam (10%)"}
@@ -557,10 +556,10 @@ export default function ForensicsLabPage() {
               setDetectedEntities({ pan: "AAACD9988P", gstin: "07AAACD9988P1Z3", udin: "26099999INVALID001" });
               setAuditSummary({ risk_score: 96, recommendation: "DISQUALIFY_FRAUD_DETECTED", flags_count: 3 });
             }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               selectedSample === "tampered_turnover"
-                ? "bg-coral-orange text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-coral-orange/15 text-coral-orange border border-coral-orange/30"
+                : "bg-slate-50 dark:bg-white/5 text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white border border-slate-200/60 dark:border-white/10"
             }`}
           >
             🔴 {language === "hi" ? "टर्नओवर जालसाजी (96%)" : "Tampered Turnover (96%)"}
@@ -572,10 +571,10 @@ export default function ForensicsLabPage() {
               setDetectedEntities({ pan: "AAACB5678G", gstin: "27AAACB5678G1Z2", udyam: "UDYAM-MH-02-0044812" });
               setAuditSummary({ risk_score: 55, recommendation: "CLARIFICATION_NEEDED", flags_count: 2 });
             }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               selectedSample === "procedural_mismatch"
-                ? "bg-amber-500 text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-amber-500/15 text-amber-500 border border-amber-500/30"
+                : "bg-slate-50 dark:bg-white/5 text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white border border-slate-200/60 dark:border-white/10"
             }`}
           >
             🟡 {language === "hi" ? "प्रक्रियात्मक प्रश्न (55%)" : "Procedural Query (55%)"}
@@ -587,10 +586,10 @@ export default function ForensicsLabPage() {
               setDetectedEntities({ pan: "AAACD9988P", gstin: "07AAACD9988P1Z3" });
               setAuditSummary({ risk_score: 98, recommendation: "DISQUALIFY_FRAUD_DETECTED", flags_count: 2 });
             }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               selectedSample === "debarred_vendor"
-                ? "bg-red-700 text-white shadow-xs"
-                : "bg-crisp-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/20"
+                ? "bg-red-500/15 text-red-500 border border-red-500/30"
+                : "bg-slate-50 dark:bg-white/5 text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white border border-slate-200/60 dark:border-white/10"
             }`}
           >
             🚫 {language === "hi" ? "प्रतिबंधित (98%)" : "Debarred Bidder (98%)"}
@@ -600,35 +599,35 @@ export default function ForensicsLabPage() {
 
       {/* AI Document Authenticity & Real vs Fake Forensic Inspection Banner */}
       {activeDoc.ai_verification && (
-        <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige/85 dark:bg-deep-navy/90 shadow-sm space-y-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-warm-beige/60 dark:border-white/10 pb-3">
+        <div className="p-5 rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 shadow-xs space-y-3.5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-warm-beige/80 dark:border-white/[0.08] pb-3">
             <div className="flex items-center space-x-3">
               <div
                 className={`p-2.5 rounded-xl flex items-center justify-center shrink-0 ${
                   activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
-                    ? "bg-mint-green/20 text-mint-green border border-mint-green/40"
+                    ? "bg-mint-green/10 text-mint-green border border-mint-green/20"
                     : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
-                    ? "bg-coral-orange/20 text-coral-orange border border-coral-orange/40"
-                    : "bg-amber-500/20 text-amber-500 border border-amber-500/40"
+                    ? "bg-coral-orange/10 text-coral-orange border border-coral-orange/20"
+                    : "bg-amber-500/10 text-amber-500 border border-amber-500/20"
                 }`}
               >
                 {activeDoc.ai_verification.verdict === "REAL_AUTHENTIC" ? (
-                  <ShieldCheck className="w-6 h-6" />
+                  <ShieldCheck className="w-5 h-5" />
                 ) : activeDoc.ai_verification.verdict === "FAKE_TAMPERED" ? (
-                  <AlertTriangle className="w-6 h-6" />
+                  <AlertTriangle className="w-5 h-5" />
                 ) : (
-                  <HelpCircle className="w-6 h-6" />
+                  <HelpCircle className="w-5 h-5" />
                 )}
               </div>
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span
-                    className={`text-xs font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                       activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
-                        ? "bg-mint-green text-white border-mint-green/50 shadow-xs"
+                        ? "bg-mint-green/15 text-mint-green border-mint-green/30"
                         : activeDoc.ai_verification.verdict === "FAKE_TAMPERED"
-                        ? "bg-coral-orange text-white border-coral-orange/50 shadow-xs"
-                        : "bg-amber-500 text-white border-amber-500/50 shadow-xs"
+                        ? "bg-coral-orange/15 text-coral-orange border-coral-orange/30"
+                        : "bg-amber-500/15 text-amber-500 border-amber-500/30"
                     }`}
                   >
                     {activeDoc.ai_verification.verdict === "REAL_AUTHENTIC"
@@ -657,23 +656,23 @@ export default function ForensicsLabPage() {
                         }`}
                   </span>
                 </div>
-                <h2 className="text-sm sm:text-base font-bold text-deep-navy dark:text-crisp-white mt-1">
+                <h2 className="text-sm font-bold text-deep-navy dark:text-crisp-white mt-1">
                   {activeDoc.ai_verification.headline}
                 </h2>
               </div>
             </div>
 
             <div className="text-left md:text-right shrink-0">
-              <span className="text-[11px] font-mono text-muted-gray block">
+              <span className="text-[10px] font-medium text-muted-gray block">
                 {language === "hi" ? "दस्तावेज़ वर्गीकरण" : "Document Classification"}
               </span>
-              <span className="text-xs font-bold text-lavender block">
+              <span className="text-xs font-semibold text-lavender block">
                 {activeDoc.ai_verification.doc_classification}
               </span>
             </div>
           </div>
 
-          <p className="text-xs sm:text-sm text-deep-navy/85 dark:text-crisp-white/85 leading-relaxed bg-crisp-white/60 dark:bg-dark-navy/60 p-3 rounded-xl border border-warm-beige/40 dark:border-white/5">
+          <p className="text-xs text-deep-navy/85 dark:text-crisp-white/85 leading-relaxed bg-slate-50/70 dark:bg-white/[0.02] p-3 rounded-xl border border-slate-200/60 dark:border-white/5">
             {activeDoc.ai_verification.summary}
           </p>
 
@@ -714,17 +713,17 @@ export default function ForensicsLabPage() {
       )}
 
       {/* Main Sandbox Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Left 2 Cols: Interactive Forensics Canvas */}
-        <div className="lg:col-span-2 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy p-5 shadow-sm space-y-4">
+        <div className="lg:col-span-2 rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 p-5 shadow-xs space-y-4">
           {/* Streamlined Forensics Toolstrip */}
-          <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-warm-beige/70 dark:border-white/10">
-            <div className="flex items-center p-1 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige/70 dark:border-white/10 shadow-xs space-x-1">
+          <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-warm-beige/80 dark:border-white/[0.08]">
+            <div className="flex items-center p-0.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/10 shadow-xs space-x-1">
               <button
                 onClick={() => setActiveTool("normal")}
                 className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeTool === "normal"
-                    ? "bg-deep-navy text-crisp-white dark:bg-white dark:text-deep-navy shadow-xs font-bold"
+                    ? "bg-white dark:bg-dark-navy text-deep-navy dark:text-crisp-white shadow-2xs font-bold border border-slate-200/60 dark:border-white/10"
                     : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
                 }`}
               >
@@ -746,11 +745,11 @@ export default function ForensicsLabPage() {
                 <span>{t.toolELA}</span>
               </button>
 
-              <div className="w-px h-3.5 bg-warm-beige/60 dark:bg-white/10" />
+              <div className="w-px h-3.5 bg-slate-200 dark:bg-white/10" />
 
               <button
                 onClick={() => setIsExifModalOpen(true)}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
+                className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>{t.toolExif}</span>
@@ -758,7 +757,7 @@ export default function ForensicsLabPage() {
 
               <button
                 onClick={() => setIsQRModalOpen(true)}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
+                className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
               >
                 <QrCode className="w-3.5 h-3.5" />
                 <span>{t.toolQR}</span>
@@ -767,7 +766,7 @@ export default function ForensicsLabPage() {
               {activeDoc.udin_check && (
                 <button
                   onClick={() => setIsUDINModalOpen(true)}
-                  className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all"
+                  className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
                 >
                   <Landmark className="w-3.5 h-3.5" />
                   <span>{t.toolUDIN}</span>
@@ -781,7 +780,7 @@ export default function ForensicsLabPage() {
                 setTimeout(() => setIsScanning(false), 2400);
               }}
               disabled={isScanning}
-              className="flex items-center space-x-1.5 text-xs text-lavender font-semibold hover:bg-lavender/10 px-3 py-1.5 rounded-lg transition-all"
+              className="flex items-center space-x-1.5 text-xs text-lavender font-semibold hover:bg-lavender/10 px-3 py-1.5 rounded-lg transition-all border border-transparent hover:border-lavender/20"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>{language === "hi" ? "लेज़र स्वीप" : "Laser Sweep"}</span>
@@ -789,7 +788,7 @@ export default function ForensicsLabPage() {
           </div>
 
           {/* Canvas with Laser Scan */}
-          <div className="relative min-h-[480px] rounded-2xl border border-warm-beige/70 dark:border-white/10 bg-crisp-white dark:bg-dark-navy p-6 shadow-sm flex flex-col justify-between overflow-hidden">
+          <div className="relative min-h-[480px] rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-slate-50/50 dark:bg-dark-navy/80 p-5 shadow-xs flex flex-col justify-between overflow-hidden">
             <LaserScanOverlay isScanning={isScanning} label={scanStepText} />
 
             {activeTool === "ela" && activeDoc.ela_tamper_detected && (
@@ -800,31 +799,33 @@ export default function ForensicsLabPage() {
               </div>
             )}
 
-            <div className="text-center border-b pb-4 border-warm-beige/60 dark:border-white/10 relative pr-16">
-              <span className="px-2.5 py-0.5 rounded text-[10px] font-mono uppercase bg-lavender/15 text-lavender font-bold">
-                {language === "hi" ? "फोरेंसिक ओसीआर कैनवास" : "FORENSICS OCR CANVAS"}
-              </span>
-              <h2 className="text-base sm:text-lg font-bold text-deep-navy dark:text-crisp-white mt-1 break-words">
-                {getForensicsDocName(activeDoc.doc_name, language)}
-              </h2>
-              <p className="text-xs text-muted-gray">
-                {language === "hi" ? `स्रोत फ़ाइल: ${activeDoc.file_name} • GeM-रक्षक न्यूरल इंजन द्वारा स्कैन` : `Source File: ${activeDoc.file_name} • Scanned via GeM-Rakshak Neural Engine`}
-              </p>
+            <div className="flex items-start justify-between gap-3 border-b pb-4 border-warm-beige/80 dark:border-white/[0.08]">
+              <div className="flex-1 min-w-0">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-lavender/10 text-lavender font-semibold border border-lavender/20">
+                  {language === "hi" ? "फोरेंसिक ओसीआर कैनवास" : "FORENSICS OCR CANVAS"}
+                </span>
+                <h2 className="text-base sm:text-lg font-bold text-deep-navy dark:text-crisp-white mt-1 break-words">
+                  {getForensicsDocName(activeDoc.doc_name, language)}
+                </h2>
+                <p className="text-xs text-muted-gray mt-0.5">
+                  {language === "hi" ? `स्रोत फ़ाइल: ${activeDoc.file_name} • GeM-रक्षक न्यूरल इंजन द्वारा स्कैन` : `Source File: ${activeDoc.file_name} • Scanned via GeM-Rakshak Neural Engine`}
+                </p>
+              </div>
 
               {/* Real Scannable QR Matrix */}
               <div
                 onClick={() => setIsQRModalOpen(true)}
-                className="absolute top-0 right-0 p-1.5 bg-white dark:bg-deep-navy rounded-xl border border-warm-beige/80 dark:border-white/15 cursor-pointer hover:border-lavender hover:scale-105 transition-all shadow-sm group"
+                className="p-1.5 bg-white dark:bg-dark-navy rounded-xl border border-warm-beige/80 dark:border-white/15 cursor-pointer hover:border-lavender hover:scale-105 transition-all shadow-2xs shrink-0 group"
                 title="Click to cross-check & scan embedded QR code"
               >
-                <div className="relative w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+                <div className="relative w-11 h-11 bg-white rounded-lg flex items-center justify-center overflow-hidden">
                   <DocumentQRCode
                     payload={activeDoc.qr_code_cross_check.scanned_payload}
-                    size={48}
+                    size={44}
                     className="w-full h-full object-contain"
                   />
                   <div className="absolute inset-0 bg-lavender/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-[7px] font-black uppercase tracking-tighter text-lavender bg-white/95 dark:bg-deep-navy/95 px-1 py-0.5 rounded shadow">
+                    <span className="text-[7px] font-bold uppercase tracking-tight text-lavender bg-white/95 dark:bg-deep-navy/95 px-1 py-0.5 rounded shadow-xs">
                       {language === "hi" ? "स्कैन" : "SCAN"}
                     </span>
                   </div>
@@ -876,292 +877,343 @@ export default function ForensicsLabPage() {
           </div>
         </div>
 
-        {/* Right Col: Real File Upload & Live Verification Breakdown */}
+        {/* Right Col: Real File Upload & Unified Forensic Inspector */}
         <div className="space-y-4">
-          {/* Interactive Real File Upload Box */}
+          {/* Interactive Real File Upload Capsule */}
           <div
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
-            className={`p-6 rounded-2xl border-2 border-dashed transition-all text-center space-y-3 ${
+            className={`p-4.5 rounded-2xl border border-dashed transition-all text-center space-y-2.5 bg-white dark:bg-deep-navy/70 ${
               isDragging
-                ? "border-lavender bg-lavender/20 scale-[1.02]"
-                : "border-lavender/40 hover:border-lavender bg-lavender/10"
+                ? "border-lavender bg-lavender/10 scale-[1.01]"
+                : "border-lavender/30 hover:border-lavender/60 shadow-xs"
             }`}
           >
             <div
               onClick={handleTriggerFileSelect}
-              className="w-12 h-12 rounded-2xl bg-lavender/20 text-lavender flex items-center justify-center mx-auto shadow-sm cursor-pointer hover:scale-105 transition-transform"
+              className="w-10 h-10 rounded-xl bg-lavender/10 text-lavender flex items-center justify-center mx-auto cursor-pointer hover:scale-105 transition-transform"
             >
-              <Upload className="w-6 h-6" />
+              <Upload className="w-5 h-5" />
             </div>
-            <div className="space-y-1">
-              <h3 className="text-sm font-bold text-deep-navy dark:text-crisp-white">
+            <div>
+              <h3 className="text-xs font-bold text-deep-navy dark:text-crisp-white">
                 {t.forensicsDropzoneTitle}
               </h3>
-              <p className="text-xs text-muted-gray">
+              <p className="text-[11px] text-muted-gray">
                 {t.forensicsDropzoneSubtitle}
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-1">
+            <div className="flex items-center justify-center gap-2 pt-0.5">
               <button
                 type="button"
                 onClick={handleTriggerFileSelect}
-                className="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold bg-lavender hover:bg-lavender/90 text-crisp-white shadow-md shadow-lavender/25 transition-all flex items-center justify-center space-x-1.5"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-lavender hover:bg-lavender/90 text-white shadow-xs transition-all flex items-center space-x-1.5"
               >
                 <Upload className="w-3.5 h-3.5" />
-                <span>{language === "hi" ? "कंप्यूटर से PDF चुनें" : "Choose PDF from Computer"}</span>
+                <span>{language === "hi" ? "PDF चुनें" : "Upload PDF"}</span>
               </button>
               <button
                 type="button"
                 onClick={() => processTestDocument("tampered")}
                 disabled={isScanning}
-                className="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold bg-crisp-white dark:bg-dark-navy hover:bg-soft-beige dark:hover:bg-deep-navy text-deep-navy dark:text-crisp-white border border-warm-beige dark:border-warm-beige/30 transition-all flex items-center justify-center space-x-1.5 shadow-xs"
+                className="px-3 py-1.5 rounded-xl text-xs font-medium text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-slate-100 dark:hover:bg-white/5 border border-slate-200/80 dark:border-white/10 transition-all flex items-center space-x-1.5"
               >
-                <Sparkles className="w-3.5 h-3.5 text-lavender" />
+                <Sparkles className="w-3 h-3 text-lavender" />
                 <span>{t.forensicsBtnInstantTest}</span>
               </button>
             </div>
           </div>
 
-          {/* Live Extracted Statutory Identifiers Card */}
-          <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3.5 text-xs">
-            <div className="flex items-center justify-between border-b border-warm-beige dark:border-warm-beige/20 pb-2">
-              <div className="flex items-center space-x-2">
-                <FileCheck className="w-4 h-4 text-mint-green" />
-                <h3 className="font-bold text-deep-navy dark:text-crisp-white">
-                  {language === "hi" ? "निष्कर्षित वैधानिक विवरण" : "Extracted Statutory Data"}
-                </h3>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-lavender/15 text-lavender font-bold">
-                {language === "hi" ? "स्वचालित विश्लेषित" : "Auto-Parsed"}
-              </span>
+          {/* Unified Forensic Inspector Panel with Tabs */}
+          <div className="rounded-2xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/70 shadow-xs overflow-hidden">
+            {/* Tab Navigation */}
+            <div className="flex items-center border-b border-warm-beige/80 dark:border-white/[0.08] bg-slate-50/60 dark:bg-white/[0.02] p-1 gap-1">
+              <button
+                onClick={() => setInspectorTab("findings")}
+                className={`flex-1 py-1.5 text-center text-xs font-medium rounded-lg transition-all ${
+                  inspectorTab === "findings"
+                    ? "bg-white dark:bg-dark-navy text-lavender font-bold shadow-2xs border border-slate-200/60 dark:border-white/10"
+                    : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
+                }`}
+              >
+                {language === "hi" ? "गेटवे ऑडिट" : "Gateway Audits"}
+              </button>
+              <button
+                onClick={() => setInspectorTab("statutory")}
+                className={`flex-1 py-1.5 text-center text-xs font-medium rounded-lg transition-all ${
+                  inspectorTab === "statutory"
+                    ? "bg-white dark:bg-dark-navy text-lavender font-bold shadow-2xs border border-slate-200/60 dark:border-white/10"
+                    : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
+                }`}
+              >
+                {language === "hi" ? "वैधानिक डेटा" : "Statutory Data"}
+              </button>
+              <button
+                onClick={() => setInspectorTab("integrity")}
+                className={`flex-1 py-1.5 text-center text-xs font-medium rounded-lg transition-all ${
+                  inspectorTab === "integrity"
+                    ? "bg-white dark:bg-dark-navy text-lavender font-bold shadow-2xs border border-slate-200/60 dark:border-white/10"
+                    : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white"
+                }`}
+              >
+                {language === "hi" ? "फ़ाइल मेटाडेटा" : "File Metadata"}
+              </button>
             </div>
 
-            <div className="space-y-2.5">
-              {/* GSTIN */}
-              <div className="flex items-center justify-between p-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-gray block">GSTIN</span>
-                  <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.gstin || (
-                      activeDoc.ai_verification?.doc_classification?.includes("Technical")
-                        ? (language === "hi" ? "लागू नहीं (तकनीकी दस्तावेज़)" : "Not Required (Technical Scope)")
-                        : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
-                    )}
+            {/* Tab 1: AI Findings & Gateway Audits */}
+            {inspectorTab === "findings" && (
+              <div className="p-4 space-y-3 text-xs">
+                {/* AI Executive Summary Card */}
+                {(() => {
+                  const summary = auditSummary || activeDoc.audit_summary;
+                  if (!summary) return null;
+                  const isHighRisk = summary.risk_score > 60;
+                  const isMedRisk = summary.risk_score > 25;
+                  return (
+                    <div
+                      className={`p-3 rounded-xl border flex items-center justify-between gap-3 ${
+                        isHighRisk
+                          ? "bg-coral-orange/10 border-coral-orange/30"
+                          : isMedRisk
+                          ? "bg-amber-500/10 border-amber-500/30"
+                          : "bg-mint-green/10 border-mint-green/30"
+                      }`}
+                    >
+                      <div className="space-y-0.5 min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className={`w-2 h-2 rounded-full shrink-0 ${
+                              isHighRisk
+                                ? "bg-coral-orange"
+                                : isMedRisk
+                                ? "bg-amber-500"
+                                : "bg-mint-green"
+                            }`}
+                          />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-deep-navy dark:text-crisp-white truncate">
+                            {summary.recommendation}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-muted-gray">
+                          {language === "hi"
+                            ? `${summary.flags_count} विसंगतियां पाई गईं`
+                            : `${summary.flags_count} anomalies identified`}
+                        </p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <div className={`text-sm font-mono font-bold ${
+                          isHighRisk ? "text-coral-orange" : isMedRisk ? "text-amber-500" : "text-mint-green"
+                        }`}>
+                          {summary.risk_score}%
+                        </div>
+                        <div className="text-[9px] text-muted-gray uppercase font-semibold">
+                          {language === "hi" ? "जोखिम" : "Risk"}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-muted-gray uppercase tracking-wider">
+                    {language === "hi" ? "लाइव सरकारी रजिस्ट्री सत्यापन" : "Live Gateway Cross-Checks"}
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-mint-green/10 text-mint-green font-medium border border-mint-green/20">
+                    {activeDoc.statutory_verification_checks?.length || 0} {language === "hi" ? "चेक" : "Checks"}
                   </span>
                 </div>
-                {detectedEntities?.gstin ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                    {language === "hi" ? "प्रारूप वैध" : "Format Valid"}
-                  </span>
-                ) : activeDoc.ai_verification?.doc_classification?.includes("Technical") ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-lavender/15 text-lavender border border-lavender/30">
-                    {language === "hi" ? "तकनीकी" : "Technical"}
-                  </span>
-                ) : (
-                  <span className="text-[10px] text-muted-gray font-mono">N/A</span>
-                )}
-              </div>
 
-              {/* PAN */}
-              <div className="flex items-center justify-between p-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-gray block">PAN</span>
-                  <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.pan || (
-                      activeDoc.ai_verification?.doc_classification?.includes("Technical")
-                        ? (language === "hi" ? "लागू नहीं (वास्तुकला प्रस्ताव)" : "Not Required (Technical Scope)")
-                        : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
-                    )}
-                  </span>
-                </div>
-                {detectedEntities?.pan ? (
-                  detectedEntities.pan === "AAACD9988P" ? (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-coral-orange/15 text-coral-orange border border-coral-orange/30 animate-pulse">
-                      {language === "hi" ? "प्रतिबंधित संस्था" : "Debarred Entity"}
-                    </span>
-                  ) : (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                      {language === "hi" ? "CPPP स्वीकृत" : "CPPP Clear"}
-                    </span>
-                  )
-                ) : activeDoc.ai_verification?.doc_classification?.includes("Technical") ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-lavender/15 text-lavender border border-lavender/30">
-                    {language === "hi" ? "तकनीकी" : "Technical"}
-                  </span>
-                ) : (
-                  <span className="text-[10px] text-muted-gray font-mono">N/A</span>
-                )}
-              </div>
-
-              {/* Udyam */}
-              <div className="flex items-center justify-between p-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-gray block">{language === "hi" ? "एमएसएमई उद्यम संख्या" : "MSME Udyam No"}</span>
-                  <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.udyam || (
-                      activeDoc.ai_verification?.doc_classification?.includes("Technical")
-                        ? (language === "hi" ? "लागू नहीं (प्रस्ताव प्रारूप)" : "Not Required (Technical Scope)")
-                        : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
-                    )}
-                  </span>
-                </div>
-                {detectedEntities?.udyam ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                    {language === "hi" ? "MSME सत्यापित" : "MSME Verified"}
-                  </span>
-                ) : activeDoc.ai_verification?.doc_classification?.includes("Technical") ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-lavender/15 text-lavender border border-lavender/30">
-                    {language === "hi" ? "तकनीकी" : "Technical"}
-                  </span>
-                ) : (
-                  <span className="text-[10px] text-muted-gray font-mono">N/A</span>
-                )}
-              </div>
-
-              {/* UDIN */}
-              <div className="flex items-center justify-between p-2 rounded-xl bg-crisp-white dark:bg-dark-navy border border-warm-beige dark:border-warm-beige/20">
-                <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-gray block">{language === "hi" ? "सीए UDIN" : "CA UDIN"}</span>
-                  <span className="font-mono font-bold text-deep-navy dark:text-crisp-white">
-                    {detectedEntities?.udin || (
-                      activeDoc.ai_verification?.doc_classification?.includes("Technical")
-                        ? (language === "hi" ? "लागू नहीं (गैर-सीए फाइलिंग)" : "Not Required (Non-CA Dossier)")
-                        : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
-                    )}
-                  </span>
-                </div>
-                {detectedEntities?.udin ? (
-                  detectedEntities.udin.includes("INVALID") ? (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-coral-orange/15 text-coral-orange border border-coral-orange/30 animate-pulse">
-                      {language === "hi" ? "ICAI जालसाजी" : "ICAI Forgery"}
-                    </span>
-                  ) : (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mint-green/15 text-mint-green border border-mint-green/30">
-                      {language === "hi" ? "ICAI वैध" : "ICAI Valid"}
-                    </span>
-                  )
-                ) : activeDoc.ai_verification?.doc_classification?.includes("Technical") ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-lavender/15 text-lavender border border-lavender/30">
-                    {language === "hi" ? "तकनीकी" : "Technical"}
-                  </span>
-                ) : (
-                  <span className="text-[10px] text-muted-gray font-mono">N/A</span>
-                )}
-              </div>
-            </div>
-
-            {/* Quick action link to Gateway Query Console */}
-            <Link
-              href="/gateways"
-              className="flex items-center justify-between p-2 rounded-xl bg-lavender/10 hover:bg-lavender/20 text-lavender font-semibold text-[11px] transition-all"
-            >
-              <span>{language === "hi" ? "गेटवे मिडलवेयर के साथ क्रॉस-चेक करें →" : "Cross-check with Gateway Middleware →"}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          {/* AI Cross-Registry Statutory Audit Card */}
-          {activeDoc.statutory_verification_checks && activeDoc.statutory_verification_checks.length > 0 && (
-            <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3 text-xs">
-              <div className="flex items-center justify-between border-b border-warm-beige dark:border-warm-beige/20 pb-2">
-                <div className="flex items-center space-x-2">
-                  <ShieldCheck className="w-4 h-4 text-lavender" />
-                  <h3 className="font-bold text-deep-navy dark:text-crisp-white">
-                    {language === "hi" ? "एआई अंतर-रजिस्ट्री ऑडिट" : "AI Cross-Registry Audit"}
-                  </h3>
-                </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-mint-green/15 text-mint-green font-bold">
-                  {language === "hi" ? "लाइव सत्यापित" : "Live Checked"}
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                {activeDoc.statutory_verification_checks.map((chk, idx) => (
-                  <div
-                    key={idx}
-                    className={`p-2.5 rounded-xl border transition-all space-y-1 ${
-                      chk.status === "DISQUALIFIED"
-                        ? "bg-coral-orange/10 border-coral-orange/30 text-deep-navy dark:text-crisp-white"
-                        : chk.status === "FLAGGED_ANOMALY"
-                        ? "bg-amber-500/10 border-amber-500/30 text-deep-navy dark:text-crisp-white"
-                        : chk.status === "NOT_FOUND"
-                        ? "bg-muted-gray/10 border-muted-gray/20 text-muted-gray"
-                        : "bg-mint-green/10 border-mint-green/30 text-deep-navy dark:text-crisp-white"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-[11px] truncate max-w-[180px]">
-                        {getForensicsGatewayName(chk.gateway, language)}
-                      </span>
-                      <span
-                        className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase ${
-                          chk.status === "DISQUALIFIED"
-                            ? "bg-coral-orange text-white"
-                            : chk.status === "FLAGGED_ANOMALY"
-                            ? "bg-amber-500 text-white"
-                            : chk.status === "NOT_FOUND"
-                            ? "bg-muted-gray text-white"
-                            : "bg-mint-green text-white"
-                        }`}
-                      >
-                        {chk.status === "VERIFIED_COMPLIANT"
-                          ? (language === "hi" ? "सत्यापित" : "VERIFIED")
+                <div className="space-y-2">
+                  {activeDoc.statutory_verification_checks?.map((chk, idx) => (
+                    <div
+                      key={idx}
+                      className={`p-2.5 rounded-xl border transition-all space-y-1 ${
+                        chk.status === "DISQUALIFIED"
+                          ? "bg-coral-orange/10 border-coral-orange/30 text-deep-navy dark:text-crisp-white"
                           : chk.status === "FLAGGED_ANOMALY"
-                          ? (language === "hi" ? "चिह्नित" : "FLAGGED")
-                          : chk.status === "DISQUALIFIED"
-                          ? (language === "hi" ? "अयोग्य" : "DISQUALIFIED")
-                          : (language === "hi" ? "अनुपलब्ध" : "NOT FOUND")}
-                      </span>
+                          ? "bg-amber-500/10 border-amber-500/30 text-deep-navy dark:text-crisp-white"
+                          : chk.status === "NOT_FOUND"
+                          ? "bg-muted-gray/10 border-muted-gray/20 text-muted-gray"
+                          : "bg-mint-green/10 border-mint-green/30 text-deep-navy dark:text-crisp-white"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-[11px] truncate max-w-[170px]">
+                          {getForensicsGatewayName(chk.gateway, language)}
+                        </span>
+                        <span
+                          className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase ${
+                            chk.status === "DISQUALIFIED"
+                              ? "bg-coral-orange text-white"
+                              : chk.status === "FLAGGED_ANOMALY"
+                              ? "bg-amber-500 text-white"
+                              : chk.status === "NOT_FOUND"
+                              ? "bg-muted-gray text-white"
+                              : "bg-mint-green text-white"
+                          }`}
+                        >
+                          {chk.status === "VERIFIED_COMPLIANT"
+                            ? (language === "hi" ? "सत्यापित" : "VERIFIED")
+                            : chk.status === "FLAGGED_ANOMALY"
+                            ? (language === "hi" ? "चिह्नित" : "FLAGGED")
+                            : chk.status === "DISQUALIFIED"
+                            ? (language === "hi" ? "अयोग्य" : "DISQUALIFIED")
+                            : (language === "hi" ? "अनुपलब्ध" : "NOT FOUND")}
+                        </span>
+                      </div>
+                      <div className="font-mono text-[10px] text-muted-gray">
+                        ID: {chk.identifier} • {chk.confidence}% {language === "hi" ? "विश्वसनीयता" : "Confidence"}
+                      </div>
+                      <p className="text-[11px] leading-relaxed">
+                        {getForensicsGatewayDetail(chk.details, language)}
+                      </p>
                     </div>
-                    <div className="font-mono text-[10px] text-muted-gray">
-                      ID: {chk.identifier} • {chk.confidence}% {language === "hi" ? "विश्वसनीयता" : "Confidence"}
-                    </div>
-                    <p className="text-[11px] leading-relaxed">
-                      {getForensicsGatewayDetail(chk.details, language)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Forensics Technical Findings */}
-          <div className="p-5 rounded-2xl border border-warm-beige dark:border-warm-beige/20 bg-soft-beige dark:bg-deep-navy shadow-sm space-y-3 text-xs">
-            <h3 className="font-bold text-deep-navy dark:text-crisp-white flex items-center space-x-1.5">
-              <Layers className="w-4 h-4 text-lavender" />
-              <span>{t.forensicsDocOverview}</span>
-            </h3>
-
-            <div className="space-y-2 font-mono text-[11px]">
-              <div className="flex justify-between border-b border-warm-beige/40 dark:border-warm-beige/10 pb-1">
-                <span className="text-muted-gray">{language === "hi" ? "निर्माता सॉफ़्टवेयर:" : "Producer:"}</span>
-                <span className="font-bold text-deep-navy dark:text-crisp-white truncate max-w-[170px]" title={activeDoc.exif_metadata.producer}>
-                  {activeDoc.exif_metadata.producer}
-                </span>
-              </div>
-              {auditSummary && (
-                <div className="flex justify-between border-b border-warm-beige/40 dark:border-warm-beige/10 pb-1">
-                  <span className="text-muted-gray">{language === "hi" ? "जोखिम स्कोर:" : "Risk Score:"}</span>
-                  <span className={`font-bold ${auditSummary.risk_score > 50 ? "text-coral-orange" : "text-mint-green"}`}>
-                    {auditSummary.risk_score}/100 ({language === "hi" ? (auditSummary.recommendation === "DISQUALIFY_FRAUD_DETECTED" ? "जालसाजी के कारण अयोग्य" : "सत्यापित अनुपालन") : auditSummary.recommendation.replace(/_/g, " ")})
-                  </span>
+                  ))}
                 </div>
-              )}
-              <div className="flex justify-between border-b border-warm-beige/40 dark:border-warm-beige/10 pb-1">
-                <span className="text-muted-gray">{language === "hi" ? "छेड़छाड़ फ्लैग:" : "Tampering Flag:"}</span>
-                <span className={`font-bold ${activeDoc.exif_metadata.suspicious_flag ? "text-coral-orange" : "text-mint-green"}`}>
-                  {activeDoc.exif_metadata.suspicious_flag ? (language === "hi" ? "छेड़छाड़ संदिग्ध" : "TAMPERING SUSPECTED") : (language === "hi" ? "कोई संपादन नहीं" : "NO MODIFICATIONS")}
-                </span>
+
+                <Link
+                  href="/gateways"
+                  className="flex items-center justify-between p-2 rounded-xl bg-slate-100/70 dark:bg-white/5 hover:bg-lavender/10 text-muted-gray hover:text-lavender font-medium text-[11px] transition-all border border-slate-200/60 dark:border-white/10"
+                >
+                  <span>{language === "hi" ? "गेटवे टेलीमेट्री कंसोल खोलें →" : "Open Gateway Telemetry Console →"}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-gray">{language === "hi" ? "QR अखंडता:" : "QR Integrity:"}</span>
-                <span className={`font-bold ${activeDoc.qr_code_cross_check.is_match ? "text-mint-green" : "text-coral-orange"}`}>
-                  {activeDoc.qr_code_cross_check.is_match ? (language === "hi" ? "पेलोड मेल खाया" : "PAYLOAD MATCH") : (language === "hi" ? "पेलोड बेमेल" : "PAYLOAD MISMATCH")}
-                </span>
+            )}
+
+            {/* Tab 2: Statutory Data */}
+            {inspectorTab === "statutory" && (
+              <div className="p-4 space-y-2 text-xs">
+                {/* GSTIN */}
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/10">
+                  <div>
+                    <span className="text-[10px] font-semibold uppercase text-muted-gray block">GSTIN</span>
+                    <span className="font-mono font-bold text-deep-navy dark:text-crisp-white text-xs">
+                      {detectedEntities?.gstin || (
+                        activeDoc.ai_verification?.doc_classification?.includes("Technical")
+                          ? (language === "hi" ? "लागू नहीं (तकनीकी प्रस्ताव)" : "Not Required (Technical Scope)")
+                          : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
+                      )}
+                    </span>
+                  </div>
+                  {detectedEntities?.gstin ? (
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-mint-green/10 text-mint-green border border-mint-green/20">
+                      {language === "hi" ? "प्रारूप वैध" : "Valid Format"}
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-muted-gray font-mono">N/A</span>
+                  )}
+                </div>
+
+                {/* PAN */}
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/10">
+                  <div>
+                    <span className="text-[10px] font-semibold uppercase text-muted-gray block">PAN</span>
+                    <span className="font-mono font-bold text-deep-navy dark:text-crisp-white text-xs">
+                      {detectedEntities?.pan || (
+                        activeDoc.ai_verification?.doc_classification?.includes("Technical")
+                          ? (language === "hi" ? "लागू नहीं (तकनीकी प्रस्ताव)" : "Not Required (Technical Scope)")
+                          : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
+                      )}
+                    </span>
+                  </div>
+                  {detectedEntities?.pan ? (
+                    detectedEntities.pan === "AAACD9988P" ? (
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-coral-orange/10 text-coral-orange border border-coral-orange/30">
+                        {language === "hi" ? "प्रतिबंधित संस्था" : "Debarred Entity"}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-mint-green/10 text-mint-green border border-mint-green/20">
+                        {language === "hi" ? "CPPP स्वीकृत" : "CPPP Clear"}
+                      </span>
+                    )
+                  ) : (
+                    <span className="text-[10px] text-muted-gray font-mono">N/A</span>
+                  )}
+                </div>
+
+                {/* Udyam */}
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/10">
+                  <div>
+                    <span className="text-[10px] font-semibold uppercase text-muted-gray block">{language === "hi" ? "उद्यम संख्या" : "Udyam No"}</span>
+                    <span className="font-mono font-bold text-deep-navy dark:text-crisp-white text-xs">
+                      {detectedEntities?.udyam || (
+                        activeDoc.ai_verification?.doc_classification?.includes("Technical")
+                          ? (language === "hi" ? "लागू नहीं (तकनीकी प्रस्ताव)" : "Not Required (Technical Scope)")
+                          : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
+                      )}
+                    </span>
+                  </div>
+                  {detectedEntities?.udyam ? (
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-mint-green/10 text-mint-green border border-mint-green/20">
+                      {language === "hi" ? "MSME सत्यापित" : "MSME Verified"}
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-muted-gray font-mono">N/A</span>
+                  )}
+                </div>
+
+                {/* UDIN */}
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/10">
+                  <div>
+                    <span className="text-[10px] font-semibold uppercase text-muted-gray block">{language === "hi" ? "सीए UDIN" : "CA UDIN"}</span>
+                    <span className="font-mono font-bold text-deep-navy dark:text-crisp-white text-xs">
+                      {detectedEntities?.udin || (
+                        activeDoc.ai_verification?.doc_classification?.includes("Technical")
+                          ? (language === "hi" ? "लागू नहीं (गैर-सीए दस्तावेज़)" : "Not Required (Non-CA Dossier)")
+                          : (language === "hi" ? "पाठ्य में नहीं मिला" : "Not detected in text")
+                      )}
+                    </span>
+                  </div>
+                  {detectedEntities?.udin ? (
+                    detectedEntities.udin.includes("INVALID") ? (
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-coral-orange/10 text-coral-orange border border-coral-orange/30">
+                        {language === "hi" ? "ICAI जालसाजी" : "ICAI Forgery"}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-mint-green/10 text-mint-green border border-mint-green/20">
+                        {language === "hi" ? "ICAI वैध" : "ICAI Valid"}
+                      </span>
+                    )
+                  ) : (
+                    <span className="text-[10px] text-muted-gray font-mono">N/A</span>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Tab 3: File Integrity & EXIF */}
+            {inspectorTab === "integrity" && (
+              <div className="p-4 space-y-3 text-xs font-mono">
+                <div className="space-y-2">
+                  <div className="flex justify-between border-b border-warm-beige/40 dark:border-white/[0.05] pb-1.5">
+                    <span className="text-muted-gray">{language === "hi" ? "निर्माता सॉफ़्टवेयर:" : "Producer:"}</span>
+                    <span className="font-bold text-deep-navy dark:text-crisp-white truncate max-w-[160px]" title={activeDoc.exif_metadata.producer}>
+                      {activeDoc.exif_metadata.producer}
+                    </span>
+                  </div>
+                  <div className="flex justify-between border-b border-warm-beige/40 dark:border-white/[0.05] pb-1.5">
+                    <span className="text-muted-gray">{language === "hi" ? "छेड़छाड़ स्थिति:" : "Tamper Flag:"}</span>
+                    <span className={`font-bold ${activeDoc.exif_metadata.suspicious_flag ? "text-coral-orange" : "text-mint-green"}`}>
+                      {activeDoc.exif_metadata.suspicious_flag ? (language === "hi" ? "संदिग्ध" : "SUSPECTED") : (language === "hi" ? "स्वच्छ" : "CLEAN")}
+                    </span>
+                  </div>
+                  <div className="flex justify-between border-b border-warm-beige/40 dark:border-white/[0.05] pb-1.5">
+                    <span className="text-muted-gray">{language === "hi" ? "QR सत्यापन:" : "QR Status:"}</span>
+                    <span className={`font-bold ${activeDoc.qr_code_cross_check.is_match ? "text-mint-green" : "text-coral-orange"}`}>
+                      {activeDoc.qr_code_cross_check.is_match ? (language === "hi" ? "मेल खाया" : "MATCH") : (language === "hi" ? "बेमेल" : "MISMATCH")}
+                    </span>
+                  </div>
+                  <div className="space-y-1 pt-1">
+                    <span className="text-[10px] text-muted-gray block">{language === "hi" ? "SHA-256 डिजिटल सील:" : "SHA-256 Digest:"}</span>
+                    <span className="text-[10px] break-all text-deep-navy dark:text-crisp-white font-mono bg-slate-50 dark:bg-white/[0.03] p-2 rounded-lg block border border-slate-200/60 dark:border-white/10">
+                      {activeDoc.file_hash_sha256}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

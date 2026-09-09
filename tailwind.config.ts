@@ -9,10 +9,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+      },
       colors: {
         "off-white": "#F8FAFC",
-        "deep-navy": "#0B111A",
-        "dark-navy": "#111827",
+        "deep-navy": "#0F172A", // Elevated Card Surface
+        "dark-navy": "#090D16", // Deep Obsidian Canvas
         "soft-beige": "#FFFFFF",
         "warm-beige": "#E2E8F0",
         "crisp-white": "#F8FAFC",

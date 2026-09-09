@@ -5,17 +5,17 @@
 @layer base {
   :root {
     --bg-canvas: #F8FAFC;      /* Crisp Slate-50 */
-    --text-primary: #0B111A;   /* Deep Navy */
+    --text-primary: #0F172A;   /* Deep Slate-900 */
     --card-surface: #FFFFFF;   /* Pure White */
-    --card-inner: #F8FAFC;     /* Slate-50 */
+    --card-inner: #F1F5F9;     /* Slate-100 */
     --border-color: #E2E8F0;   /* Slate-200 */
     --muted-text: #64748B;     /* Slate-500 */
   }
 
   .dark {
-    --bg-canvas: #0B0F19;      /* Obsidian Navy */
-    --text-primary: #F8FAFC;   /* Crisp White */
-    --card-surface: #111827;   /* Slate-900 */
+    --bg-canvas: #090D16;      /* Obsidian Canvas */
+    --text-primary: #F8FAFC;   /* Crisp Slate-50 */
+    --card-surface: #0F172A;   /* Elevated Slate-900 */
     --card-inner: #1E293B;     /* Slate-800 */
     --border-color: rgba(255, 255, 255, 0.08); /* Translucent Hairline */
     --muted-text: #94A3B8;     /* Slate-400 */
@@ -24,7 +24,7 @@
   body {
     background-color: var(--bg-canvas);
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 }

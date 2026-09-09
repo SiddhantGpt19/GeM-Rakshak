@@ -67,32 +67,29 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 shrink-0 hidden md:flex flex-col border-r border-warm-beige dark:border-warm-beige/20 bg-soft-beige/70 dark:bg-deep-navy text-deep-navy dark:text-crisp-white min-h-[calc(100vh-4rem)] p-4 space-y-6 transition-colors">
-      {/* Procuring Entity Context Card (Clickable to switch) */}
+    <aside className="w-60 shrink-0 hidden md:flex flex-col border-r border-warm-beige/80 dark:border-white/[0.08] bg-white/50 dark:bg-dark-navy/50 text-deep-navy dark:text-crisp-white min-h-[calc(100vh-3.5rem)] p-3.5 space-y-4 transition-colors">
+      {/* Procuring Entity Context Badge */}
       <div
         onClick={() => setIsEntityModalOpen(true)}
-        className="p-3.5 rounded-xl border border-warm-beige dark:border-warm-beige/20 bg-crisp-white dark:bg-dark-navy shadow-xs space-y-1.5 cursor-pointer hover:border-lavender/60 hover:shadow-md transition-all group"
+        className="p-3 rounded-xl border border-warm-beige/80 dark:border-white/[0.08] bg-white dark:bg-deep-navy/60 hover:border-lavender/50 transition-all cursor-pointer group shadow-2xs"
         title="Click to switch or customize Procuring Entity & Tender ID"
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-1.5">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gray">
-              {t.sidebarProcuringEntity}
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-mint-green animate-pulse" />
-          </div>
-          <span className="text-[9px] font-bold text-lavender flex items-center space-x-0.5 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-gray">
+            {t.sidebarProcuringEntity}
+          </span>
+          <span className="text-[10px] font-medium text-lavender flex items-center opacity-80 group-hover:opacity-100 transition-opacity">
             <span>{t.sidebarSwitch}</span>
-            <ArrowLeftRight className="w-2.5 h-2.5" />
+            <ArrowLeftRight className="w-2.5 h-2.5 ml-0.5" />
           </span>
         </div>
-        <p className="text-xs font-bold text-deep-navy dark:text-crisp-white group-hover:text-lavender transition-colors line-clamp-1">
+        <p className="text-xs font-semibold text-deep-navy dark:text-crisp-white group-hover:text-lavender transition-colors truncate">
           {language === "hi" && activeEntity.orgName === "CPCL Manali Refinery"
             ? "सीपीसीएल मनाली रिफाइनरी"
             : activeEntity.orgName}
         </p>
-        <p className="text-[10px] text-muted-gray font-mono truncate">
-          {language === "hi" ? "निविदा आईडी:" : "Tender ID:"} {activeEntity.tenderId}
+        <p className="text-[10px] text-muted-gray font-mono truncate mt-0.5">
+          {activeEntity.tenderId}
         </p>
       </div>
 
@@ -102,7 +99,7 @@ export function Sidebar() {
       />
 
       {/* Navigation Links */}
-      <nav className="space-y-1.5 flex-1">
+      <nav className="space-y-1 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = item.match;
@@ -111,18 +108,18 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
+              className={`group flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                 isActive
-                  ? "bg-lavender text-crisp-white shadow-md shadow-lavender/30 font-semibold"
-                  : "text-deep-navy/70 hover:text-deep-navy dark:text-crisp-white/80 dark:hover:text-crisp-white hover:bg-warm-beige/60 dark:hover:bg-dark-navy"
+                  ? "bg-lavender/10 text-lavender dark:bg-lavender/15 font-semibold border border-lavender/20"
+                  : "text-muted-gray hover:text-deep-navy dark:hover:text-crisp-white hover:bg-slate-100/70 dark:hover:bg-white/5"
               }`}
             >
-              <div className="flex items-center space-x-3 min-w-0 pr-1">
+              <div className="flex items-center space-x-2.5 min-w-0 pr-1">
                 <Icon
                   className={`w-4 h-4 shrink-0 transition-colors ${
                     isActive
-                      ? "text-crisp-white"
-                      : "text-muted-gray group-hover:text-lavender dark:group-hover:text-lavender"
+                      ? "text-lavender"
+                      : "text-muted-gray group-hover:text-deep-navy dark:group-hover:text-crisp-white"
                   }`}
                 />
                 <span className="truncate">{item.label}</span>
@@ -130,12 +127,12 @@ export function Sidebar() {
 
               {item.badge && (
                 <span
-                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap shrink-0 ${
+                  className={`px-2 py-0.5 rounded-full text-[9px] font-bold whitespace-nowrap shrink-0 ${
                     item.isPulse
-                      ? "bg-coral-orange text-white animate-pulse"
+                      ? "bg-coral-orange/15 text-coral-orange border border-coral-orange/30"
                       : isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-warm-beige dark:bg-white/10 text-deep-navy/80 dark:text-crisp-white/80"
+                      ? "bg-lavender/20 text-lavender"
+                      : "bg-slate-100 dark:bg-white/10 text-muted-gray"
                   }`}
                 >
                   {item.badge}
@@ -153,7 +150,7 @@ export function Sidebar() {
           target="_blank"
           rel="noopener noreferrer"
           download="GeM_Rakshak_System_Architecture_and_Platform_Documentation.pdf"
-          className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-muted-gray hover:text-lavender hover:bg-warm-beige/40 dark:hover:bg-white/5 transition-all group"
+          className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-muted-gray hover:text-lavender hover:bg-slate-100 dark:hover:bg-white/5 transition-all group"
           title="Download official CVC-compliant GeM-Rakshak Platform Architecture Dossier (PDF)"
         >
           <div className="flex items-center space-x-2">
