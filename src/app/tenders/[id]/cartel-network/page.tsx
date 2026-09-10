@@ -21,7 +21,7 @@ export default function CartelNetworkPage() {
           <div className="flex items-center space-x-2 text-xs text-muted-gray">
             <Link
               href={`/tenders/${rawId}/bidders`}
-              className="flex items-center space-x-1 hover:text-gov-blue-600 transition-colors"
+              className="flex items-center space-x-1 hover:text-gov-blue-600 transition-colors whitespace-nowrap shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>{language === "hi" ? "बोलीदाताओं की सूची पर वापस" : "Back to Bidders"}</span>

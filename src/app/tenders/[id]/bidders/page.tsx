@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Radar,
   ArrowRight,
+  ArrowLeft,
   Search,
   CheckCircle2,
   AlertTriangle,
@@ -52,8 +53,8 @@ export default function BidderComparisonPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* 1. Tender Parameters Banner */}
       <div className="p-6 rounded-2xl bg-white dark:bg-deep-navy border border-slate-200/80 dark:border-white/[0.08] shadow-xs space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-white/[0.08] pb-3">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 dark:border-white/[0.08] pb-3">
+          <div className="min-w-0 flex-1">
             <span className="text-[10px] font-bold uppercase tracking-wider text-gov-blue-600 dark:text-gov-blue-400">
               {language === "hi" ? "निविदा संवीक्षा कार्यक्षेत्र • सीपीसीएल मनाली रिफाइनरी" : "Tender Scrutiny Workspace • CPCL Manali Refinery"}
             </span>
@@ -67,12 +68,13 @@ export default function BidderComparisonPage() {
             </p>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 shrink-0">
             <Link
               href="/dashboard"
-              className="px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-dark-navy text-xs font-semibold text-deep-navy dark:text-crisp-white hover:border-gov-blue-400 transition-all"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-dark-navy text-xs font-semibold text-deep-navy dark:text-crisp-white hover:border-gov-blue-400 hover:text-gov-blue-600 dark:hover:text-gov-blue-400 transition-all whitespace-nowrap shrink-0 shadow-xs"
             >
-              {language === "hi" ? "डैशबोर्ड पर वापस" : "Back to Dashboard"}
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>{language === "hi" ? "डैशबोर्ड पर वापस" : "Back to Dashboard"}</span>
             </Link>
           </div>
         </div>
